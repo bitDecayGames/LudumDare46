@@ -29,7 +29,8 @@ class MainMenuScreen extends FlxUIState {
 					case CREDITS:
 						FlxG.switchState(new CreditsScreen());
 					case EXIT:
-						Sys.exit(0);
+						FlxG.switchState(new SplashScreen());
+						// Sys.exit(0);
 				}
 			}
 		}
