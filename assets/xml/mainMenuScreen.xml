@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>	
+
+	<region id="center" width="screen.width" height="screen.height" x="screen.width/2.0" y="screen.height/2.0">
+		
+	</region>
+	<sprite src="test_button" x="0" y="0"/>
+	
+</data>
