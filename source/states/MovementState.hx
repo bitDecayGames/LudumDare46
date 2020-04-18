@@ -22,6 +22,7 @@ class MovementState extends FlxState
 	var playerGroup:FlxGroup;
 	var treeGroup:TreeGroup;
 	var itemGroup:FlxGroup;
+	var playerHitboxes:FlxGroup;
 
 	var sortGroup:FlxSpriteGroup;
 	
@@ -40,15 +41,16 @@ class MovementState extends FlxState
 		add(sortGroup);
 
 		playerGroup = new FlxGroup(1);
+		playerHitboxes = new FlxGroup(0);
+		add(playerHitboxes);
 
-		player = new Player();
+		player = new Player(playerHitboxes);
 		playerGroup.add(player);
 		sortGroup.add(player);
 
 		treeGroup = new TreeGroup();
 		treeGroup.spawn(2);
 		treeGroup.forEach(t -> sortGroup.add(t));
-
 
 		itemGroup = new FlxGroup();
 		var log = new TreeLog();

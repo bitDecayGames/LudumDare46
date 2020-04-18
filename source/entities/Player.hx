@@ -1,9 +1,13 @@
 package entities;
 
+import hitbox.HitboxLocation;
+import flixel.FlxG;
+import flixel.group.FlxGroup;
 import flixel.math.FlxPoint;
 import flixel.FlxObject;
 import actions.Actions;
 import flixel.FlxSprite;
+import hitbox.AttackHitboxes;
 
 class Player extends FlxSprite {
 
@@ -11,12 +15,13 @@ class Player extends FlxSprite {
 	var control = new Actions();
 
 	var speed = 60;
-
-	var lastLeft:Bool = false;
+	var waitForFinish = false;
 
 	var hurtboxSize = new FlxPoint(20, 4);
 
-	public function new() {
+	var hitboxes:AttackHitboxes;
+
+	public function new(playerHitboxes:FlxGroup) {
 		super();
 		super.loadGraphic(AssetPaths.Player__png, true, 32, 48);
 
@@ -30,23 +35,32 @@ class Player extends FlxSprite {
 		setFacingFlip(FlxObject.UP | FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.DOWN | FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
-		
+
 		animation.add("idle", [0,1,2,3,4,5,6,7], 5);
 		animation.add("walk", [10,11,12,13], 5);
 		animation.add("carry_walk", [14,15,16,17], 5);
 		animation.add("run", [20,21,22,23], 5);
 		animation.add("carry_carry", [24,25,26,27], 5);
+		animation.add("punch", [41, 42, 43], 10, false);
+
+		hitboxes = new AttackHitboxes(this, playerHitboxes);
+		hitboxes.register("punch", 2, [new HitboxLocation(10, 10, 10, 0)]);
+
+		animation.callback = hitboxes.animCallback;
+		animation.finishCallback = tagFinish;
+	}
+
+	function tagFinish(name:String) {
+		waitForFinish = false;
+		hitboxes.finishAnimation();
 	}
 
 	override public function update(delta:Float):Void {
 		super.update(delta);
+		hitboxes.update(delta);
 
-		// need to preserve our facing when player moves straight
-		// up or down
-		if (facing & FlxObject.RIGHT != 0) {
-			lastLeft = false;
-		} else if (facing & FlxObject.LEFT != 0) {
-			lastLeft = true;
+		if (waitForFinish) {
+			return;
 		}
 
 		// determine our velocity based on angle and speed
@@ -84,6 +98,14 @@ class Player extends FlxSprite {
 		} else {
 			// no keys pressed, don't move
 			velocity.set(0, 0);
+		}
+
+		if (FlxG.keys.justPressed.P) {
+			// Filler punch controls
+			animation.play("punch");
+			waitForFinish = true;
+			velocity.set(0, 0);
+			return;
 		}
 
 		facing = newFacing;
