@@ -29,6 +29,8 @@ typedef MusicInfo = {
 
 class BitdecaySoundBank {
 
+	private var mute_music = true;
+
 	public var flxSounds:Map<BitdecaySounds, SoundInfo> = [
 		// BitdecaySounds.Arrow => {name: Std.string(BitdecaySounds.Arrow), instances: 10, paths: [AssetPaths.Arrow1__ogg, AssetPaths.Arrow2__ogg, AssetPaths.Arrow3__ogg], soundClip: null},
 		// BitdecaySounds.HitEnemy => {name: Std.string(BitdecaySounds.HitEnemy), instances: 10, paths: [AssetPaths.HitEnemy1__ogg, AssetPaths.HitEnemy2__ogg, AssetPaths.HitEnemy3__ogg], soundClip: null},
@@ -94,6 +96,10 @@ class BitdecaySoundBank {
 	}
 
 	public function PlaySongIfNonePlaying(songName:BitdecaySongs) {
+		if (mute_music) {
+			return;
+		}
+
 		if (song == null)
 		{
 			var musicInfo = flxSongs[songName]; 
@@ -116,6 +122,10 @@ class BitdecaySoundBank {
 	}
 
 	public function TransitionToLowPassSong() {
+		if (mute_music) {
+			return;
+		}
+		
 		if (song == null || songLowPass == null) {
 			throw 'Tried to get fade to low pass song, but one of the songs wasn\'t loaded';
 		}
@@ -124,6 +134,10 @@ class BitdecaySoundBank {
 	}
 
 	public function TransitionToNormalSong() {
+		if (mute_music) {
+			return;
+		}
+
 		if (song == null || songLowPass == null) {
 			throw 'Tried to get fade to low pass song, but one of the songs wasn\'t loaded';
 		}
