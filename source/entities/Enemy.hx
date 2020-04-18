@@ -6,6 +6,7 @@ import flixel.math.FlxPoint;
 import flixel.FlxObject;
 import actions.Actions;
 import flixel.FlxSprite;
+import flixel.system.FlxAssets.FlxGraphicAsset;
 
 class Enemy extends FlxSprite {
 	var speed = 120.0;
@@ -17,10 +18,7 @@ class Enemy extends FlxSprite {
 	public function new(player:Player) {
 		super();
 		this.player = player;
-	}
 
-	// MW need to call this from the new function in a subclass
-	public function create():Void {
 		setFacingFlip(FlxObject.UP | FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.DOWN | FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.RIGHT, false, false);
@@ -28,14 +26,19 @@ class Enemy extends FlxSprite {
 		setFacingFlip(FlxObject.UP | FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.DOWN | FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
+	}
 
+	// MW need to call this from the new function in a subclass
+	public function initAnimations(graphic:FlxGraphicAsset):Void {
+		super.loadGraphic(graphic, true, 32, 48);
 		// MW this stuff might need to go into the actual enemy implementations
-		animation.add("walk", [4, 5, 6, 7], 5);
+		animation.add("stand", [0, 1, 2, 3, 4, 5, 6, 7], 5);
+		animation.add("walk", [10, 11, 12, 13], 5);
 
-		animation.add("u", [2], 0);
-		animation.add("d", [0], 0);
-		animation.add("l", [1], 0);
-		animation.add("r", [1], 0);
+		animation.add("u", [0, 1, 2, 3, 4, 5, 6, 7], 5);
+		animation.add("d", [0, 1, 2, 3, 4, 5, 6, 7], 5);
+		animation.add("l", [0, 1, 2, 3, 4, 5, 6, 7], 5);
+		animation.add("r", [0, 1, 2, 3, 4, 5, 6, 7], 5);
 	}
 
 	override public function update(delta:Float):Void {

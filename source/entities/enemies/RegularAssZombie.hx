@@ -11,8 +11,8 @@ import entities.Enemy;
 class RegularAssZombie extends Enemy {
 	public function new(player:Player) {
 		super(player);
-		super.loadGraphic(AssetPaths.sailor_all__png, true, 16, 32);
-		super.create();
+		super.initAnimations(AssetPaths.Zombie__png);
+		personalBubble = 100;
 	}
 
 	override function calculateVelocity() {
