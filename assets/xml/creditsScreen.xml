@@ -4,7 +4,28 @@
 		<!-- <graphic name="all" image="test_button"/> -->
 	</definition>
 
-	<button name="back_btn" use_def="button_def" label="Back" color="yellow" x="screen.center" y="screen.center">
-		<anchor x="0" y="0" x-flush="center" y-flush="center" />
+	<button name="back_btn" use_def="button_def" label="Back" color="yellow" x="screen.left" y="screen.top">
+		<anchor x="0" y="0" x-flush="left" y-flush="top" />
 	</button>
+
+
+	<definition name="title_def" size="20" align="center" outline="red" width="screen.width" x="0" y="0"/>
+	<definition name="body_def" size="10" align="center" width="screen.width" x="0" y="0"/>
+
+	<text name="programmer_title" use_def="title_def" text="Programming" />
+	<text name="programmer_0"     use_def="body_def"  text="Tristan" />
+	<text name="programmer_1"     use_def="body_def"  text="Jaque" />
+	<text name="programmer_2"     use_def="body_def"  text="Logan" />
+	<text name="programmer_3"     use_def="body_def"  text="Mike" />
+
+	<text name="music_title"      use_def="title_def" text="Music/SFX" />
+	<text name="music_0"          use_def="body_def"  text="Tanner" />
+	
+	<text name="art_title"        use_def="title_def" text="Art" />
+	<text name="art_0"            use_def="body_def"  text="Erik" />
+
+	<align name="credits_list" axis="vertical" x="0" y="screen.center">
+		<bounds top="screen.height/-3.0" bottom="screen.height/3.0"/>
+		<objects value="programmer_title,programmer_0,programmer_1,programmer_2,programmer_3,music_title,music_0,art_title,art_0"/>
+	</align>
 </data>

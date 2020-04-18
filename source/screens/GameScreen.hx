@@ -11,7 +11,7 @@ class GameScreen extends FlxUIState {
 	static private inline var RESUME = "resume_game_btn";
 	static private inline var QUIT = "quit_btn";
 
-	private var paused = false;
+	public var paused = false;
 
 	override public function create():Void {
 		_xml_id = "gameScreen";
@@ -34,9 +34,7 @@ class GameScreen extends FlxUIState {
 	}
 
 	override public function update(elapsed:Float):Void {
-		if (!paused) { // MW maybe this will pause the game?
-			super.update(elapsed);
-		}
+		super.update(elapsed);
 	}
 
 	public function pause():Void {
