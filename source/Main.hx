@@ -1,10 +1,8 @@
 package;
 
-import flixel.FlxG;
+import screens.MainMenuScreen;
 import flixel.FlxGame;
 import openfl.display.Sprite;
-import screens.MainMenuScreen;
-import states.ParticleState;
 
 class Main extends Sprite {
 	public function new() {

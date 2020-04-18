@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>	
+	<mode name="empty">
+		<show name="pause_btn"/>
+
+		<hide name="resume_game_btn"/>
+		<hide name="quit_btn"/>
+		<hide name="btn_list"/>
+	</mode>
+	<mode name="pause">
+		<hide name="pause_btn"/>
+		
+		<show name="resume_game_btn"/>
+		<show name="quit_btn"/>
+		<show name="btn_list"/>
+	</mode>
+	<definition name="button_def">
+		<!-- <graphic name="all" image="test_button"/> -->
+	</definition>
+
+	<button name="pause_btn" use_def="button_def" label="Pause" x="screen.right" y="screen.top">
+		<anchor x="0" y="0" x-flush="right" y-flush="top" />
+	</button>
+
+	<button name="resume_game_btn" use_def="button_def" label="Resume" color="green">
+		<anchor x="0" y="0" x-flush="center" y-flush="center" />
+	</button>
+
+	<button name="quit_btn" use_def="button_def" label="Quit" color="red">
+		<anchor x="0" y="0" x-flush="center" y-flush="center" />
+	</button>
+
+	
+	<align name="btn_list" axis="vertical" x="screen.center" y="screen.center">
+		<bounds top="-30" bottom="30"/>
+		<objects value="resume_game_btn,quit_btn"/>
+	</align>
+</data>
