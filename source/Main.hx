@@ -3,13 +3,12 @@ package;
 import flixel.FlxG;
 import flixel.FlxGame;
 import openfl.display.Sprite;
-import states.MovementState;
+import screens.MainMenuScreen;
+import states.ParticleState;
 
-class Main extends Sprite
-{
-	public function new()
-	{
+class Main extends Sprite {
+	public function new() {
 		super();
-		addChild(new FlxGame(0, 0, MovementState));
+		addChild(new FlxGame(0, 0, MainMenuScreen, 1, 60, 60, true, false));
 	}
 }
