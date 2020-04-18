@@ -6,9 +6,14 @@ class Tree extends FlxSprite {
 
 	public function new() {
 		super();
-		super.loadGraphic(AssetPaths.the_larch__jpg);
-		scale.set(0.2, 0.2);
-		updateHitbox();
+		super.loadGraphic(AssetPaths.testTree__png);
+
+		var hurtboxWidth = 42;
+		var hurtboxHeight = 22;
+
+		offset.set((width / 2) - (hurtboxWidth / 2), height - hurtboxHeight);
+		setSize(hurtboxWidth, hurtboxHeight);
+
 		immovable = true;
 	}
 
