@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>	
+	<definition name="button_def">
+		<!-- <graphic name="all" image="test_button"/> -->
+	</definition>
+
+	<button name="back_btn" use_def="button_def" label="Back" color="yellow" x="screen.center" y="screen.center">
+		<anchor x="0" y="0" x-flush="center" y-flush="center" />
+	</button>
+</data>

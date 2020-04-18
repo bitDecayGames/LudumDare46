@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>	
+
+	<text name="game_over_text" text="Damn you suck" size="20" align="center" border="outline" border_size="2" border_color="red" x="screen.center" y="screen.center" width="screen.width*.5">
+		<anchor x="0" y="0" x-flush="center" y-flush="bottom" />
+	</text>
+
+	<definition name="button_def">
+		<!-- <graphic name="all" image="test_button"/> -->
+	</definition>
+	<button name="ok_btn" use_def="button_def" label="Okay" color="yellow" x="screen.center" y="screen.center*1.1">
+		<anchor x="0" y="0" x-flush="center" y-flush="top" />
+	</button>
+</data>
