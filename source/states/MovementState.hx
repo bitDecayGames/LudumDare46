@@ -21,6 +21,8 @@ class MovementState extends FlxState
 	
 	var filters:Array<BitmapFilter> = [];
 	var shader = new NightShader();
+	
+	var increasing:Bool = true;
 
 	override public function create():Void
 	{
@@ -44,7 +46,6 @@ class MovementState extends FlxState
 
 		camera.filtersEnabled = true;
 		filters.push(new ShaderFilter(shader));
-		// FlxG.camera.setFilters(filters);
 		camera.bgColor = FlxColor.TRANSPARENT;
 		camera.setFilters(filters);
 	}
@@ -52,10 +53,22 @@ class MovementState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
-
+		
 		FlxG.collide(playerGroup, treeGroup);
 		
-		shader.time.value[0] = shader.time.value[0] + elapsed * 0.1;
+		elapsed *= 0.1;
+		if (increasing) {
+			shader.time.value[0] = shader.time.value[0] + elapsed;
+			if (shader.time.value[0] >= 1) {
+				increasing = false;
+			}
+		} else {
+			shader.time.value[0] = shader.time.value[0] - elapsed;
+			if (shader.time.value[0] <= 0) {
+				increasing = true;
+			}
+		}
+		
 	}
 
 	private static function pixelPerfect(a: FlxSprite, b: FlxSprite): Bool {
