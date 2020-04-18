@@ -1,8 +1,6 @@
 package entities;
 
-import flixel.FlxG;
 import flixel.math.FlxPoint;
-import flixel.math.FlxVector;
 import flixel.FlxObject;
 import actions.Actions;
 import flixel.FlxSprite;
@@ -78,7 +76,7 @@ class Player extends FlxSprite {
 
 		velocity.rotate(FlxPoint.weak(0, 0), newAngle);
 
-		 // if the player is moving (velocity is not 0 for either axis), we need to change the animation to match their facing
+		// if the player is moving (velocity is not 0 for either axis), we need to change the animation to match their facing
 		if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE)  {
 			animation.play("walk");
 		} else {
