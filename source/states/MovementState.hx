@@ -3,6 +3,10 @@ package states;
 import flixel.util.FlxCollision;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
+import flixel.util.FlxColor;
+import openfl.filters.ShaderFilter;
+import openfl.filters.BitmapFilter;
+import shaders.NightShader;
 import entities.Player;
 import entities.Tree;
 import flixel.FlxG;
@@ -14,6 +18,9 @@ class MovementState extends FlxState
 	var playerGroup:FlxGroup;
 
 	var treeGroup:FlxGroup;
+	
+	var filters:Array<BitmapFilter> = [];
+	var shader = new NightShader();
 
 	override public function create():Void
 	{
@@ -34,6 +41,12 @@ class MovementState extends FlxState
 		tree.x = player.x + 100;
 		tree.y = player.y + 100;
 		treeGroup.add(tree);
+
+		camera.filtersEnabled = true;
+		filters.push(new ShaderFilter(shader));
+		// FlxG.camera.setFilters(filters);
+		camera.bgColor = FlxColor.TRANSPARENT;
+		camera.setFilters(filters);
 	}
 
 	override public function update(elapsed:Float):Void
@@ -41,6 +54,8 @@ class MovementState extends FlxState
 		super.update(elapsed);
 
 		FlxG.collide(playerGroup, treeGroup);
+		
+		shader.time.value[0] = shader.time.value[0] + elapsed * 0.1;
 	}
 
 	private static function pixelPerfect(a: FlxSprite, b: FlxSprite): Bool {
