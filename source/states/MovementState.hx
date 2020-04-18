@@ -9,6 +9,7 @@ import openfl.filters.BitmapFilter;
 import shaders.NightShader;
 import entities.Player;
 import entities.TreeGroup;
+import entities.TreeLog;
 import flixel.FlxG;
 import flixel.FlxState;
 
@@ -16,18 +17,18 @@ class MovementState extends FlxState
 {
 	var player:Player;
 	var playerGroup:FlxGroup;
+	var treeGroup:TreeGroup;
+	var itemGroup:FlxGroup;
 	
 	var filters:Array<BitmapFilter> = [];
 	var shader = new NightShader();
 	
 	var increasing:Bool = true;
-	
-	var treeGroup:TreeGroup;
 
 	override public function create():Void
 	{
 		super.create();
-		FlxG.debugger.visible = true;
+		// FlxG.debugger.visible = true;
 		FlxG.debugger.drawDebug = true;
 		
 		playerGroup = new FlxGroup(1);
@@ -40,9 +41,16 @@ class MovementState extends FlxState
 		add(treeGroup);
 		treeGroup.spawn(2);
 
+		itemGroup = new FlxGroup();
+		add(itemGroup);
+		var log = new TreeLog();
+		log.x = 300;
+		log.y = 300;
+		itemGroup.add(log);
+
 		camera.filtersEnabled = true;
 		filters.push(new ShaderFilter(shader));
-		camera.bgColor = FlxColor.TRANSPARENT;
+		camera.bgColor = FlxColor.WHITE;
 		camera.setFilters(filters);
 	}
 
@@ -51,6 +59,7 @@ class MovementState extends FlxState
 		super.update(elapsed);
 		
 		FlxG.collide(playerGroup, treeGroup);
+		FlxG.collide(playerGroup, itemGroup, handlePlayerItemCollision);
 		
 		elapsed *= 0.1;
 		if (increasing) {
@@ -67,7 +76,7 @@ class MovementState extends FlxState
 		
 	}
 
-	private static function pixelPerfect(a: FlxSprite, b: FlxSprite): Bool {
-		return FlxCollision.pixelPerfectCheck(a, b, 1);
+	private static function handlePlayerItemCollision(player: FlxSprite, item: FlxSprite) {
+		item.kill();
 	}
 }
