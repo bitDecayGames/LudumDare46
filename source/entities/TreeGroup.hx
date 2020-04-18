@@ -1,8 +1,9 @@
 package entities;
 
+import flixel.FlxSprite;
 import flixel.group.FlxGroup;
 
-class TreeGroup extends FlxGroup {
+class TreeGroup extends FlxTypedGroup<FlxSprite> {
     public function new() {
         super(100);
     }

@@ -11,9 +11,16 @@ class Player extends FlxSprite {
 
 	var speed = 200;
 
+	var lastLeft:Bool = false;
+
+	var hurtboxSize = new FlxPoint(20, 4);
+
 	public function new() {
 		super();
-		super.loadGraphic(AssetPaths.sailor_all__png, true, 16, 32);
+		super.loadGraphic(AssetPaths.Player__png, true, 32, 48);
+
+		offset.set(width / 2 - hurtboxSize.x / 2, height - hurtboxSize.y);
+		setSize(hurtboxSize.x, hurtboxSize.y);
 
 		setFacingFlip(FlxObject.UP | FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.DOWN | FlxObject.RIGHT, false, false);
@@ -22,18 +29,24 @@ class Player extends FlxSprite {
 		setFacingFlip(FlxObject.UP | FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.DOWN | FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
-		animation.add("walk", [4, 5, 6, 7], 5);
 
-		animation.add("u", [2], 0);
-		animation.add("d", [0], 0);
-		animation.add("l", [1], 0);
-		animation.add("r", [1], 0);
+		animation.add("idle", [0, 1, 2, 3, 4, 5, 6, 7], 5);
+		animation.add("walk", [10, 11, 12, 13], 5);
+		animation.add("carry_walk", [14, 15, 16, 17], 5);
+		animation.add("run", [20, 21, 22, 23], 5);
+		animation.add("carry_carry", [24, 25, 26, 27], 5);
 	}
 
 	override public function update(delta:Float):Void {
 		super.update(delta);
 
-		var lastFacing = facing;
+		// need to preserve our facing when player moves straight
+		// up or down
+		if (facing & FlxObject.RIGHT != 0) {
+			lastLeft = false;
+		} else if (facing & FlxObject.LEFT != 0) {
+			lastLeft = true;
+		}
 
 		// determine our velocity based on angle and speed
 		velocity.set(speed, 0);
@@ -80,16 +93,7 @@ class Player extends FlxSprite {
 		if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE) {
 			animation.play("walk");
 		} else {
-			facing = lastFacing;
-			if (lastFacing & FlxObject.LEFT != 0) {
-				animation.play("l");
-			} else if (lastFacing & FlxObject.RIGHT != 0) {
-				animation.play("r");
-			} else if (lastFacing & FlxObject.UP != 0) {
-				animation.play("u");
-			} else if (lastFacing & FlxObject.DOWN != 0) {
-				animation.play("d");
-			}
+			animation.play("idle");
 		}
 	}
 }
