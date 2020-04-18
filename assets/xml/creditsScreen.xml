@@ -14,7 +14,7 @@
 
 	<text name="programmer_title" use_def="title_def" text="Programming" />
 	<text name="programmer_0"     use_def="body_def"  text="Tristan" />
-	<text name="programmer_1"     use_def="body_def"  text="Jaque" />
+	<text name="programmer_1"     use_def="body_def"  text="Jake 'The Mattress' Caban-Tomski" />
 	<text name="programmer_2"     use_def="body_def"  text="Logan" />
 	<text name="programmer_3"     use_def="body_def"  text="Mike" />
 

@@ -10,7 +10,6 @@ import flixel.FlxSprite;
 import hitbox.AttackHitboxes;
 
 class Player extends FlxSprite {
-
 	var inControl = false;
 	var control = new Actions();
 
@@ -25,7 +24,7 @@ class Player extends FlxSprite {
 		super();
 		super.loadGraphic(AssetPaths.Player__png, true, 32, 48);
 
-		offset.set(width/2 - hurtboxSize.x / 2, height - hurtboxSize.y);
+		offset.set(width / 2 - hurtboxSize.x / 2, height - hurtboxSize.y);
 		setSize(hurtboxSize.x, hurtboxSize.y);
 
 		setFacingFlip(FlxObject.UP | FlxObject.RIGHT, false, false);
@@ -113,7 +112,7 @@ class Player extends FlxSprite {
 		velocity.rotate(FlxPoint.weak(0, 0), newAngle);
 
 		// if the player is moving (velocity is not 0 for either axis), we need to change the animation to match their facing
-		if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE)  {
+		if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE) {
 			animation.play("walk");
 		} else {
 			animation.play("idle");
