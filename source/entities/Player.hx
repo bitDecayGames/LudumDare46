@@ -6,11 +6,10 @@ import actions.Actions;
 import flixel.FlxSprite;
 
 class Player extends FlxSprite {
-
 	var inControl = false;
 	var control = new Actions();
 
-	var speed = 60;
+	var speed = 200;
 
 	public function new() {
 		super();
@@ -23,7 +22,7 @@ class Player extends FlxSprite {
 		setFacingFlip(FlxObject.UP | FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.DOWN | FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
-		animation.add("walk", [4,5,6,7], 5);
+		animation.add("walk", [4, 5, 6, 7], 5);
 
 		animation.add("u", [2], 0);
 		animation.add("d", [0], 0);
@@ -78,7 +77,7 @@ class Player extends FlxSprite {
 		velocity.rotate(FlxPoint.weak(0, 0), newAngle);
 
 		// if the player is moving (velocity is not 0 for either axis), we need to change the animation to match their facing
-		if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE)  {
+		if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE) {
 			animation.play("walk");
 		} else {
 			facing = lastFacing;
