@@ -10,7 +10,7 @@ class Player extends FlxSprite {
 	var inControl = false;
 	var control = new Actions();
 
-	var speed = 30;
+	var speed = 60;
 
 	public function new() {
 		super();

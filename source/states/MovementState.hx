@@ -4,7 +4,7 @@ import flixel.util.FlxCollision;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
 import entities.Player;
-import entities.Tree;
+import entities.TreeGroup;
 import flixel.FlxG;
 import flixel.FlxState;
 
@@ -13,7 +13,7 @@ class MovementState extends FlxState
 	var player:Player;
 	var playerGroup:FlxGroup;
 
-	var treeGroup:FlxGroup;
+	var treeGroup:TreeGroup;
 
 	override public function create():Void
 	{
@@ -27,13 +27,9 @@ class MovementState extends FlxState
 		player = new Player();
 		playerGroup.add(player);
 
-		treeGroup = new FlxGroup(100);
+		treeGroup = new TreeGroup();
 		add(treeGroup);
-
-		var tree = new Tree();
-		tree.x = player.x + 100;
-		tree.y = player.y + 100;
-		treeGroup.add(tree);
+		treeGroup.spawn(2);
 	}
 
 	override public function update(elapsed:Float):Void
