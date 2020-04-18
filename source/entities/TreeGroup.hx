@@ -5,7 +5,7 @@ import flixel.group.FlxGroup;
 
 class TreeGroup extends FlxTypedGroup<FlxSprite> {
     public function new() {
-        super(100);
+        super(0);
     }
 
     public function spawn(numTrees: UInt) {

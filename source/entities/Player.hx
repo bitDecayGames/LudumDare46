@@ -43,7 +43,7 @@ class Player extends FlxSprite {
 		animation.add("punch", [41, 42, 43], 10, false);
 
 		hitboxes = new AttackHitboxes(this, playerHitboxes);
-		hitboxes.register("punch", 2, [new HitboxLocation(10, 10, 10, 0)]);
+		hitboxes.register("punch", 2, [new HitboxLocation(13, 15, 13, 0)]);
 
 		animation.callback = hitboxes.animCallback;
 		animation.finishCallback = tagFinish;

@@ -41,6 +41,7 @@ class AttackHitboxes {
 	}
 
 	public function finishAnimation() {
+		lastActive.kill();
 		lastActive = null;
 	}
 
@@ -57,19 +58,14 @@ class AttackHitboxes {
 
 	// register this callback with the animation controller
 	public function animCallback(name:String, frameNumber:Int, frameIndex:Int):Void {
-		if (name == "punch") {
-			FlxG.log.notice("anim call hit with: " + name + " fn: " + frameNumber + " fi: " + frameIndex);
-		}
 		if (lastActive != null) {
-			// TODO: may need to toggle something else to make this not register collisions
-			lastActive.deactivate();
+			lastActive.kill();
 		}
 		if (registrar.exists(name)) {
 			inspecting = registrar[name];
 			if (frameNumber >= inspecting.offset && frameNumber < inspecting.offset + inspecting.hitboxFrames.length) {
-				FlxG.log.notice("showing hitbox: " + name + " -- frame: " + (frameNumber - inspecting.offset));
 				var hitboxFrame = inspecting.hitboxFrames[frameNumber - inspecting.offset];
-				hitboxFrame.activate();
+				hitboxFrame.revive();
 				lastActive = hitboxFrame;
 				update(0);
 			}
