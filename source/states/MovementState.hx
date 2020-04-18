@@ -1,5 +1,7 @@
 package states;
 
+import flixel.util.FlxSort;
+import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxCollision;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
@@ -11,6 +13,7 @@ import entities.Player;
 import entities.TreeGroup;
 import flixel.FlxG;
 import flixel.FlxState;
+import sorting.HitboxSorter;
 
 class MovementState extends FlxState
 {
@@ -21,8 +24,9 @@ class MovementState extends FlxState
 	var shader = new NightShader();
 	
 	var increasing:Bool = true;
-	
+
 	var treeGroup:TreeGroup;
+	var sortGroup:FlxSpriteGroup;
 
 	override public function create():Void
 	{
@@ -30,15 +34,23 @@ class MovementState extends FlxState
 		FlxG.debugger.visible = true;
 		FlxG.debugger.drawDebug = true;
 		
+		sortGroup = new FlxSpriteGroup(0);
+		// sortGroup.sort(HitboxSorter.sort);
+		sortGroup.sort(FlxSort.byY, FlxSort.ASCENDING);
+		add(sortGroup);
+
 		playerGroup = new FlxGroup(1);
-		add(playerGroup);
+		// add(playerGroup);
 
 		player = new Player();
 		playerGroup.add(player);
+		sortGroup.add(player);
 
 		treeGroup = new TreeGroup();
-		add(treeGroup);
+		// add(treeGroup);
 		treeGroup.spawn(2);
+		treeGroup.forEach(t -> sortGroup.add(t));
+
 
 		camera.filtersEnabled = true;
 		filters.push(new ShaderFilter(shader));
@@ -64,7 +76,6 @@ class MovementState extends FlxState
 				increasing = true;
 			}
 		}
-		
 	}
 
 	private static function pixelPerfect(a: FlxSprite, b: FlxSprite): Bool {
