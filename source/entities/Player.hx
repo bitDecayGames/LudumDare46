@@ -10,11 +10,12 @@ class Player extends FlxSprite {
 	var inControl = false;
 	var control = new Actions();
 
-	var speed = 30;
+	var speed = 60;
 
 	public function new() {
 		super();
 		super.loadGraphic(AssetPaths.sailor_all__png, true, 16, 32);
+
 		setFacingFlip(FlxObject.UP | FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.DOWN | FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.RIGHT, false, false);
