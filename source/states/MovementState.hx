@@ -22,6 +22,7 @@ class MovementState extends FlxState
 	var playerGroup:FlxGroup;
 	var treeGroup:TreeGroup;
 	var itemGroup:FlxGroup;
+	var playerHitboxes:FlxGroup;
 
 	var sortGroup:FlxSpriteGroup;
 	
@@ -39,16 +40,17 @@ class MovementState extends FlxState
 		sortGroup = new FlxSpriteGroup(0);
 		add(sortGroup);
 
-		playerGroup = new FlxGroup(1);
+		playerGroup = new FlxGroup(0);
+		playerHitboxes = new FlxGroup(0);
+		add(playerHitboxes);
 
-		player = new Player();
+		player = new Player(playerHitboxes);
 		playerGroup.add(player);
 		sortGroup.add(player);
 
 		treeGroup = new TreeGroup();
 		treeGroup.spawn(2);
 		treeGroup.forEach(t -> sortGroup.add(t));
-
 
 		itemGroup = new FlxGroup();
 		var log = new TreeLog();
@@ -71,7 +73,10 @@ class MovementState extends FlxState
 
 		
 		FlxG.collide(playerGroup, treeGroup);
-		FlxG.collide(playerGroup, itemGroup, handlePlayerItemCollision);
+		FlxG.collide(playerGroup, itemGroup);
+		
+		FlxG.overlap(playerHitboxes, itemGroup, handlePlayerHit);
+
 		
 		elapsed *= 0.1;
 		if (increasing) {
@@ -87,7 +92,7 @@ class MovementState extends FlxState
 		}
 	}
 
-	private static function handlePlayerItemCollision(player: FlxSprite, item: FlxSprite) {
+	private static function handlePlayerHit(player: FlxSprite, item: FlxSprite) {
 		item.kill();
 	}
 }

@@ -6,13 +6,14 @@ import entities.EnemyFlock;
 import entities.Enemy;
 import entities.enemies.RegularAssZombie;
 import entities.enemies.ConfusedZombie;
+import flixel.group.FlxGroup;
 
 class TestEnemyFlock {
 	var player:Player;
 	var flock:EnemyFlock;
 
 	public function new(game:GameScreen) {
-		player = new Player();
+		player = new Player(new FlxGroup());
 		player.x = 120;
 		player.y = 300;
 		game.add(player);
