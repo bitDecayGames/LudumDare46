@@ -1,5 +1,6 @@
 package screens;
 
+import audio.BitdecaySoundBank;
 import flixel.addons.ui.FlxUIState;
 import flixel.addons.ui.FlxUI;
 import flixel.addons.ui.FlxUIButton;
@@ -12,10 +13,14 @@ class GameScreen extends FlxUIState {
 	static private inline var QUIT = "quit_btn";
 
 	public var paused = false;
+	private var firstUnpause = true;
 
 	override public function create():Void {
 		_xml_id = "gameScreen";
 		super.create();
+
+		BitdecaySoundBank.Instance().PlaySongIfNonePlaying(BitdecaySongs.ZombieFuel);
+
 		unpause();
 
 		//
@@ -40,11 +45,16 @@ class GameScreen extends FlxUIState {
 	public function pause():Void {
 		_ui.setMode("pause");
 		paused = true;
+		BitdecaySoundBank.Instance().TransitionToLowPassSong();
 	}
 
 	public function unpause():Void {
 		_ui.setMode("empty");
 		paused = false;
+		if (!firstUnpause){
+			BitdecaySoundBank.Instance().TransitionToNormalSong();
+		}
+		firstUnpause = false;
 	}
 
 	override public function getEvent(name:String, sender:Dynamic, data:Dynamic, ?params:Array<Dynamic>):Void {

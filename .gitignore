@@ -9,3 +9,4 @@ tests/RunTravis.n
 *.diff
 *.hxproj
 .unittest
+*Shortcut.lnk

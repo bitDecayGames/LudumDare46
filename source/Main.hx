@@ -1,5 +1,9 @@
 package;
 
+import flixel.util.FlxColor;
+import flixel.addons.transition.TransitionData;
+import flixel.addons.transition.FlxTransitionableState;
+import screens.SplashScreen;
 import screens.MainMenuScreen;
 import flixel.FlxGame;
 import openfl.display.Sprite;
@@ -8,6 +12,8 @@ import states.MovementState;
 class Main extends Sprite {
 	public function new() {
 		super();
-		addChild(new FlxGame(0, 0, MovementState, 1, 60, 60, true, false));
+		FlxTransitionableState.defaultTransIn = new TransitionData(FADE, FlxColor.BLACK, 0.35);
+		FlxTransitionableState.defaultTransOut = new TransitionData(FADE, FlxColor.BLACK, 0.35);
+		addChild(new FlxGame(0, 0, SplashScreen, 1, 60, 60, true, false));
 	}
 }

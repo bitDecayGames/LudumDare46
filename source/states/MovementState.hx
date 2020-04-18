@@ -35,8 +35,6 @@ class MovementState extends FlxState
 		FlxG.debugger.drawDebug = true;
 		
 		sortGroup = new FlxSpriteGroup(0);
-		// sortGroup.sort(HitboxSorter.sort);
-		sortGroup.sort(FlxSort.byY, FlxSort.ASCENDING);
 		add(sortGroup);
 
 		playerGroup = new FlxGroup(1);
@@ -61,6 +59,9 @@ class MovementState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
+
+		sortGroup.sort(HitboxSorter.sort, FlxSort.ASCENDING);
+
 		
 		FlxG.collide(playerGroup, treeGroup);
 		

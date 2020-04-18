@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<mode name="bdg">
+		<show name="background_btn"/>
+		<hide name="background_2_btn"/>
+	</mode>
+	<mode name="ld">
+		<hide name="background_btn"/>
+		<show name="background_2_btn"/>
+	</mode>
+	<button name="background_btn" use_def="button_def" x="screen.center" y="screen.center" width="screen.width" height="screen.height" resize="true">
+		<anchor x="0" y="0" x-flush="center" y-flush="center" />
+		<graphic name="up" image="ui/bitdecaygamesinverted"/>
+		<graphic name="over" image="ui/bitdecaygamesinverted"/>
+		<graphic name="down" image="ui/bitdecaygamesinverted"/>
+	</button>
+	<button name="background_2_btn" use_def="button_def" x="screen.center" y="screen.center" width="screen.width" height="screen.height" resize="true">
+		<anchor x="0" y="0" x-flush="center" y-flush="center" />
+		<graphic name="up" image="ui/ld_logo"/>
+		<graphic name="over" image="ui/ld_logo"/>
+		<graphic name="down" image="ui/ld_logo"/>
+	</button>
+</data>
