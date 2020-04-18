@@ -8,7 +8,7 @@ import openfl.filters.ShaderFilter;
 import openfl.filters.BitmapFilter;
 import shaders.NightShader;
 import entities.Player;
-import entities.Tree;
+import entities.TreeGroup;
 import flixel.FlxG;
 import flixel.FlxState;
 
@@ -16,13 +16,13 @@ class MovementState extends FlxState
 {
 	var player:Player;
 	var playerGroup:FlxGroup;
-
-	var treeGroup:FlxGroup;
 	
 	var filters:Array<BitmapFilter> = [];
 	var shader = new NightShader();
 	
 	var increasing:Bool = true;
+	
+	var treeGroup:TreeGroup;
 
 	override public function create():Void
 	{
@@ -36,13 +36,9 @@ class MovementState extends FlxState
 		player = new Player();
 		playerGroup.add(player);
 
-		treeGroup = new FlxGroup(100);
+		treeGroup = new TreeGroup();
 		add(treeGroup);
-
-		var tree = new Tree();
-		tree.x = player.x + 100;
-		tree.y = player.y + 100;
-		treeGroup.add(tree);
+		treeGroup.spawn(2);
 
 		camera.filtersEnabled = true;
 		filters.push(new ShaderFilter(shader));
