@@ -13,6 +13,8 @@ class GameScreen extends FlxUIState {
 	static private inline var RESUME = "resume_game_btn";
 	static private inline var QUIT = "quit_btn";
 
+	public var bitdecaySoundBank:BitdecaySoundBank;
+
 	public var paused = false;
 	private var firstUnpause = true;
 
@@ -20,7 +22,8 @@ class GameScreen extends FlxUIState {
 		_xml_id = "gameScreen";
 		super.create();
 
-		BitdecaySoundBank.Instance().PlaySongIfNonePlaying(BitdecaySongs.ZombieFuel);
+		bitdecaySoundBank = new BitdecaySoundBank();
+		bitdecaySoundBank.PlaySong(BitdecaySongs.ZombieFuel);
 
 		unpause();
 
@@ -42,19 +45,22 @@ class GameScreen extends FlxUIState {
 
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
+		if (FlxG.keys.justPressed.P) {
+			bitdecaySoundBank.PlaySound(BitdecaySounds.MachoManThrowPunch);
+		}
 	}
 
 	public function pause():Void {
 		_ui.setMode("pause");
 		paused = true;
-		BitdecaySoundBank.Instance().TransitionToLowPassSong();
+		bitdecaySoundBank.TransitionToLowPassSong();
 	}
 
 	public function unpause():Void {
 		_ui.setMode("empty");
 		paused = false;
 		if (!firstUnpause){
-			BitdecaySoundBank.Instance().TransitionToNormalSong();
+			bitdecaySoundBank.TransitionToNormalSong();
 		}
 		firstUnpause = false;
 	}
