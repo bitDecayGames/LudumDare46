@@ -25,6 +25,7 @@ enum EnemyState {
 	FALLING;
 	GETTING_UP;
 	CARRIED;
+	DANCING;
 }
 
 class Enemy extends Throwable {
@@ -45,6 +46,7 @@ class Enemy extends Throwable {
 	var hitboxMgr:HitboxManager;
 
 	var stunTime:Float = 0;
+	private var danceTurnFrames:Array<Int>;
 
 	public function new(hitboxMgr:HitboxManager) {
 		super();
@@ -94,9 +96,20 @@ class Enemy extends Throwable {
 
 		animation.add("carried", [37], 0);
 
-		playerSafeHitboxes.register(hitboxMgr.addIntraEnemyHitbox, "fall_left", 0, [new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0), new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)]);
-		playerSafeHitboxes.register(hitboxMgr.addIntraEnemyHitbox, "fall_right", 0, [new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0), new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)]);
-		animation.callback = playerSafeHitboxes.animCallback;
+		animation.add("dance", [
+			0, 1, 2, 3, 4, 5, 11, 11, 0, 11, 11, 11, 0, 1, 2, 3, 45, 35, 30, 46, 46, 36, 0, 1, 30, 30, 30, 30, 11, 11, 30, 11, 11, 11, 30, 30
+		], 5);
+		danceTurnFrames = [5, 8, 16, 28, 31];
+
+		playerSafeHitboxes.register(hitboxMgr.addIntraEnemyHitbox, "fall_left", 0, [
+			new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0),
+			new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)
+		]);
+		playerSafeHitboxes.register(hitboxMgr.addIntraEnemyHitbox, "fall_right", 0, [
+			new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0),
+			new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)
+		]);
+		animation.callback = animCallback;
 		animation.finishCallback = finishAnimation;
 	}
 
@@ -129,11 +142,6 @@ class Enemy extends Throwable {
 			attack();
 		}
 
-		// TODO: MW take this debug thing out
-		if (FlxG.keys.justPressed.SPACE) {
-			takeHit(player.getPosition(), 30);
-		}
-
 		var lastFacing = facing;
 
 		calculateVelocity();
@@ -160,6 +168,16 @@ class Enemy extends Throwable {
 
 	function shouldAttack():Bool {
 		return player != null && FlxMath.distanceBetween(this, player) <= attackDistance;
+	}
+
+	public function startDancing(frame:Int, force:Bool = false):Bool {
+		if (enemyState == CHASING || force) {
+			enemyState = DANCING;
+			animation.play("dance", true, false, frame);
+			velocity.set(0, 0);
+			return true;
+		}
+		return false;
 	}
 
 	function moveTowardsPlayer():FlxVector {
@@ -212,7 +230,7 @@ class Enemy extends Throwable {
 	public function takeHit(hitterPosition:FlxPoint, force:Float = 1, strong:Bool = false):Void {
 		if (strong) {
 			switch (enemyState) {
-				case HIT | GETTING_UP | CHASING | ATTACKING:
+				case HIT | GETTING_UP | CHASING | ATTACKING | DANCING:
 					var hitDirection = new FlxVector(x - hitterPosition.x, y - hitterPosition.y);
 					hitDirection.normalize();
 					beThrown(hitDirection, force);
@@ -227,7 +245,7 @@ class Enemy extends Throwable {
 					hitDirection.normalize();
 					beThrown(hitDirection, force);
 					FlxSpriteUtil.flicker(this, 0.3);
-				case CHASING:
+				case CHASING | DANCING:
 					animation.play("hit_" + animationDirection(x - hitterPosition.x));
 					enemyState = HIT;
 					velocity.set(0, 0);
@@ -269,19 +287,37 @@ class Enemy extends Throwable {
 		animation.play("down");
 	}
 
+	public function startChasing():Void {
+		enemyState = CHASING;
+	}
+
 	private function finishAnimation(animationName:String):Void {
 		if (animationName != null) {
 			if (animationName.indexOf("attack") >= 0) {
-				enemyState = CHASING;
+				startChasing();
 			} else if (animationName.indexOf("fall") >= 0) {
 				getKnockedOut();
 				playerSafeHitboxes.finishAnimation();
 			} else if (animationName.indexOf("hit") >= 0) {
-				enemyState = CHASING;
+				startChasing();
 			} else if (animationName.indexOf("get_up") >= 0) {
-				enemyState = CHASING;
+				startChasing();
 			} else if (animationName.indexOf("down") >= 0) {
 				getUpOffTheGround();
+			}
+		}
+	}
+
+	private function animCallback(name:String, frameNumber:Int, frameIndex:Int):Void {
+		playerSafeHitboxes.animCallback(name, frameNumber, frameIndex);
+		if (name == "dance") {
+			var indexOfFrame = danceTurnFrames.indexOf(frameNumber);
+			if (indexOfFrame >= 0) {
+				if (indexOfFrame % 2 == 0) {
+					facing = FlxObject.RIGHT;
+				} else {
+					facing = FlxObject.LEFT;
+				}
 			}
 		}
 	}

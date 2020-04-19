@@ -9,6 +9,7 @@ import flixel.addons.ui.FlxUIButton;
 import flixel.addons.ui.FlxUITypedButton;
 import flixel.FlxG;
 import debug.TestEnemyFlock;
+import debug.TestKingOfPop;
 import managers.FireManager;
 import managers.GameManager;
 
@@ -21,6 +22,7 @@ class GameScreen extends FlxUIState {
 	public var transitioner:SceneTransitioner;
 
 	public var paused = false;
+
 	private var firstUnpause = true;
 
 	var gameManager:GameManager;
@@ -31,7 +33,7 @@ class GameScreen extends FlxUIState {
 
 		bitdecaySoundBank = new BitdecaySoundBank();
 		transitioner = new SceneTransitioner();
-		
+
 		bitdecaySoundBank.PlaySong(BitdecaySongs.ZombieFuel);
 		// bitdecaySoundBank.PlaySoundLooped(BitdecaySounds.Campfire);
 
@@ -50,7 +52,7 @@ class GameScreen extends FlxUIState {
 		//
 		// only you can prevent merge forest conflict fires
 		//
-		// new TestEnemyFlock(this);
+		// new TestKingOfPop(this);
 		gameManager = new GameManager(this);
 	}
 
@@ -73,7 +75,7 @@ class GameScreen extends FlxUIState {
 	public function unpause():Void {
 		_ui.setMode("empty");
 		paused = false;
-		if (!firstUnpause){
+		if (!firstUnpause) {
 			bitdecaySoundBank.TransitionToNormalSong();
 		}
 		firstUnpause = false;
