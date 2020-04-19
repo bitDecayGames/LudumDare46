@@ -38,7 +38,7 @@ class GameManager
 	
     public var bitdecaySoundBank:BitdecaySoundBank;
     
-    var firepit:FlxSprite;
+    var fireManager:FireManager;
 
 	public function new(game:GameScreen):Void
 	{
@@ -58,11 +58,10 @@ class GameManager
 		game.camera.follow(hitboxMgr.getPlayer());
 		
 		bitdecaySoundBank = new BitdecaySoundBank();
-        
-        // TODO Link to firepit, remove firepit var.
-        new FireManager(game);
-        var firepit = new FlxSprite(300, 300, AssetPaths.Bush__png);
-		hitboxMgr.addGeneral(firepit);
+
+		var fireX = hitboxMgr.getPlayer().getPosition().x;
+		var fireY = hitboxMgr.getPlayer().getPosition().y - 80;
+		fireManager = new FireManager(game, fireX, fireY);
 
         spawnEnemies();
 	}
@@ -88,7 +87,7 @@ class GameManager
 		var rnd = new FlxRandom();
 		for (i in 0...20) {
 			if (i % 5 == 0) {
-				e = new HardworkingFirefighter(hitboxMgr, firepit);
+				e = new HardworkingFirefighter(hitboxMgr, fireManager.getSprite());
 			} else if (i % 2 == 0) {
 				e = new RegularAssZombie(hitboxMgr);
 			} else {
