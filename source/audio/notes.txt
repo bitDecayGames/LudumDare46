@@ -2,4 +2,5 @@ notes:
 
 - Lead instrument on main song might be tweajabke
 
-Scene transitions and music fades
+- fireman noise
+- zombie attack

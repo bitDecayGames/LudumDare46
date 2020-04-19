@@ -1,5 +1,7 @@
 package entities;
 
+import audio.SoundBankAccessor;
+import audio.BitdecaySoundBank;
 import managers.HitboxManager;
 import flixel.FlxG;
 import flixel.util.FlxSpriteUtil;
@@ -205,6 +207,7 @@ class Enemy extends FlxSprite {
 				case KNOCKED_OUT | FALLING | CARRIED: // do nothing
 			}
 		} else {
+			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.RockHit);
 			switch (enemyState) {
 				case HIT | GETTING_UP:
 					var hitDirection = new FlxVector(x - hitterPosition.x, y - hitterPosition.y);

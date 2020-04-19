@@ -121,17 +121,17 @@ class Player extends FlxSprite {
 			return;
 		}
 
-		// if (FlxG.keys.justPressed.O) {
-		// 	waitForFinish = true;
-		// 	if (isCarrying) {
-		// 		isCarrying = false;
-		// 		animation.play("throw");
-		// 	} else {
-		// 		isCarrying = true;
-		// 		animation.play("pickup");
-		// 	}
-		// 	return;
-		// }
+		if (FlxG.keys.justPressed.O) {
+			waitForFinish = true;
+			if (isCarrying) {
+				isCarrying = false;
+				animation.play("throw");
+			} else {
+				isCarrying = true;
+				animation.play("pickup");
+			}
+			return;
+		}
 
 		facing = newFacing;
 
