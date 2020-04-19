@@ -1,5 +1,6 @@
 package managers;
 
+import flixel.FlxBasic;
 import entities.Enemy;
 import entities.enemies.ConfusedZombie;
 import entities.enemies.RegularAssZombie;
@@ -27,26 +28,18 @@ import screens.GameScreen;
 import managers.FireManager;
 import entities.EnemyFlock;
 
-class GameManager
-{
-	var hitboxMgr:HitboxManager;
-
+class GameManager extends FlxBasic {
 	var filters:Array<BitmapFilter> = [];
 	var shader = new NightShader();
-	
-	var increasing:Bool = true;
-	
-    public var bitdecaySoundBank:BitdecaySoundBank;
-    
-    var fireManager:FireManager;
 
-	public function new(game:GameScreen):Void
-	{
-		// FlxG.debugger.visible = true;
-		FlxG.debugger.drawDebug = false;
-		
-		hitboxMgr = new HitboxManager(game);
-	
+	var increasing:Bool = true;
+
+	public var bitdecaySoundBank:BitdecaySoundBank;
+
+	public function new(game:GameScreen, hitboxMgr:HitboxManager):Void {
+		super();
+		game.add(this);
+
 		// TODO: Probably could put this in a better place
 		hitboxMgr.addTrees();
 
@@ -56,18 +49,11 @@ class GameManager
 		game.camera.setFilters(filters);
 		game.camera.zoom = 2;
 		game.camera.follow(hitboxMgr.getPlayer());
-		
+
 		bitdecaySoundBank = new BitdecaySoundBank();
-
-		var fireX = hitboxMgr.getPlayer().getPosition().x;
-		var fireY = hitboxMgr.getPlayer().getPosition().y - 80;
-		fireManager = new FireManager(game, fireX, fireY);
-
-        spawnEnemies();
 	}
 
-	
-	public function update(elapsed:Float):Void {
+	override public function update(elapsed:Float):Void {
 		elapsed *= 0.1;
 		if (increasing) {
 			shader.time.value[0] = shader.time.value[0] + elapsed;
@@ -81,21 +67,4 @@ class GameManager
 			}
 		}
 	}
-
-    private function spawnEnemies() {
-        var e:Enemy;
-		var rnd = new FlxRandom();
-		for (i in 0...3) {
-			if (i % 5 == 0) {
-				e = new HardworkingFirefighter(hitboxMgr, fireManager.getSprite());
-			} else if (i % 2 == 0) {
-				e = new RegularAssZombie(hitboxMgr);
-			} else {
-				e = new ConfusedZombie(hitboxMgr);
-			}
-			e.x = 100 + i * 10;
-			e.y = 100 + rnd.float(0, 10);
-			hitboxMgr.addEnemy(e);
-		}
-    }
 }
