@@ -33,6 +33,7 @@ class GameScreen extends FlxUIState {
 		transitioner = new SceneTransitioner();
 		
 		bitdecaySoundBank.PlaySong(BitdecaySongs.ZombieFuel);
+		// bitdecaySoundBank.PlaySoundLooped(BitdecaySounds.Campfire);
 
 		unpause();
 
@@ -58,9 +59,6 @@ class GameScreen extends FlxUIState {
 		// TODO Eventually remove this check.
 		if (gameManager != null) {
 			gameManager.update(elapsed);
-		}
-		if (FlxG.keys.justPressed.P) {
-			bitdecaySoundBank.PlaySound(BitdecaySounds.MachoManThrowPunch);
 		}
 		transitioner.update();
 		bitdecaySoundBank.update();

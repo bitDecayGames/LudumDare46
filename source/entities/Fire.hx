@@ -1,5 +1,6 @@
 package entities;
 
+import flixel.FlxG;
 import flixel.effects.particles.FlxEmitter;
 import flixel.util.FlxColor;
 import flixel.group.FlxGroup;
@@ -60,6 +61,18 @@ class Fire extends FlxGroup
             drag += DRAG_RATE * duration;
         }   
         emitter.drag.set(0, drag);
+
+
+        if (FlxG.keys.justPressed.H)
+        {
+            addTime(5);
+        }
+        
+        if (FlxG.keys.justPressed.L)
+        {
+            addTime(-5);
+        }
+    
     }
     
     private function getFrequency():Float
@@ -72,10 +85,16 @@ class Fire extends FlxGroup
         emitter.start(false, 0.01);        
     }
 
+    public function addTime(seconds:Float) {
+        var newDuration = duration + seconds;
+        if (newDuration >= 0 && duration <= MAX_DURATION) {
+            duration = newDuration;
+        }
+    }
+
     function resize()
     {
         var size = 25;
         emitter.setSize(size, size);
-        trace(size + "\n");
     }
 }

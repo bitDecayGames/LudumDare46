@@ -10,11 +10,12 @@ import flixel.FlxG;
 
 class BitdecaySound {
 
-	private var debugSound:Bool = false;
+	private var debugSound:Bool = true;
 
 	public var name:String;
 	public var flxSounds:Array<FlxSound> = new Array();
 	private var flxRandom:FlxRandom = new FlxRandom();
+	private var lastPlayedIndex:Int = 100;
 
 	public function new(soundName:String, soundPaths:Array<SoundPath>, MaxConcurrent:Int = 1) {
 
@@ -29,6 +30,7 @@ class BitdecaySound {
 			
 			for (i in 0...MaxConcurrent) {
 				var loadedSound:FlxSound = FlxG.sound.load(soundPath.path);
+				loadedSound.volume = soundPath.volume;
 				flxSounds.push(loadedSound);
 			}
 		}
@@ -43,16 +45,14 @@ class BitdecaySound {
 			indexArray.push(i);
 		}
 		flxRandom.shuffle(indexArray);
-		// trace("Randomized indexes");
-		for (index in indexArray) {
-			// trace('Index: ${index}');
-		}
+		indexArray.remove(lastPlayedIndex);
 		for (index in indexArray) {
 			if (!flxSounds[index].playing){
 				if (debugSound) {
 					trace('Playing ${name}[${index}] at volume ${flxSounds[index].volume}');
 				}
 				flxSounds[index].play();
+				lastPlayedIndex = index;
 				return;
 			}
 		}

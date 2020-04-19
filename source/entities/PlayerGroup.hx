@@ -1,6 +1,7 @@
 package entities;
 
 import flixel.math.FlxPoint;
+import flixel.FlxG;
 import managers.HitboxManager;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
@@ -19,6 +20,8 @@ class PlayerGroup extends FlxGroup {
 		super(0);
 		this.hitboxMgr = hitboxMgr;
 		player = new Player(this, hitboxMgr);
+		// Set start position
+		player.setPosition(FlxG.width / 2, FlxG.height / 2);
 		add(player);
 		hitboxMgr.addGeneral(player);
 	}

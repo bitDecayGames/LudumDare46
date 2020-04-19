@@ -38,10 +38,13 @@ class Throwable extends FlxSprite {
 				solid = true;
 			}
 
-			if (distance <= 0) {
+			if (distance <= 0 || cast(velocity, FlxVector).length == 0) {
 				// TODO: what here? falling? 
 				state = PICKUPABLE;
 				shouldUpdate = true;
+
+				// This is what's making it hit the ground
+				// if we want something more complicated, it'll be done here
 				resetThings();
 			}
 		}
@@ -74,7 +77,7 @@ class Throwable extends FlxSprite {
 		this.distance = distance;
 		velocity.set(direction.x, direction.y);
 
-		offset.set(defaultOffset.x, carrierOffset.y / 2);
+		offset.set(defaultOffset.x, carrierOffset.y * .7);
 		setSize(defaultSize.x, defaultSize.y);
 		this.setMidpoint(x, y);
 	}

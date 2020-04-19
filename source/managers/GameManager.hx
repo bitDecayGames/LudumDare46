@@ -54,6 +54,8 @@ class GameManager
 		filters.push(new ShaderFilter(shader));
 		game.camera.bgColor = FlxColor.WHITE;
 		game.camera.setFilters(filters);
+		game.camera.zoom = 2;
+		game.camera.follow(hitboxMgr.getPlayer());
 		
 		bitdecaySoundBank = new BitdecaySoundBank();
         
