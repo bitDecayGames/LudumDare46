@@ -1,5 +1,7 @@
 package states;
 
+import flixel.math.FlxVector;
+import entities.TreeTrunk;
 import entities.Tree;
 import flixel.util.FlxSort;
 import flixel.group.FlxSpriteGroup;
@@ -51,7 +53,10 @@ class MovementState extends FlxState
 
 		treeGroup = new TreeGroup();
 		treeGroup.spawn(2);
-		treeGroup.forEach(t -> sortGroup.add(t));
+		treeGroup.forEach(t -> {
+			sortGroup.add(t.trunk);
+			sortGroup.add(t.top);
+		});
 
 		itemGroup = new FlxGroup(0);
 		
@@ -90,9 +95,11 @@ class MovementState extends FlxState
 		}
 	}
 
-	private function hitTree(player: FlxSprite, tree: Tree) {
+	private function hitTree(player: FlxSprite, tree: TreeTrunk) {
 		if (tree.hasLog) {
-			var newLog = tree.spawnLog();
+			var interactVector:FlxVector = player.getMidpoint();
+			interactVector.subtractPoint(tree.getMidpoint());
+			var newLog = tree.spawnLog(interactVector);
 			itemGroup.add(newLog);
 			sortGroup.add(newLog);
 		}
