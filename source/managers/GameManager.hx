@@ -43,7 +43,7 @@ class GameManager
 	public function new(game:GameScreen):Void
 	{
 		// FlxG.debugger.visible = true;
-		FlxG.debugger.drawDebug = true;
+		FlxG.debugger.drawDebug = false;
 		
 		hitboxMgr = new HitboxManager(game);
 	
