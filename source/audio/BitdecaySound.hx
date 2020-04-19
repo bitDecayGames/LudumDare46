@@ -54,7 +54,7 @@ class BitdecaySound {
 
 				if (origin != null && player != null){
 					if (debugSound) {
-						trace('Setting location of ${name}[${index}] to ${origin.getPosition()} and is tracked by ${player}');
+						// trace('Setting location of ${name}[${index}] to ${origin.getPosition()} and is tracked by ${player}');
 					}
 					flxSounds[index].proximity(origin.getPosition().x, origin.getPosition().y, player, soundRange);
 				} 
@@ -70,7 +70,7 @@ class BitdecaySound {
 
 		if (origin != null && player != null){
 			if (debugSound) {
-				trace('Setting location of ${name}[${index}] to ${origin.getPosition()} and is tracked by ${player}');
+				// trace('Setting location of ${name}[${index}] to ${origin.getPosition()} and is tracked by ${player}');
 			}
 			flxSounds[index].proximity(origin.getPosition().x, origin.getPosition().y, player, soundRange);
 		} 

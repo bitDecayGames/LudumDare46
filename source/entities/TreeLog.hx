@@ -7,6 +7,8 @@ class TreeLog extends Throwable {
 	public function new() {
 		super();
 		super.loadGraphic(AssetPaths.itemsNobjects__png, true, 30, 40);
+
+		name = "log";
 		
 		var hurtboxWidth = 20;
 		var hurtboxHeight = 6;

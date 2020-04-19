@@ -1,5 +1,7 @@
 package entities;
 
+import audio.SoundBankAccessor;
+import audio.BitdecaySoundBank;
 import flixel.FlxG;
 import flixel.math.FlxVector;
 import flixel.math.FlxPoint;
@@ -9,6 +11,8 @@ using extensions.FlxObjectExt;
 
 class Throwable extends FlxSprite {
 	public var state:ThrowableState = DEFAULT;
+
+	public var name:String;
 
 	var defaultOffset:FlxPoint = new FlxPoint();
 	var carrierOffset:FlxPoint = new FlxPoint();
@@ -46,6 +50,12 @@ class Throwable extends FlxSprite {
 			}
 
 			if (distance <= 0 || cast(velocity, FlxVector).length == 0) {
+				//I didn't hit anything
+				if (cast(velocity, FlxVector).length > 0) {
+					if (name == "log"){
+						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.LogLand);
+					}
+				}
 				// TODO: what here? falling? 
 				state = PICKUPABLE;
 				shouldUpdate = true;

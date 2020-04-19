@@ -22,7 +22,7 @@ class ConfusedZombie extends RegularAssZombie {
 		speed = 40;
 		randomizeStats();
 		groamTimer = new FlxTimer();
-		groamTimer.start(1.5, playGroan, 1000);
+		groamTimer.start(6, playGroan, 1000);
 	}
 
 	private function playGroan(timer:FlxTimer):Void {
