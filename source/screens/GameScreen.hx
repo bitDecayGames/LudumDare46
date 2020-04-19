@@ -55,8 +55,8 @@ class GameScreen extends FlxUIState {
 		var hitboxMgr = new HitboxManager(this);
 		new GameManager(this, hitboxMgr);
 		var fireMgr = new FireManager(this, hitboxMgr);
-		// new EnemySpawnManager(this, hitboxMgr, fireMgr.getSprite());
-		new TestKingOfPop(this, hitboxMgr, fireMgr);
+		new EnemySpawnManager(this, hitboxMgr, fireMgr.getSprite());
+		// new TestKingOfPop(this, hitboxMgr, fireMgr);
 	}
 
 	override public function update(elapsed:Float):Void {
