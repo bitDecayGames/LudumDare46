@@ -8,8 +8,8 @@ class TreeLog extends Throwable {
 		super();
 		super.loadGraphic(AssetPaths.itemsNobjects__png, true, 30, 40);
 		
-		var hurtboxWidth = 24;
-		var hurtboxHeight = 14;
+		var hurtboxWidth = 20;
+		var hurtboxHeight = 6;
 
 		offset.set((width / 2) - (hurtboxWidth / 2), height - hurtboxHeight);
 		setSize(hurtboxWidth, hurtboxHeight);

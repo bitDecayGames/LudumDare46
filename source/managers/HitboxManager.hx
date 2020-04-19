@@ -99,6 +99,7 @@ class HitboxManager extends FlxBasic {
 
 		// Environment interactions
 		FlxG.collide(playerGroup, itemGroup);
+		FlxG.overlap(enemyFlock, itemGroup, enemyTouchItem);
 		FlxG.overlap(playerHitboxes, itemGroup, playerHitItem);
 		FlxG.overlap(playerHitboxes, treeGroup, hitTree);
 
@@ -106,6 +107,14 @@ class HitboxManager extends FlxBasic {
 		FlxG.overlap(playerHitboxes, enemyFlock, playerHitEnemy);
 		FlxG.overlap(enemyHitboxes, playerGroup, enemyHitPlayer);
 		FlxG.overlap(intraEnemyHitboxes, enemyFlock, enemyHitEnemy);
+		FlxG.overlap(enemyFlock, enemyFlock, enemiesTouched);
+	}
+
+	private function enemyTouchItem(enemy:Enemy, item:FlxSprite) {
+		if (Std.is(item, Throwable)) {
+			var throwable = cast(item, Throwable);
+			enemy.checkThrowableHit(throwable);
+		}
 	}
 
 	private function playerHitEnemy(playerHitbox:HitboxSprite, enemy:Enemy) {
@@ -116,6 +125,10 @@ class HitboxManager extends FlxBasic {
 
 		if (enemy.state == PICKUPABLE) {
 			var player = cast(playerHitbox.source, Player);
+			if (player.playerGroup.activelyCarrying) {
+				// can't carry two things
+				return;
+			}
 			player.playerGroup.pickUp(enemy);
 		} else {
 			enemy.takeHit(playerHitbox.getMidpoint(), 30);
@@ -141,6 +154,11 @@ class HitboxManager extends FlxBasic {
 		hitbox.registerHit(enemy);
 		enemy.takeHit(hitbox.getMidpoint(), 30);
 		hitbox.kill();
+	}
+
+	private function enemiesTouched(e1:Enemy, e2:Enemy) {
+		e1.checkThrowableHit(e2);
+		e2.checkThrowableHit(e1);
 	}
 
 	private function hitTree(hitbox:HitboxSprite, tree:TreeTrunk) {
