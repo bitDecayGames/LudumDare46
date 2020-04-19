@@ -1,5 +1,6 @@
 package states;
 
+import audio.SoundBankAccessor;
 import audio.BitdecaySoundBank;
 import hitbox.HitboxSprite;
 import flixel.math.FlxVector;
@@ -101,6 +102,7 @@ class MovementState extends FlxState
 		if (tree.hasLog) {
 			var interactVector:FlxVector = player.getMidpoint();
 			interactVector.subtractPoint(tree.getMidpoint());
+			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.TreeHit);
 			var newLog = tree.spawnLog(interactVector);
 			itemGroup.add(newLog);
 			sortGroup.add(newLog);

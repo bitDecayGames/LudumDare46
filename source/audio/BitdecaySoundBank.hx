@@ -12,6 +12,7 @@ enum BitdecaySongs {
 enum BitdecaySounds {
 	BulletTimeIn;
 	BulletTimeOut;
+	LogHit;
 	MachoManFail;
 	MachoManGruntThrow;
 	MachoManGrunt;
@@ -53,6 +54,11 @@ class BitdecaySoundBank {
 		], soundClip: null},
 		BitdecaySounds.BulletTimeOut => {name: Std.string(BitdecaySounds.BulletTimeOut), instances: 1, paths: [
 			{ path: AssetPaths.BulletTimeOut__ogg, volume: 1}
+		], soundClip: null},
+		BitdecaySounds.LogHit => {name: Std.string(BitdecaySounds.LogHit), instances: 1, paths: [
+			{ path: AssetPaths.log_hit1__ogg, volume: 1},
+			{ path: AssetPaths.log_hit2__ogg, volume: 1},
+			{ path: AssetPaths.log_hit3__ogg, volume: 1}
 		], soundClip: null},
 		BitdecaySounds.MachoManFail => {name: Std.string(BitdecaySounds.MachoManFail), instances: 1, paths: [
 			{ path: AssetPaths.macho_man_fail__ogg, volume: 1}
