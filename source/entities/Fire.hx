@@ -18,6 +18,7 @@ class Fire extends FlxGroup
     public var MAX_FREQUENCY:Float = 0.3;
     public var MAX_DRAG:Float = 125;
     public var DRAG_RATE:Float = 0.001;
+    public var onFizzle:Void->Void;
     private var deathRate:Float;
     private var drag:Float = 0;
 
@@ -50,6 +51,11 @@ class Fire extends FlxGroup
         super.update(elapsed);
         if (dead) 
         {
+            trace("about to fizzle");
+            if (onFizzle != null) {
+                trace("call fizzle");
+                onFizzle();
+            }
             return;
         }
         duration -= elapsed;
@@ -71,13 +77,16 @@ class Fire extends FlxGroup
 
 
         if (FlxG.keys.justPressed.H)
-        {
+        {            
             addTime(5);
+            trace("add duration: " + duration);
         }
         
         if (FlxG.keys.justPressed.L)
         {
             addTime(-5);
+            trace("less duration: " + duration);
+
         }
     
         updateAnimation(duration);
@@ -94,7 +103,9 @@ class Fire extends FlxGroup
         } else {
             newAnimation = "tiny";
         }
-
+        if (newAnimation != fireArt.currentAnimation) {
+            trace("duration for animation change: " + duration);
+        }
         fireArt.switchAnimation(newAnimation);
     }
 

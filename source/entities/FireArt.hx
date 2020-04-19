@@ -3,7 +3,7 @@ package entities;
 import flixel.FlxSprite;
 
 class FireArt extends FlxSprite {
-    var currentAnimation = "raging";
+    public var currentAnimation = "raging";
 
     public function new(x:Float, y:Float) {
 		super(x, y);
