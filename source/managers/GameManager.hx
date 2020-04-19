@@ -43,12 +43,12 @@ class GameManager
 	public function new(game:GameScreen):Void
 	{
 		// FlxG.debugger.visible = true;
-		FlxG.debugger.drawDebug = true;
+		FlxG.debugger.drawDebug = false;
 		
 		hitboxMgr = new HitboxManager(game);
 	
 		// TODO: Probably could put this in a better place
-		hitboxMgr.addTrees(2);
+		hitboxMgr.addTrees();
 
 		game.camera.filtersEnabled = true;
 		filters.push(new ShaderFilter(shader));

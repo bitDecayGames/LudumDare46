@@ -67,8 +67,8 @@ class HitboxManager extends FlxBasic {
 		sortGroup.add(f);
 	}
 
-	public function addTrees(num:Int) {
-		for (t in treeGroup.spawn(num)) {
+	public function addTrees() {
+		for (t in treeGroup.spawn()) {
 			sortGroup.add(t.trunk);
 			sortGroup.add(t.top);
 		}
