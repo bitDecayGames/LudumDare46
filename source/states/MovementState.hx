@@ -1,6 +1,9 @@
 package states;
 
 import audio.BitdecaySoundBank;
+import hitbox.HitboxSprite;
+import flixel.math.FlxVector;
+import entities.TreeTrunk;
 import entities.Tree;
 import flixel.util.FlxSort;
 import flixel.group.FlxSpriteGroup;
@@ -11,7 +14,7 @@ import flixel.util.FlxColor;
 import openfl.filters.ShaderFilter;
 import openfl.filters.BitmapFilter;
 import shaders.NightShader;
-import entities.Player;
+import entities.PlayerGroup;
 import entities.TreeGroup;
 import entities.TreeLog;
 import flixel.FlxG;
@@ -20,11 +23,10 @@ import sorting.HitboxSorter;
 
 class MovementState extends FlxState
 {
-	var player:Player;
-	var playerGroup:FlxGroup;
+	var playerGroup:PlayerGroup;
 	var treeGroup:TreeGroup;
 	var itemGroup:FlxGroup;
-	var playerHitboxes:FlxGroup;
+	var playerHitboxes:FlxTypedGroup<HitboxSprite>;
 
 	var sortGroup:FlxSpriteGroup;
 	
@@ -43,18 +45,17 @@ class MovementState extends FlxState
 		
 		sortGroup = new FlxSpriteGroup(0);
 		add(sortGroup);
-		playerHitboxes = new FlxGroup(0);
+		playerHitboxes = new FlxTypedGroup<HitboxSprite>(0);
 		add(playerHitboxes);
 
-		playerGroup = new FlxGroup(0);
-
-		player = new Player(playerHitboxes);
-		playerGroup.add(player);
-		sortGroup.add(player);
+		playerGroup = new PlayerGroup(sortGroup, playerHitboxes);
 
 		treeGroup = new TreeGroup();
 		treeGroup.spawn(2);
-		treeGroup.forEach(t -> sortGroup.add(t));
+		treeGroup.forEach(t -> {
+			sortGroup.add(t.trunk);
+			sortGroup.add(t.top);
+		});
 
 		itemGroup = new FlxGroup(0);
 		
@@ -79,8 +80,8 @@ class MovementState extends FlxState
 
 		// Environment interactions
 		FlxG.collide(playerGroup, itemGroup);
-		FlxG.overlap(playerHitboxes, treeGroup, hitTree);
 		FlxG.overlap(playerHitboxes, itemGroup, handlePlayerHit);
+		FlxG.overlap(playerHitboxes, treeGroup, hitTree);
 		
 		elapsed *= 0.1;
 		if (increasing) {
@@ -96,15 +97,23 @@ class MovementState extends FlxState
 		}
 	}
 
-	private function hitTree(player: FlxSprite, tree: Tree) {
+	private function hitTree(player: FlxSprite, tree: TreeTrunk) {
 		if (tree.hasLog) {
-			var newLog = tree.spawnLog();
+			var interactVector:FlxVector = player.getMidpoint();
+			interactVector.subtractPoint(tree.getMidpoint());
+			var newLog = tree.spawnLog(interactVector);
 			itemGroup.add(newLog);
 			sortGroup.add(newLog);
 		}
 	}
 
 	private static function handlePlayerHit(player: FlxSprite, item: FlxSprite) {
-		item.kill();
+		var interactVector:FlxVector = player.getMidpoint();
+			interactVector.subtractPoint(item.getMidpoint());
+		if (interactVector.x > 0) {
+			item.velocity.x = -300;
+		} else {
+			item.velocity.x = 300;
+		}
 	}
 }

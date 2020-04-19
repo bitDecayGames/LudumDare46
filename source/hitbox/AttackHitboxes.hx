@@ -13,14 +13,14 @@ using extensions.FlxObjectExt;
 class AttackHitboxes {
 
 	var parentSprite:FlxSprite;
-	var hitboxGroup:FlxGroup;
+	var hitboxGroup:FlxTypedGroup<HitboxSprite>;
 
 	var registrar:Map<String, HitboxRegistration> = [];
 	var lastActive:HitboxSprite;
 
 	var inspecting:HitboxRegistration;
 
-	public function new(parent:FlxSprite, hitboxGroup:FlxGroup) {
+	public function new(parent:FlxSprite, hitboxGroup:FlxTypedGroup<HitboxSprite>) {
 		parentSprite = parent;
 		this.hitboxGroup = hitboxGroup;
 	}
@@ -55,7 +55,7 @@ class AttackHitboxes {
 	public function register(animName:String, startFrame:Int, hitboxLocations:Array<HitboxLocation>):Void {
 		var hitboxes:Array<HitboxSprite> = [];
 		for (hbl in hitboxLocations) {
-			var box = new HitboxSprite(hbl);
+			var box = new HitboxSprite(hbl, parentSprite);
 			hitboxes.push(box);
 			hitboxGroup.add(box);
 		}

@@ -7,6 +7,7 @@ import flixel.addons.ui.FlxUIButton;
 import flixel.addons.ui.FlxUITypedButton;
 import flixel.FlxG;
 import debug.TestEnemyFlock;
+import managers.FireManager;
 
 class GameScreen extends FlxUIState {
 	static private inline var PAUSE = "pause_btn";
@@ -41,6 +42,7 @@ class GameScreen extends FlxUIState {
 		// only you can prevent merge forest conflict fires
 		//
 		new TestEnemyFlock(this);
+		new FireManager(this);
 	}
 
 	override public function update(elapsed:Float):Void {
