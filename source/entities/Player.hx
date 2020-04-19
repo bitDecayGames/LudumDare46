@@ -1,5 +1,7 @@
 package entities;
 
+import audio.BitdecaySoundBank.BitdecaySounds;
+import audio.SoundBankAccessor;
 import flixel.math.FlxVector;
 import managers.HitboxManager;
 import hitbox.HitboxSprite;
@@ -152,6 +154,8 @@ class Player extends FlxSprite {
 	}
 
 	public function getHit(direction:FlxVector, force:Float = 1) {
+		SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
+		SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MachoManDamage);
 		velocity.add(direction.x * force, direction.y * force);
 		animation.play("fall_" + animationDirection(direction.x));
 		velocity.set(0, 0);

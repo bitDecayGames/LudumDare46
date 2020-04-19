@@ -50,12 +50,20 @@ class Throwable extends FlxSprite {
 			}
 
 			if (distance <= 0 || cast(velocity, FlxVector).length == 0) {
-				//I didn't hit anything
+				
 				if (cast(velocity, FlxVector).length > 0) {
 					if (name == "log"){
 						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.LogLand);
 					}
 				}
+				if (cast(velocity, FlxVector).length > 0) {
+					if (name == "enemy"){
+						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.RockHit);
+					}
+				}
+
+				trace('Thing that hit ground: ${name}');
+
 				// TODO: what here? falling? 
 				state = PICKUPABLE;
 				shouldUpdate = true;

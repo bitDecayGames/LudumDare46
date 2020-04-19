@@ -1,5 +1,6 @@
 package audio;
 
+import audio.BitdecaySoundBank.BitdecaySounds;
 import managers.HitboxManager;
 import flixel.FlxSprite;
 import audio.BitdecaySoundBank.SoundPath;
@@ -60,7 +61,9 @@ class BitdecaySound {
 				} 
 
 				if (debugSound) {
-					trace('Playing ${name}[${index}] at volume ${flxSounds[index].volume}');
+					if (name != Std.string(BitdecaySounds.ZombieGroan)){
+						trace('Playing ${name}[${index}] at volume ${flxSounds[index].volume}');
+					}
 				}
 				flxSounds[index].play();
 				lastPlayedIndex = index;

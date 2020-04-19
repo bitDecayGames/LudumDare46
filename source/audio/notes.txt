@@ -5,3 +5,4 @@ notes:
 - fireman noise
 - zombie attack
 - thud from zombies hitting the ground
+- Taking damage

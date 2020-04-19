@@ -29,7 +29,7 @@ class FireManager {
 
     public function gameOver() {
         trace("game over");
-        FlxG.switchState(new GameOverScreen());
+        // FlxG.switchState(new GameOverScreen());
         //transitioner.TransitionWithMusicFade(new GameOverScreen());
 
         // this might be a bad plan since this gets called inside the fire object, 

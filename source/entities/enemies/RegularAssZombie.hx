@@ -10,6 +10,7 @@ class RegularAssZombie extends Enemy {
 	public function new(hitboxMgr:HitboxManager) {
 		super(hitboxMgr);
 		super.initAnimations(AssetPaths.Zombie__png);
+		name = "enemy";
 		personalBubble = 50;
 		speed = 40;
 		randomizeStats();
