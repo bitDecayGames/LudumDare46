@@ -90,8 +90,8 @@ class Enemy extends FlxSprite {
 
 		animation.add("carried", [37], 0);
 
-		playerSafeHitboxes.register(hitboxMgr.playerHitboxes, "fall_left", 0, [new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0), new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)]);
-		playerSafeHitboxes.register(hitboxMgr.playerHitboxes, "fall_right", 0, [new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0), new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)]);
+		playerSafeHitboxes.register(hitboxMgr.intraEnemyHitboxes, "fall_left", 0, [new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0), new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)]);
+		playerSafeHitboxes.register(hitboxMgr.intraEnemyHitboxes, "fall_right", 0, [new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0), new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)]);
 		animation.callback = playerSafeHitboxes.animCallback;
 		animation.finishCallback = finishAnimation;
 	}

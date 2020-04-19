@@ -25,6 +25,8 @@ class HitboxManager extends FlxBasic {
 	public var treeGroup:TreeGroup;
 	public var itemGroup:FlxGroup;
 	public var playerHitboxes:FlxTypedGroup<HitboxSprite>;
+	public var enemyHitboxes:FlxTypedGroup<HitboxSprite>;
+	public var intraEnemyHitboxes:FlxTypedGroup<HitboxSprite>;
     public var enemyFlock:EnemyFlock;
 	public var sortGroup:FlxSpriteGroup;
 	
@@ -36,6 +38,9 @@ class HitboxManager extends FlxBasic {
 		game.add(sortGroup);
 
 		playerHitboxes = new FlxTypedGroup<HitboxSprite>(0);
+		enemyHitboxes = new FlxTypedGroup<HitboxSprite>(0);
+		intraEnemyHitboxes = new FlxTypedGroup<HitboxSprite>(0);
+
 		playerGroup = new PlayerGroup(this);
 		treeGroup = new TreeGroup();
 		itemGroup = new FlxGroup(0);
@@ -48,6 +53,16 @@ class HitboxManager extends FlxBasic {
 
 	public function addPlayerHitbox(f:HitboxSprite) {
 		playerHitboxes.add(f);
+		sortGroup.add(f);
+	}
+
+	public function addEnemyHitbox(f:HitboxSprite) {
+		enemyHitboxes.add(f);
+		sortGroup.add(f);
+	}
+
+	public function addIntraEnemyHitbox(f:HitboxSprite) {
+		intraEnemyHitboxes.add(f);
 		sortGroup.add(f);
 	}
 
