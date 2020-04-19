@@ -3,12 +3,14 @@ package audio;
 import audio.BitdecaySoundBank.SoundPath;
 import flixel.math.FlxRandom;
 import flixel.system.FlxSound;
+#if !html5
 import sys.FileSystem;
+#end
 import flixel.FlxG;
 
 class BitdecaySound {
 
-	private var debugSound:Bool = true;
+	private var debugSound:Bool = false;
 
 	public var name:String;
 	public var flxSounds:Array<FlxSound> = new Array();
@@ -19,9 +21,11 @@ class BitdecaySound {
 		name = soundName;
 
 		for (soundPath in soundPaths) {
+			#if !html5
 			if (!FileSystem.exists(soundPath.path)) {
 				throw 'Unable to find $soundPath sound file';
 			}
+			#end
 			
 			for (i in 0...MaxConcurrent) {
 				var loadedSound:FlxSound = FlxG.sound.load(soundPath.path);

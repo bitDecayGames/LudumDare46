@@ -14,7 +14,7 @@ class SceneTransitioner {
 
     public function new () {}
 
-    public function TransitionWithGlobalFlxMusicFade(state:FlxState) {
+    public function TransitionWithMusicFade(state:FlxState) {
         destinationState = state;
         isTransitioning = true;
         SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuSelect);

@@ -1,6 +1,5 @@
 package screens;
 
-import states.MovementState;
 import audio.BitdecaySound;
 import audio.SoundBankAccessor;
 import audio.BitdecaySoundBank;
@@ -45,12 +44,13 @@ class MainMenuScreen extends FlxUIState {
 			if (button != null) {
 				switch (button.name) {
 					case START:
-						trace('calling transitioner');
-						transitioner.TransitionWithGlobalFlxMusicFade(new MovementState());
+						transitioner.TransitionWithMusicFade(new GameScreen());
 					case CREDITS:
 						FlxG.switchState(new CreditsScreen());
 					case EXIT:
+						#if !html5
 						Sys.exit(0);
+						#end
 				}
 			}
 		}

@@ -11,6 +11,8 @@ import flixel.FlxSprite;
 import hitbox.AttackHitboxes;
 
 class Player extends FlxSprite {
+	public var playerGroup:PlayerGroup;
+
 	var inControl = false;
 	var control = new Actions();
 
@@ -23,8 +25,10 @@ class Player extends FlxSprite {
 
 	var isCarrying = false;
 
-	public function new(playerHitboxes:FlxTypedGroup<HitboxSprite>) {
+	public function new(playerGroup:PlayerGroup, playerHitboxes:FlxTypedGroup<HitboxSprite>) {
 		super();
+		this.playerGroup = playerGroup;
+
 		super.loadGraphic(AssetPaths.Player__png, true, 32, 48);
 
 		// an extra -2 on the y to help account for empty space at the bottom of the sprites
@@ -63,6 +67,7 @@ class Player extends FlxSprite {
 
 	override public function update(delta:Float):Void {
 		super.update(delta);
+		playerGroup.update(delta);
 		hitboxes.update(delta);
 
 		if (waitForFinish) {
@@ -114,17 +119,17 @@ class Player extends FlxSprite {
 			return;
 		}
 
-		if (FlxG.keys.justPressed.O) {
-			waitForFinish = true;
-			if (isCarrying) {
-				isCarrying = false;
-				animation.play("throw");
-			} else {
-				isCarrying = true;
-				animation.play("pickup");
-			}
-			return;
-		}
+		// if (FlxG.keys.justPressed.O) {
+		// 	waitForFinish = true;
+		// 	if (isCarrying) {
+		// 		isCarrying = false;
+		// 		animation.play("throw");
+		// 	} else {
+		// 		isCarrying = true;
+		// 		animation.play("pickup");
+		// 	}
+		// 	return;
+		// }
 
 		facing = newFacing;
 
@@ -137,5 +142,10 @@ class Player extends FlxSprite {
 		} else {
 			animation.play(carryPrefix + "idle");
 		}
+	}
+
+	public function hoist() {
+		isCarrying = true;
+		animation.play("pickup");
 	}
 }

@@ -1,5 +1,6 @@
-package states;
+package managers;
 
+import entities.Player;
 import audio.SoundBankAccessor;
 import audio.BitdecaySoundBank;
 import hitbox.HitboxSprite;
@@ -21,8 +22,10 @@ import entities.TreeLog;
 import flixel.FlxG;
 import flixel.FlxState;
 import sorting.HitboxSorter;
+import screens.GameScreen;
+import managers.FireManager;
 
-class MovementState extends FlxState
+class GameManager
 {
 	var playerGroup:PlayerGroup;
 	var treeGroup:TreeGroup;
@@ -38,16 +41,15 @@ class MovementState extends FlxState
 	
 	public var bitdecaySoundBank:BitdecaySoundBank;
 
-	override public function create():Void
+	public function new(game:GameScreen):Void
 	{
-		super.create();
 		// FlxG.debugger.visible = true;
 		FlxG.debugger.drawDebug = true;
 		
 		sortGroup = new FlxSpriteGroup(0);
-		add(sortGroup);
+		game.add(sortGroup);
 		playerHitboxes = new FlxTypedGroup<HitboxSprite>(0);
-		add(playerHitboxes);
+		game.add(playerHitboxes);
 
 		playerGroup = new PlayerGroup(sortGroup, playerHitboxes);
 
@@ -60,19 +62,19 @@ class MovementState extends FlxState
 
 		itemGroup = new FlxGroup(0);
 		
-		camera.filtersEnabled = true;
+		game.camera.filtersEnabled = true;
 		filters.push(new ShaderFilter(shader));
-		camera.bgColor = FlxColor.WHITE;
-		camera.setFilters(filters);
+		game.camera.bgColor = FlxColor.WHITE;
+		game.camera.setFilters(filters);
 		
 		bitdecaySoundBank = new BitdecaySoundBank();
-		bitdecaySoundBank.PlaySong(BitdecaySongs.ZombieFuel);
+        bitdecaySoundBank.PlaySong(BitdecaySongs.ZombieFuel);
+        
+        new FireManager(game);
 	}
 
-	override public function update(elapsed:Float):Void
+	public function update(elapsed:Float):Void
 	{
-		super.update(elapsed);
-
 		sortGroup.sort(HitboxSorter.sort, FlxSort.ASCENDING);
 		
 		// Environment restrictions
@@ -109,13 +111,8 @@ class MovementState extends FlxState
 		}
 	}
 
-	private static function handlePlayerHit(player: FlxSprite, item: FlxSprite) {
-		var interactVector:FlxVector = player.getMidpoint();
-			interactVector.subtractPoint(item.getMidpoint());
-		if (interactVector.x > 0) {
-			item.velocity.x = -300;
-		} else {
-			item.velocity.x = 300;
-		}
+	private static function handlePlayerHit(playerHitbox: HitboxSprite, item: FlxSprite) {
+		var player = cast(playerHitbox.source, Player);
+		player.playerGroup.pickUp(item);
 	}
 }

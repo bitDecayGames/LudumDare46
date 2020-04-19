@@ -1,5 +1,7 @@
 package debug;
 
+import flixel.group.FlxSpriteGroup;
+import entities.PlayerGroup;
 import hitbox.HitboxSprite;
 import flixel.FlxSprite;
 import flixel.math.FlxRandom;
@@ -17,7 +19,7 @@ class TestEnemyFlock {
 	var flock:EnemyFlock;
 
 	public function new(game:GameScreen) {
-		player = new Player(new FlxTypedGroup<HitboxSprite>());
+		player = new Player(new PlayerGroup(new FlxSpriteGroup(0), new FlxTypedGroup<HitboxSprite>(0)), new FlxTypedGroup<HitboxSprite>());
 		player.x = 120;
 		player.y = 300;
 		game.add(player);
