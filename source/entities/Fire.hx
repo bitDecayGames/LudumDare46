@@ -86,7 +86,6 @@ class Fire extends FlxGroup
 
     private function updateAnimation(duration):Void
     {
-        trace(duration);
         var newAnimation:String;
         if (duration > 2 / 3 * MAX_DURATION) {
             newAnimation = "raging";
