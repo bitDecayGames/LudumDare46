@@ -200,6 +200,9 @@ class BitdecaySoundBank {
 	}
 
 	public function StopSongWithFadeOut(fadeDuration:Int = 1) {
+		if (song == null){
+			return;
+		}
 		StopSongWhenVolumeIsZero = true;
 		song.fadeOut(fadeDuration);
 	}
