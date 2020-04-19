@@ -1,5 +1,8 @@
 package entities.enemies;
 
+import audio.BitdecaySoundBank;
+import audio.SoundBankAccessor;
+import flixel.util.FlxTimer;
 import managers.HitboxManager;
 import entities.Player;
 import flixel.group.FlxGroup;
@@ -10,6 +13,7 @@ class ConfusedZombie extends RegularAssZombie {
 	private var maxWaitTime = 2.0;
 	private var maxChaseTime = 3.0;
 	private var confused = false;
+	private var groamTimer:FlxTimer;
 
 	public function new(hitboxMgr:HitboxManager) {
 		super(hitboxMgr);
@@ -17,6 +21,16 @@ class ConfusedZombie extends RegularAssZombie {
 		personalBubble = 50;
 		speed = 40;
 		randomizeStats();
+		groamTimer = new FlxTimer();
+		groamTimer.start(1.5, playGroan, 1000);
+	}
+
+	private function playGroan(timer:FlxTimer):Void {
+		try {
+			SoundBankAccessor.GetBitdecaySoundBank().PlaySoundAtLocation(BitdecaySounds.ZombieGroan, this, hitboxMgr.getPlayer());
+		} catch (msg:String){
+			trace('Failed to play zombie groan: {$msg}');
+		}
 	}
 
 	public override function randomizeStats() {

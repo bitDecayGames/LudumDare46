@@ -43,7 +43,7 @@ class Enemy extends Throwable {
 
 	var hurtboxSize = new FlxPoint(20, 4);
 
-	var hitboxMgr:HitboxManager;
+	public var hitboxMgr:HitboxManager;
 
 	var stunTime:Float = 0;
 	private var danceTurnFrames:Array<Int>;

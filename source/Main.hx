@@ -1,5 +1,6 @@
 package;
 
+import screens.MainMenuScreen;
 import flixel.util.FlxColor;
 import flixel.addons.transition.TransitionData;
 import flixel.addons.transition.FlxTransitionableState;
@@ -13,6 +14,6 @@ class Main extends Sprite {
 		super();
 		FlxTransitionableState.defaultTransIn = new TransitionData(FADE, FlxColor.BLACK, 0.35);
 		FlxTransitionableState.defaultTransOut = new TransitionData(FADE, FlxColor.BLACK, 0.35);
-		addChild(new FlxGame(0, 0, GameScreen, 1, 60, 60, true, false));
+		addChild(new FlxGame(0, 0, MainMenuScreen, 1, 60, 60, true, false));
 	}
 }

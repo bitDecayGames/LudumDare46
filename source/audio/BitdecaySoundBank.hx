@@ -1,6 +1,7 @@
 package audio;
 
 import flixel.system.FlxSound;
+import flixel.FlxSprite;
 import flixel.FlxG;
 
 enum BitdecaySongs {
@@ -52,7 +53,7 @@ typedef MusicInfo = {
 
 class BitdecaySoundBank {
 
-	private var mute_music = true;
+	private var mute_music = false;
 
 	public var flxSounds:Map<BitdecaySounds, SoundInfo> = [
 		BitdecaySounds.BulletTimeIn => {name: Std.string(BitdecaySounds.BulletTimeIn), instances: 1, paths: [
@@ -133,9 +134,10 @@ class BitdecaySoundBank {
 			{ path: AssetPaths.zombie_crush2__ogg, volume: 1},
 		], soundClip: null},
 		BitdecaySounds.ZombieGroan => {name: Std.string(BitdecaySounds.ZombieGroan), instances: 1, paths: [
-			{ path: AssetPaths.zombie_groan1__ogg, volume: 1},
-			{ path: AssetPaths.zombie_groan2__ogg, volume: 1},
-			{ path: AssetPaths.zombie_groan3__ogg, volume: 1},
+			{ path: AssetPaths.zombie_groan_loud1__ogg, volume: 1},
+			{ path: AssetPaths.zombie_groan_loud3__ogg, volume: 1},
+			{ path: AssetPaths.zombie_groan_loud4__ogg, volume: 1},
+			{ path: AssetPaths.zombie_groan_loud5__ogg, volume: 1},
 		], soundClip: null},
 	];
 
@@ -176,6 +178,14 @@ class BitdecaySoundBank {
 			throw 'Tried to play sound effect ($soundName), but it was not found';
 		}
 		soundInfo.soundClip.play();
+	}
+
+	public function PlaySoundAtLocation(soundName:BitdecaySounds, origin:FlxSprite, player:FlxSprite) {
+		var soundInfo = flxSounds[soundName];
+		if (soundInfo == null) {
+			throw 'Tried to play sound effect ($soundName), but it was not found';
+		}
+		soundInfo.soundClip.play(origin, player);
 	}
 
 	public function PlaySoundLooped(soundName:BitdecaySounds):Int {

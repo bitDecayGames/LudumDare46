@@ -1,5 +1,7 @@
 package audio;
 
+import managers.HitboxManager;
+import flixel.FlxSprite;
 import audio.BitdecaySoundBank.SoundPath;
 import flixel.math.FlxRandom;
 import flixel.system.FlxSound;
@@ -38,7 +40,8 @@ class BitdecaySound {
 
 	// Due to a bug in FlxRandom's cpp transpiled code, I cannot shuffle the array directly. 
 	//   An integer mapping array is used to work around this.
-	public function play() {
+	public function play(?origin:FlxSprite, ?player:FlxSprite ) {
+		var soundRange:Int = 200;
 		var index = 0;
 		var indexArray = new Array();
 		for (i in 0...flxSounds.length) {
@@ -48,6 +51,14 @@ class BitdecaySound {
 		indexArray.remove(lastPlayedIndex);
 		for (index in indexArray) {
 			if (!flxSounds[index].playing){
+
+				if (origin != null && player != null){
+					if (debugSound) {
+						trace('Setting location of ${name}[${index}] to ${origin.getPosition()} and is tracked by ${player}');
+					}
+					flxSounds[index].proximity(origin.getPosition().x, origin.getPosition().y, player, soundRange);
+				} 
+
 				if (debugSound) {
 					trace('Playing ${name}[${index}] at volume ${flxSounds[index].volume}');
 				}
@@ -57,11 +68,19 @@ class BitdecaySound {
 			}
 		}
 
+		if (origin != null && player != null){
+			if (debugSound) {
+				trace('Setting location of ${name}[${index}] to ${origin.getPosition()} and is tracked by ${player}');
+			}
+			flxSounds[index].proximity(origin.getPosition().x, origin.getPosition().y, player, soundRange);
+		} 
+		
 		// If everything is currently playing, just reset the first one
 		if (debugSound) {
 			trace('All instances of the sound ${name} were playing. Restarting 0 at volume ${flxSounds[index].volume}');
 		}
 		flxSounds[0].play(true);
+		lastPlayedIndex = index;
 	}
 
 	public function stop() {
