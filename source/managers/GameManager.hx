@@ -48,7 +48,7 @@ class GameManager
 		hitboxMgr = new HitboxManager(game);
 	
 		// TODO: Probably could put this in a better place
-		hitboxMgr.addTrees(2);
+		hitboxMgr.addTrees();
 
 		game.camera.filtersEnabled = true;
 		filters.push(new ShaderFilter(shader));
