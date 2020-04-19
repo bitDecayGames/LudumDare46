@@ -1,5 +1,6 @@
 package states;
 
+import entities.Player;
 import hitbox.HitboxSprite;
 import flixel.math.FlxVector;
 import entities.TreeTrunk;
@@ -101,13 +102,8 @@ class MovementState extends FlxState
 		}
 	}
 
-	private static function handlePlayerHit(player: FlxSprite, item: FlxSprite) {
-		var interactVector:FlxVector = player.getMidpoint();
-			interactVector.subtractPoint(item.getMidpoint());
-		if (interactVector.x > 0) {
-			item.velocity.x = -300;
-		} else {
-			item.velocity.x = 300;
-		}
+	private static function handlePlayerHit(playerHitbox: HitboxSprite, item: FlxSprite) {
+		var player = cast(playerHitbox.source, Player);
+		player.playerGroup.pickUp(item);
 	}
 }
