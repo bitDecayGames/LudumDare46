@@ -51,9 +51,7 @@ class Fire extends FlxGroup
         super.update(elapsed);
         if (dead) 
         {
-            trace("about to fizzle");
             if (onFizzle != null) {
-                trace("call fizzle");
                 onFizzle();
             }
             return;
@@ -79,14 +77,11 @@ class Fire extends FlxGroup
         if (FlxG.keys.justPressed.H)
         {            
             addTime(5);
-            trace("add duration: " + duration);
         }
         
         if (FlxG.keys.justPressed.L)
         {
             addTime(-5);
-            trace("less duration: " + duration);
-
         }
     
         updateAnimation(duration);
@@ -96,13 +91,16 @@ class Fire extends FlxGroup
     private function updateAnimation(duration):Void
     {
         var newAnimation:String;
-        if (duration > 2 / 3 * MAX_DURATION) {
+        if (duration > 0.6 * MAX_DURATION) {
             newAnimation = "raging";
-        } else if (duration > 1 / 3 * MAX_DURATION) {
+        } else if (duration > 0.3 * MAX_DURATION) {
             newAnimation = "regular";
-        } else {
+        } else if (duration > 0.1 * MAX_DURATION) {
             newAnimation = "tiny";
+        } else {
+            newAnimation = "none";
         }
+
         if (newAnimation != fireArt.currentAnimation) {
             trace("duration for animation change: " + duration);
         }

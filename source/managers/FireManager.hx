@@ -13,7 +13,7 @@ class FireManager {
     private var transitioner:SceneTransitioner;
 
 	public function new(game:GameScreen, x: Float, y: Float) {
-        transitioner = new SceneTransitioner();
+        transitioner = game.transitioner;
         fire = new Fire(x, y, 30);
         fire.onFizzle = gameOver;
         game.add(fire);
