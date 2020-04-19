@@ -45,8 +45,10 @@ class MainMenuScreen extends FlxUIState {
 			if (button != null) {
 				switch (button.name) {
 					case START:
+						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuSelect);
 						transitioner.TransitionWithMusicFade(new GameScreen());
 					case CREDITS:
+						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuNavigate);
 						FlxG.switchState(new CreditsScreen());
 					case EXIT:
 						#if !html5

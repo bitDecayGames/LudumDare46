@@ -1,5 +1,6 @@
 package audio;
 
+import screens.CreditsScreen;
 import flixel.FlxG;
 import audio.BitdecaySoundBank;
 import screens.GameScreen;
@@ -13,6 +14,10 @@ class SoundBankAccessor {
         } catch( msg : String ) {}
         try {
             var state:MainMenuScreen = cast(FlxG.state, MainMenuScreen);
+            return state.bitdecaySoundBank;
+        } catch( msg : String ) {}
+        try {
+            var state:CreditsScreen = cast(FlxG.state, CreditsScreen);
             return state.bitdecaySoundBank;
         } catch( msg : String ) {}
 

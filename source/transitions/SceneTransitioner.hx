@@ -14,11 +14,10 @@ class SceneTransitioner {
 
     public function new () {}
 
-    public function TransitionWithMusicFade(state:FlxState) {
+    public function TransitionWithMusicFade(state:FlxState, fadeDuration:Int = 1) {
         destinationState = state;
         isTransitioning = true;
-        SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuSelect);
-        SoundBankAccessor.GetBitdecaySoundBank().StopSongWithFadeOut();
+        SoundBankAccessor.GetBitdecaySoundBank().StopSongWithFadeOut(fadeDuration);
     }
 
     public function update() {
