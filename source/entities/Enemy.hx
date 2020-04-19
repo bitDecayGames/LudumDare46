@@ -84,7 +84,7 @@ class Enemy extends FlxSprite {
 	override public function update(delta:Float):Void {
 		super.update(delta);
 
-		if (player != null && FlxMath.distanceBetween(this, player) <= attackDistance) {
+		if (shouldAttack()) {
 			attack();
 		}
 
@@ -112,6 +112,10 @@ class Enemy extends FlxSprite {
 		}
 	}
 
+	function shouldAttack():Bool {
+		return player != null && FlxMath.distanceBetween(this, player) <= attackDistance;
+	}
+
 	function moveTowardsPlayer():FlxVector {
 		var v = new FlxVector(0, 0);
 		if (player != null) {
@@ -124,7 +128,7 @@ class Enemy extends FlxSprite {
 		return v;
 	}
 
-	function keepDistanceFromOtherZombies():FlxVector {
+	function keepDistanceFromOtherEnemies():FlxVector {
 		var v = new FlxVector();
 		var temp = new FlxVector();
 		var enemiesInPersonalBubble = 0.0;
@@ -246,7 +250,7 @@ class Enemy extends FlxSprite {
 	function calculateVelocity() {
 		if (enemyState == CHASING) {
 			var move = moveTowardsPlayer();
-			var keepDistance = keepDistanceFromOtherZombies();
+			var keepDistance = keepDistanceFromOtherEnemies();
 			velocity.set(move.x + keepDistance.x, move.y + keepDistance.y);
 		}
 	}
