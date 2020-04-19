@@ -8,7 +8,6 @@ class FireManager {
 	public function new(game:GameScreen) {
         fire = new Fire(FlxG.width / 2, FlxG.height / 2, 30);
 		game.add(fire);
-		fire.start();
+        fire.start();
     }
-
 }
