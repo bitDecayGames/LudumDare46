@@ -46,7 +46,7 @@ typedef MusicInfo = {
 
 class BitdecaySoundBank {
 
-	private var mute_music = true;
+	private var mute_music = false;
 
 	public var flxSounds:Map<BitdecaySounds, SoundInfo> = [
 		BitdecaySounds.BulletTimeIn => {name: Std.string(BitdecaySounds.BulletTimeIn), instances: 1, paths: [
@@ -189,13 +189,19 @@ class BitdecaySoundBank {
 			song = FlxG.sound.load(musicInfo.path);
 			song.looped = true;
 			song.volume = musicInfo.volume;
+			song.group = FlxG.sound.defaultMusicGroup;
 
 			if (musicInfo.name == Std.string(BitdecaySongs.ZombieFuel)){
 				trace('${Std.string(BitdecaySongs.ZombieFuel)} found. Playing low pass version in parallel at volume ${flxSongs[BitdecaySongs.ZombieFuelLowPass].volume}');
 				songLowPass = FlxG.sound.load(flxSongs[BitdecaySongs.ZombieFuelLowPass].path);
 				songLowPass.looped = true;
 				songLowPass.volume = flxSongs[BitdecaySongs.ZombieFuelLowPass].volume;
+				songLowPass.group = FlxG.sound.defaultMusicGroup;
 				songLowPass.play();
+			}
+			if (musicInfo.name == Std.string(BitdecaySongs.TitleScreen)) {
+				// If it is the title screen, let it persist through menus until we manually fade it out
+				song.persist = true;
 			}
 
 			trace('Playing ${musicInfo.name} at volume ${musicInfo.volume}');
@@ -204,9 +210,14 @@ class BitdecaySoundBank {
 			trace('Song was already playing. Ignoring play request for ${songName}');
 		}
 	}
+	
+	public function TrackSong(existingSong:FlxSound){
+		song = existingSong;
+	}
 
 	public function StopSongWithFadeOut(fadeDuration:Int = 1) {
 		if (song == null){
+			trace('song is null');
 			return;
 		}
 		StopSongWhenVolumeIsZero = true;

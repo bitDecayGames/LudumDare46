@@ -23,8 +23,13 @@ class MainMenuScreen extends FlxUIState {
 		super.create();
 		
 		bitdecaySoundBank = new BitdecaySoundBank();
-		bitdecaySoundBank.PlaySong(BitdecaySongs.TitleScreen);
 		transitioner = new SceneTransitioner();
+		// This is a hack to track the title screen song when we go to the credits scene
+		if (FlxG.sound.defaultMusicGroup.sounds.length == 0){
+			bitdecaySoundBank.PlaySong(BitdecaySongs.TitleScreen);
+		} else {
+			bitdecaySoundBank.TrackSong(FlxG.sound.defaultMusicGroup.sounds[0]);
+		}
 
 	}
 
@@ -40,7 +45,8 @@ class MainMenuScreen extends FlxUIState {
 			if (button != null) {
 				switch (button.name) {
 					case START:
-						transitioner.TransitionWithMusicFade(new MovementState());
+						trace('calling transitioner');
+						transitioner.TransitionWithGlobalFlxMusicFade(new MovementState());
 					case CREDITS:
 						FlxG.switchState(new CreditsScreen());
 					case EXIT:
