@@ -2,7 +2,7 @@ package entities;
 
 import flixel.FlxSprite;
 
-class TreeLog extends FlxSprite {
+class TreeLog extends Throwable {
 
 	public function new() {
 		super();
@@ -16,7 +16,19 @@ class TreeLog extends FlxSprite {
 
 		animation.add("log", [0], 0);
 		animation.play("log");
-		drag.set(100, 100);
+		drag.set(500, 500);
+
+		state = PICKUPABLE;
+	}
+
+	override public function update(delta:Float) {
+		super.update(delta);
+
+		if (state == BEING_THROWN || state == BEING_CARRIED) {
+			drag.set(0, 0);
+		} else {
+			drag.set(500, 500);
+		}
 	}
 
 }

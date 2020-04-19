@@ -25,8 +25,6 @@ class Player extends FlxSprite {
 
 	var hitboxes:AttackHitboxes;
 
-	var isCarrying = false;
-
 	public function new(playerGroup:PlayerGroup, hitboxMgr:HitboxManager) {
 		super();
 		this.playerGroup = playerGroup;
@@ -53,7 +51,7 @@ class Player extends FlxSprite {
 		animation.add("carry_run", [24, 25, 26, 27], 5);
 		animation.add("pickup", [30, 31], 10, false);
 		animation.add("carry_idle", [31], 5);
-		animation.add("throw", [32, 33, 34], 5, false);
+		animation.add("throw", [32, 33, 34], 15, false);
 		animation.add("punch", [41, 42, 43], 10, false);
 
 		hitboxes = new AttackHitboxes(this);
@@ -70,6 +68,7 @@ class Player extends FlxSprite {
 
 	override public function update(delta:Float):Void {
 		super.update(delta);
+		playerGroup.update(delta);
 		hitboxes.update(delta);
 
 		if (waitForFinish) {
@@ -115,20 +114,13 @@ class Player extends FlxSprite {
 
 		if (FlxG.keys.justPressed.P) {
 			// Filler punch controls
-			animation.play("punch");
-			waitForFinish = true;
-			velocity.set(0, 0);
-			return;
-		}
-
-		if (FlxG.keys.justPressed.O) {
-			waitForFinish = true;
-			if (isCarrying) {
-				isCarrying = false;
-				animation.play("throw");
+			if (playerGroup.activelyCarrying) {
+				velocity.set(0, 0);
+				playerGroup.throwThing();
 			} else {
-				isCarrying = true;
-				animation.play("pickup");
+				animation.play("punch");
+				waitForFinish = true;
+				velocity.set(0, 0);
 			}
 			return;
 		}
@@ -137,7 +129,7 @@ class Player extends FlxSprite {
 
 		velocity.rotate(FlxPoint.weak(0, 0), newAngle);
 
-		var carryPrefix = isCarrying ? "carry_" : "";
+		var carryPrefix =  playerGroup.activelyCarrying ? "carry_" : "";
 		// if the player is moving (velocity is not 0 for either axis), we need to change the animation to match their facing
 		if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE) {
 			animation.play(carryPrefix + "walk");
@@ -147,7 +139,12 @@ class Player extends FlxSprite {
 	}
 
 	public function hoist() {
-		isCarrying = true;
 		animation.play("pickup");
+		waitForFinish = true;
+	}
+
+	public function chuck() {
+		animation.play("throw");
+		waitForFinish = true;
 	}
 }
