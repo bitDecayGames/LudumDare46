@@ -32,7 +32,7 @@ class Fire extends FlxGroup
 
         this.duration = duration;
         fireArt = new FireArt(x, y);
-        add(fireArt);
+        // add(fireArt);
         
         emitter = new FlxEmitter(x + fireArt.width / 2 - 13, y + fireArt.height / 2 - 23, 200);
 		emitter.makeParticles(4, 6, FlxColor.ORANGE, 200);
