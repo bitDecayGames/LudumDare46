@@ -12,7 +12,7 @@ class PlayerGroup extends FlxGroup {
 	var sortGroup:FlxSpriteGroup;
 	var hitboxGroup:FlxTypedGroup<HitboxSprite>;
 
-	var player:Player;
+	public var player:Player;
 	var savedInstance:FlxSprite;
 	var carry:FlxSprite;
 
