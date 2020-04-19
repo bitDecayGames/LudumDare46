@@ -12,14 +12,9 @@ class ParticleState extends FlxState
 	{
 		super.create();
 
-		fire = new Fire(FlxG.width / 2, FlxG.height / 2, 30, null);
-		add(fire.emitter);
+		fire = new Fire(FlxG.width / 2, FlxG.height / 2, 30);
+		add(fire);
 		fire.start();
 	}
 
-	override public function update(elapsed:Float):Void
-	{
-		super.update(elapsed);
-		fire.update(elapsed);
-	}
 }
