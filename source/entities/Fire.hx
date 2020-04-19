@@ -18,6 +18,7 @@ class Fire extends FlxGroup
     public var MAX_FREQUENCY:Float = 0.3;
     public var MAX_DRAG:Float = 125;
     public var DRAG_RATE:Float = 0.001;
+    public var onFizzle:Void->Void;
     private var deathRate:Float;
     private var drag:Float = 0;
 
@@ -31,7 +32,7 @@ class Fire extends FlxGroup
 
         this.duration = duration;
         fireArt = new FireArt(x, y);
-        add(fireArt);
+        // add(fireArt);
         
         emitter = new FlxEmitter(x + fireArt.width / 2 - 13, y + fireArt.height / 2 - 23, 200);
 		emitter.makeParticles(4, 6, FlxColor.ORANGE, 200);
@@ -50,6 +51,9 @@ class Fire extends FlxGroup
         super.update(elapsed);
         if (dead) 
         {
+            if (onFizzle != null) {
+                onFizzle();
+            }
             return;
         }
         duration -= elapsed;
@@ -71,7 +75,7 @@ class Fire extends FlxGroup
 
 
         if (FlxG.keys.justPressed.H)
-        {
+        {            
             addTime(5);
         }
         
@@ -87,14 +91,19 @@ class Fire extends FlxGroup
     private function updateAnimation(duration):Void
     {
         var newAnimation:String;
-        if (duration > 2 / 3 * MAX_DURATION) {
+        if (duration > 0.6 * MAX_DURATION) {
             newAnimation = "raging";
-        } else if (duration > 1 / 3 * MAX_DURATION) {
+        } else if (duration > 0.3 * MAX_DURATION) {
             newAnimation = "regular";
-        } else {
+        } else if (duration > 0.1 * MAX_DURATION) {
             newAnimation = "tiny";
+        } else {
+            newAnimation = "none";
         }
 
+        if (newAnimation != fireArt.currentAnimation) {
+            trace("duration for animation change: " + duration);
+        }
         fireArt.switchAnimation(newAnimation);
     }
 

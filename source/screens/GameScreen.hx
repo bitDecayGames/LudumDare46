@@ -1,5 +1,9 @@
 package screens;
 
+import flixel.util.FlxColor;
+import openfl.filters.ShaderFilter;
+import openfl.filters.BitmapFilter;
+import shaders.NightShader;
 import managers.HitboxManager;
 import audio.SoundBankAccessor;
 import transitions.SceneTransitioner;
@@ -12,13 +16,17 @@ import flixel.FlxG;
 import debug.TestEnemyFlock;
 import debug.TestKingOfPop;
 import managers.FireManager;
-import managers.GameManager;
 import managers.EnemySpawnManager;
 
 class GameScreen extends FlxUIState {
 	static private inline var PAUSE = "pause_btn";
 	static private inline var RESUME = "resume_game_btn";
 	static private inline var QUIT = "quit_btn";
+
+	var filters:Array<BitmapFilter> = [];
+	public var shader = new NightShader();
+
+	var fireMgr:FireManager;
 
 	public var bitdecaySoundBank:BitdecaySoundBank;
 	public var transitioner:SceneTransitioner;
@@ -53,14 +61,23 @@ class GameScreen extends FlxUIState {
 		// only you can prevent merge forest conflict fires
 		//
 		var hitboxMgr = new HitboxManager(this);
-		new GameManager(this, hitboxMgr);
-		var fireMgr = new FireManager(this, hitboxMgr);
+		hitboxMgr.addTrees();
+
+		camera.filtersEnabled = true;
+		filters.push(new ShaderFilter(shader));
+		camera.bgColor = FlxColor.WHITE;
+		camera.setFilters(filters);
+		camera.zoom = 2;
+		camera.follow(hitboxMgr.getPlayer());
+
+		fireMgr = new FireManager(this, hitboxMgr);
 		new EnemySpawnManager(this, hitboxMgr, fireMgr.getSprite());
 		// new TestKingOfPop(this, hitboxMgr, fireMgr);
 	}
 
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
+		fireMgr.update(elapsed);
 		transitioner.update();
 		bitdecaySoundBank.update();
 	}
