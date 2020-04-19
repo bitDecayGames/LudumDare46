@@ -68,6 +68,7 @@ class AttackHitboxes {
 				var hitboxFrame = inspecting.hitboxFrames[frameNumber - inspecting.offset];
 				lastActive = hitboxFrame;
 				update(0);
+				hitboxFrame.clearHits();
 				hitboxFrame.revive();
 				
 			}
