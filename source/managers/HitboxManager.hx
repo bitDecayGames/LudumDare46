@@ -28,9 +28,9 @@ class HitboxManager extends FlxBasic {
 	public var playerHitboxes:FlxTypedGroup<HitboxSprite>;
 	public var enemyHitboxes:FlxTypedGroup<HitboxSprite>;
 	public var intraEnemyHitboxes:FlxTypedGroup<HitboxSprite>;
-    public var enemyFlock:EnemyFlock;
+	public var enemyFlock:EnemyFlock;
 	public var sortGroup:FlxSpriteGroup;
-	
+
 	public function new(game:GameScreen) {
 		super();
 		game.add(this);
@@ -88,11 +88,10 @@ class HitboxManager extends FlxBasic {
 		sortGroup.add(f);
 	}
 
-	override public function update(elapsed:Float):Void
-	{
+	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
 		sortGroup.sort(HitboxSorter.sort, FlxSort.ASCENDING);
-		
+
 		// Environment restrictions
 		FlxG.collide(playerGroup, treeGroup);
 		FlxG.collide(enemyFlock, treeGroup);
@@ -109,8 +108,13 @@ class HitboxManager extends FlxBasic {
 		FlxG.overlap(intraEnemyHitboxes, enemyFlock, enemyHitEnemy);
 	}
 
-	private function playerHitEnemy(hitbox:HitboxSprite, enemy:Enemy) {
-		enemy.takeHit(hitbox.getMidpoint(), 30);
+	private function playerHitEnemy(playerHitbox:HitboxSprite, enemy:Enemy) {
+		if (enemy.state == PICKUPABLE) {
+			var player = cast(playerHitbox.source, Player);
+			player.playerGroup.pickUp(enemy);
+		} else {
+			enemy.takeHit(playerHitbox.getMidpoint(), 30);
+		}
 	}
 
 	private function enemyHitPlayer(enemy:HitboxSprite, player:Player) {
@@ -127,7 +131,7 @@ class HitboxManager extends FlxBasic {
 		hitbox.kill();
 	}
 
-	private function hitTree(player: FlxSprite, tree: TreeTrunk) {
+	private function hitTree(player:FlxSprite, tree:TreeTrunk) {
 		if (tree.hasLog) {
 			var interactVector:FlxVector = player.getMidpoint();
 			interactVector.subtractPoint(tree.getMidpoint());
@@ -138,14 +142,13 @@ class HitboxManager extends FlxBasic {
 		}
 	}
 
-	private static function playerHitItem(playerHitbox: HitboxSprite, item: FlxSprite) {
+	private static function playerHitItem(playerHitbox:HitboxSprite, item:FlxSprite) {
 		if (Std.is(item, Throwable)) {
 			var throwable = cast(item, Throwable);
 			if (throwable.state == PICKUPABLE) {
 				var player = cast(playerHitbox.source, Player);
 				player.playerGroup.pickUp(throwable);
 			}
-			
 		}
-    }
+	}
 }
