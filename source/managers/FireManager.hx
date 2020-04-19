@@ -26,16 +26,8 @@ class FireManager {
 
 	public function update(delta:Float) {
 		var screenPos = CameraUtils.project(fire.fireArt.getMidpoint(), FlxG.camera);
-		// var screenPos = hitboxMgr.getPlayer().getMidpoint();
-		// trace("Raw pos: " + screenPos);
-		// trace("Cam scroll: " + FlxG.camera.scroll);
-		// screenPos.subtract(FlxG.camera.scroll.x , FlxG.camera.scroll.y );
-		// trace("Adjust pos: " + screenPos);
-		// trace(FlxG.height);
-		// trace(FlxG.width);
 		screenPos.x /= FlxG.width;
-		screenPos.y /= FlxG.width;
-		// trace("Shader pos: " + screenPos);
+		screenPos.y /= FlxG.width; // haxe seems to assume the screen is square with size width x width
 		game.shader.firePos.value = [screenPos.x, screenPos.y];
 
 	}
