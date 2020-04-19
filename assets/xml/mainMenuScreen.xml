@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>	
+	<definition name="button_def">
+		<!-- <graphic name="all" image="test_button"/> -->
+	</definition>
+
+	<button name="start_game_btn" use_def="button_def" label="Start" color="green">
+		<anchor x="0" y="0" x-flush="center" y-flush="center" />
+	</button>
+
+	<button name="credits_btn" use_def="button_def" label="Credits" color="yellow">
+		<anchor x="0" y="0" x-flush="center" y-flush="center" />
+	</button>
+
+	<button name="exit_btn" use_def="button_def" label="Exit" color="red">
+		<anchor x="0" y="0" x-flush="center" y-flush="center" />
+	</button>
+
+	
+	<align name="btn_list" axis="vertical" x="screen.center" y="screen.bottom-20">
+		<bounds top="-80" bottom="0"/>
+		<objects value="start_game_btn,credits_btn,exit_btn"/>
+	</align>
+</data>

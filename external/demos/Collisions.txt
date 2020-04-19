@@ -1,0 +1,15 @@
+Collision Groups:
+                             PlH|EnH|Env|FiH|PlA|EnA|Prj
+- Player Hurtbox        PlH |   |   | X2|   |   | X4|   
+                        ----+---+---+---+---+---+---+---
+- Enemy Hurtbox         EnH |---| X1| X2| ? | X3|   | X5
+                        ----+---+---+---+---+---+---+---
+- Environmental Hurtbox Env |---|---|   |   | X3| ? | X5
+                        ----+---+---+---+---+---+---+---
+- Fire Hurtbox          FiH |---|---|---|   |   |   | X5
+                        ----+---+---+---+---+---+---+---
+- Player attacks        PlA |---|---|---|---|   |   | ? 
+                        ----+---+---+---+---+---+---+---
+- Enemy attacks         EnA |---|---|---|---|---|   | ? 
+                        ----+---+---+---+---+---+---+---
+- Projectiles           Prj |---|---|---|---|---|---| ? 
