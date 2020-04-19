@@ -27,9 +27,9 @@ class HitboxManager extends FlxBasic {
 	public var playerHitboxes:FlxTypedGroup<HitboxSprite>;
 	public var enemyHitboxes:FlxTypedGroup<HitboxSprite>;
 	public var intraEnemyHitboxes:FlxTypedGroup<HitboxSprite>;
-    public var enemyFlock:EnemyFlock;
+	public var enemyFlock:EnemyFlock;
 	public var sortGroup:FlxSpriteGroup;
-	
+
 	public function new(game:GameScreen) {
 		super();
 		game.add(this);
@@ -87,11 +87,10 @@ class HitboxManager extends FlxBasic {
 		sortGroup.add(f);
 	}
 
-	override public function update(elapsed:Float):Void
-	{
+	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
 		sortGroup.sort(HitboxSorter.sort, FlxSort.ASCENDING);
-		
+
 		// Environment restrictions
 		FlxG.collide(playerGroup, treeGroup);
 		FlxG.collide(enemyFlock, treeGroup);
@@ -126,7 +125,7 @@ class HitboxManager extends FlxBasic {
 		hitbox.kill();
 	}
 
-	private function hitTree(player: FlxSprite, tree: TreeTrunk) {
+	private function hitTree(player:FlxSprite, tree:TreeTrunk) {
 		if (tree.hasLog) {
 			var interactVector:FlxVector = player.getMidpoint();
 			interactVector.subtractPoint(tree.getMidpoint());
@@ -137,8 +136,8 @@ class HitboxManager extends FlxBasic {
 		}
 	}
 
-	private static function handlePlayerHit(playerHitbox: HitboxSprite, item: FlxSprite) {
+	private static function handlePlayerHit(playerHitbox:HitboxSprite, item:FlxSprite) {
 		var player = cast(playerHitbox.source, Player);
 		player.playerGroup.pickUp(item);
-    }
+	}
 }
