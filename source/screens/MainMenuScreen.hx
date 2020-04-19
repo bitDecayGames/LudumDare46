@@ -2,6 +2,7 @@ package screens;
 
 import states.MovementState;
 import audio.BitdecaySound;
+import audio.SoundBankAccessor;
 import audio.BitdecaySoundBank;
 import flixel.addons.ui.FlxUIState;
 import flixel.addons.ui.FlxUIButton;
@@ -23,7 +24,7 @@ class MainMenuScreen extends FlxUIState {
 		
 		bitdecaySoundBank = new BitdecaySoundBank();
 		bitdecaySoundBank.PlaySong(BitdecaySongs.TitleScreen);
-		transitioner = new SceneTransitioner(bitdecaySoundBank);
+		transitioner = new SceneTransitioner();
 
 	}
 

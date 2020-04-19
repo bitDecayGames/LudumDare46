@@ -1,5 +1,6 @@
 package states;
 
+import audio.BitdecaySoundBank;
 import entities.Tree;
 import flixel.util.FlxSort;
 import flixel.group.FlxSpriteGroup;
@@ -31,6 +32,8 @@ class MovementState extends FlxState
 	var shader = new NightShader();
 	
 	var increasing:Bool = true;
+	
+	public var bitdecaySoundBank:BitdecaySoundBank;
 
 	override public function create():Void
 	{
@@ -59,6 +62,9 @@ class MovementState extends FlxState
 		filters.push(new ShaderFilter(shader));
 		camera.bgColor = FlxColor.WHITE;
 		camera.setFilters(filters);
+		
+		bitdecaySoundBank = new BitdecaySoundBank();
+		bitdecaySoundBank.PlaySong(BitdecaySongs.ZombieFuel);
 	}
 
 	override public function update(elapsed:Float):Void

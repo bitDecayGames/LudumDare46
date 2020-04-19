@@ -1,5 +1,7 @@
 package hitbox;
 
+import audio.BitdecaySoundBank.BitdecaySounds;
+import audio.SoundBankAccessor;
 import flixel.FlxG;
 import flixel.group.FlxGroup;
 import flixel.FlxObject;
@@ -73,6 +75,9 @@ class AttackHitboxes {
 				lastActive = hitboxFrame;
 				update(0);
 			}
+		}
+		if (frameNumber == 0 && name == "punch"){
+			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MachoManThrowPunch);
 		}
 	}
 }

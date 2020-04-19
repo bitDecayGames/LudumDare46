@@ -1,5 +1,6 @@
 package transitions;
 
+import audio.SoundBankAccessor;
 import flixel.FlxState;
 import audio.BitdecaySound;
 import flixel.FlxG;
@@ -10,22 +11,19 @@ class SceneTransitioner {
 
     public var isTransitioning:Bool;
     public var destinationState:FlxState;
-    public var bitdecaySoundBank:BitdecaySoundBank;
 
-    public function new (theBitdecaySoundBank:BitdecaySoundBank) {
-        bitdecaySoundBank = theBitdecaySoundBank;
-    }
+    public function new () {}
 
     public function TransitionWithMusicFade(state:FlxState) {
         destinationState = state;
         isTransitioning = true;
-        bitdecaySoundBank.PlaySound(BitdecaySounds.MenuSelect);
-        bitdecaySoundBank.StopSongWithFadeOut();
+        SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuSelect);
+        SoundBankAccessor.GetBitdecaySoundBank().StopSongWithFadeOut();
     }
 
     public function update() {
         if (isTransitioning) {
-            if (!bitdecaySoundBank.IsSongPlaying()) {
+            if (!SoundBankAccessor.GetBitdecaySoundBank().IsSongPlaying()) {
                 FlxG.switchState(destinationState);
             }
         }
