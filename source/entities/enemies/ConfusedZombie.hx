@@ -1,5 +1,6 @@
 package entities.enemies;
 
+import managers.HitboxManager;
 import entities.Player;
 import flixel.group.FlxGroup;
 import hitbox.HitboxSprite;
@@ -10,8 +11,8 @@ class ConfusedZombie extends RegularAssZombie {
 	private var maxChaseTime = 3.0;
 	private var confused = false;
 
-	public function new(player:Player, playerHitboxesGroup:FlxTypedGroup<HitboxSprite>) {
-		super(player, playerHitboxesGroup);
+	public function new(hitboxMgr:HitboxManager) {
+		super(hitboxMgr);
 		super.initAnimations(AssetPaths.Zombie__png);
 		personalBubble = 50;
 		speed = 40;

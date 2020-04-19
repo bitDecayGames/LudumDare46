@@ -1,5 +1,6 @@
 package entities;
 
+import managers.HitboxManager;
 import flixel.FlxG;
 import flixel.util.FlxSpriteUtil;
 import flixel.math.FlxRandom;
@@ -39,10 +40,13 @@ class Enemy extends FlxSprite {
 
 	var hurtboxSize = new FlxPoint(20, 4);
 
-	public function new(player:Player, playerHitboxesGroup:FlxTypedGroup<HitboxSprite>) {
+	var hitboxMgr:HitboxManager;
+
+	public function new(hitboxMgr:HitboxManager) {
 		super();
 		rnd = new FlxRandom();
-		this.player = player;
+		this.hitboxMgr = hitboxMgr;
+		this.player = hitboxMgr.getPlayer();
 		enemyState = CHASING;
 
 		setFacingFlip(FlxObject.UP | FlxObject.RIGHT, false, false);
@@ -53,7 +57,7 @@ class Enemy extends FlxSprite {
 		setFacingFlip(FlxObject.DOWN | FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
 
-		playerSafeHitboxes = new AttackHitboxes(this, playerHitboxesGroup);
+		playerSafeHitboxes = new AttackHitboxes(this);
 	}
 
 	// MW need to call this from the new function in a subclass
@@ -86,8 +90,8 @@ class Enemy extends FlxSprite {
 
 		animation.add("carried", [37], 0);
 
-		playerSafeHitboxes.register("fall_left", 0, [new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0), new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)]);
-		playerSafeHitboxes.register("fall_right", 0, [new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0), new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)]);
+		playerSafeHitboxes.register(hitboxMgr.playerHitboxes, "fall_left", 0, [new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0), new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)]);
+		playerSafeHitboxes.register(hitboxMgr.playerHitboxes, "fall_right", 0, [new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0), new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)]);
 		animation.callback = playerSafeHitboxes.animCallback;
 		animation.finishCallback = finishAnimation;
 	}

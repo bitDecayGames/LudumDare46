@@ -1,5 +1,6 @@
 package hitbox;
 
+import managers.HitboxManager;
 import audio.BitdecaySoundBank.BitdecaySounds;
 import audio.SoundBankAccessor;
 import flixel.FlxG;
@@ -12,16 +13,14 @@ using extensions.FlxObjectExt;
 
 class AttackHitboxes {
 	var parentSprite:FlxSprite;
-	var hitboxGroup:FlxTypedGroup<HitboxSprite>;
 
 	var registrar:Map<String, HitboxRegistration> = [];
 	var lastActive:HitboxSprite;
 
 	var inspecting:HitboxRegistration;
 
-	public function new(parent:FlxSprite, hitboxGroup:FlxTypedGroup<HitboxSprite>) {
+	public function new(parent:FlxSprite) {
 		parentSprite = parent;
-		this.hitboxGroup = hitboxGroup;
 	}
 
 	public function update(elapsed:Float) {
@@ -38,7 +37,6 @@ class AttackHitboxes {
 	}
 
 	public function finishAnimation() {
-		// TODO Logor why null when bench lift?
 		if (lastActive == null) {
 			return;
 		}
@@ -47,12 +45,12 @@ class AttackHitboxes {
 	}
 
 	// register animations with the proper hitboxes and what frames they should appear on
-	public function register(animName:String, startFrame:Int, hitboxLocations:Array<HitboxLocation>):Void {
+	public function register(group:FlxTypedGroup<HitboxSprite>, animName:String, startFrame:Int, hitboxLocations:Array<HitboxLocation>):Void {
 		var hitboxes:Array<HitboxSprite> = [];
 		for (hbl in hitboxLocations) {
 			var box = new HitboxSprite(hbl, parentSprite);
 			hitboxes.push(box);
-			hitboxGroup.add(box);
+			group.add(box);
 		}
 		registrar[animName] = new HitboxRegistration(startFrame, hitboxes);
 	}

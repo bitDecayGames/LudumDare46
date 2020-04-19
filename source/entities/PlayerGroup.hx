@@ -1,28 +1,24 @@
 package entities;
 
-import hitbox.HitboxSprite;
-import flixel.FlxG;
-import flixel.group.FlxSpriteGroup;
+import managers.HitboxManager;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
 
 using extensions.FlxObjectExt;
 
 class PlayerGroup extends FlxGroup {
-	var sortGroup:FlxSpriteGroup;
-	var hitboxGroup:FlxTypedGroup<HitboxSprite>;
+	var hitboxMgr:HitboxManager;
 
 	public var player:Player;
 	var savedInstance:FlxSprite;
 	var carry:FlxSprite;
 
-	public function new(sortGroup:FlxSpriteGroup, playerHitboxGroup:FlxTypedGroup<HitboxSprite>) {
+	public function new(hitboxMgr:HitboxManager) {
 		super(0);
-		this.sortGroup = sortGroup;
-		hitboxGroup = playerHitboxGroup;
-		player = new Player(this, playerHitboxGroup);
+		this.hitboxMgr = hitboxMgr;
+		player = new Player(this, hitboxMgr);
 		add(player);
-		sortGroup.add(player);
+		hitboxMgr.addGeneral(player);
 	}
 
 	public function pickUp(thing:FlxSprite) {
@@ -34,7 +30,7 @@ class PlayerGroup extends FlxGroup {
 		carry.offset.set(player.offset.x, player.offset.y + 29);
 		carry.setSize(player.width, player.height);
 
-		sortGroup.add(carry);
+		hitboxMgr.addGeneral(carry);
 		update(0);
 		player.hoist();
 	}

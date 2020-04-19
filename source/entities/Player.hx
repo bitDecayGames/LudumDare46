@@ -1,5 +1,6 @@
 package entities;
 
+import managers.HitboxManager;
 import hitbox.HitboxSprite;
 import hitbox.HitboxLocation;
 import flixel.FlxG;
@@ -12,6 +13,7 @@ import hitbox.AttackHitboxes;
 
 class Player extends FlxSprite {
 	public var playerGroup:PlayerGroup;
+	public var hitboxMgr:HitboxManager;
 
 	var inControl = false;
 	var control = new Actions();
@@ -25,9 +27,10 @@ class Player extends FlxSprite {
 
 	var isCarrying = false;
 
-	public function new(playerGroup:PlayerGroup, playerHitboxes:FlxTypedGroup<HitboxSprite>) {
+	public function new(playerGroup:PlayerGroup, hitboxMgr:HitboxManager) {
 		super();
 		this.playerGroup = playerGroup;
+		this.hitboxMgr = hitboxMgr;
 
 		super.loadGraphic(AssetPaths.Player__png, true, 32, 48);
 
@@ -53,8 +56,8 @@ class Player extends FlxSprite {
 		animation.add("throw", [32, 33, 34], 5, false);
 		animation.add("punch", [41, 42, 43], 10, false);
 
-		hitboxes = new AttackHitboxes(this, playerHitboxes);
-		hitboxes.register("punch", 2, [new HitboxLocation(13, 15, 13, 0)]);
+		hitboxes = new AttackHitboxes(this);
+		hitboxes.register(hitboxMgr.playerHitboxes, "punch", 2, [new HitboxLocation(13, 15, 13, 0)]);
 
 		animation.callback = hitboxes.animCallback;
 		animation.finishCallback = tagFinish;

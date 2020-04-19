@@ -1,5 +1,7 @@
 package entities.enemies;
 
+import flixel.addons.display.FlxNestedSprite;
+import managers.HitboxManager;
 import flixel.math.FlxMath;
 import flixel.math.FlxVector;
 import flixel.FlxSprite;
@@ -11,8 +13,8 @@ import hitbox.HitboxSprite;
 class HardworkingFirefighter extends Enemy {
 	var firepit:FlxSprite;
 
-	public function new(player:Player, firepit:FlxSprite, playerHitboxesGroup:FlxTypedGroup<HitboxSprite>) {
-		super(player, playerHitboxesGroup);
+	public function new(hitboxMgr:HitboxManager, firepit:FlxSprite) {
+		super(hitboxMgr);
 		this.firepit = firepit;
 		super.initAnimations(AssetPaths.Firefighter__png);
 		personalBubble = 50;
