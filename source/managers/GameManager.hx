@@ -74,7 +74,6 @@ class GameManager
 		game.camera.setFilters(filters);
 		
 		bitdecaySoundBank = new BitdecaySoundBank();
-        bitdecaySoundBank.PlaySong(BitdecaySongs.ZombieFuel);
         
         // TODO Link to firepit, remove firepit var.
         new FireManager(game);
