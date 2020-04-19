@@ -60,7 +60,6 @@ class Fire extends FlxGroup
             drag += DRAG_RATE * duration;
         }   
         emitter.drag.set(0, drag);
-        Sys.print("\nduration: " + duration + ", drag: " + drag + " frequency: " + emitter.frequency);
     }
     
     private function getFrequency():Float
@@ -80,15 +79,3 @@ class Fire extends FlxGroup
         Sys.print(size + "\n");
     }
 }
-
-
-// super.create();
-// emitter = new FlxEmitter(FlxG.width / 2, FlxG.height / 2, 200);
-// emitter.makeParticles(4, 6, FlxColor.ORANGE, 200);
-// emitter.color.set(FlxColor.YELLOW, FlxColor.RED, FlxColor.BLACK);
-// emitter.launchAngle.set(-80, -100);
-// emitter.scale.set(0.5, 1, 2, 2.5);
-// emitter.alpha.set(1,1,0,0);
-// emitter.setSize(25, 25);
-// add(emitter);
-// emitter.start(false, 0.01);
