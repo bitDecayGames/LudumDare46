@@ -1,5 +1,6 @@
 package managers;
 
+import cameras.CameraUtils;
 import flixel.FlxG;
 import constants.GameConstants;
 import flixel.FlxSprite;
@@ -19,7 +20,8 @@ class FireManager {
 		this.game = game;
 		this.hitboxMgr = hitboxMgr;
 		fire = new Fire(GameConstants.GAME_START_X, GameConstants.GAME_START_Y - 80, 30);
-        fire.onFizzle = gameOver;
+		fire.onFizzle = gameOver;
+		hitboxMgr.addGeneral(fire.fireArt);
         transitioner = game.transitioner;
 		game.add(fire);
 		fire.start();
@@ -40,17 +42,9 @@ class FireManager {
 	}
 
 	public function update(delta:Float) {
-		var screenPos = fire.fireArt.getMidpoint();
-		// var screenPos = hitboxMgr.getPlayer().getMidpoint();
-		// trace("Raw pos: " + screenPos);
-		// trace("Cam scroll: " + FlxG.camera.scroll);
-		screenPos.subtract(FlxG.camera.scroll.x , FlxG.camera.scroll.y );
-		// trace("Adjust pos: " + screenPos);
-		// trace(FlxG.height);
-		// trace(FlxG.width);
-		screenPos.x /= FlxG.height;
-		screenPos.y /= FlxG.width;
-		// trace("Shader pos: " + screenPos);
+		var screenPos = CameraUtils.project(fire.fireArt.getMidpoint(), FlxG.camera);
+		screenPos.x /= FlxG.width;
+		screenPos.y /= FlxG.width; // haxe seems to assume the screen is square with size width x width
 		game.shader.firePos.value = [screenPos.x, screenPos.y];
 
 	}

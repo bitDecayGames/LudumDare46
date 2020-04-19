@@ -1,5 +1,6 @@
 package entities;
 
+import flixel.FlxG;
 import constants.GameConstants;
 import flixel.math.FlxPoint;
 import managers.HitboxManager;
@@ -22,6 +23,8 @@ class PlayerGroup extends FlxGroup {
 		// Sets start location of all game world things
 		player.x = GameConstants.GAME_START_X;
 		player.y = GameConstants.GAME_START_Y;
+		FlxG.watch.add(player, "x", "PlayerX: ");
+		FlxG.watch.add(player, "y", "PlayerY: ");
 		add(player);
 		hitboxMgr.addGeneral(player);
 	}
