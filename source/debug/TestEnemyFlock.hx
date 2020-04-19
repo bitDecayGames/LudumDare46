@@ -3,7 +3,9 @@ package debug;
 import entities.Player;
 import screens.GameScreen;
 import entities.EnemyFlock;
+import entities.Enemy;
 import entities.enemies.RegularAssZombie;
+import entities.enemies.ConfusedZombie;
 import flixel.group.FlxGroup;
 
 class TestEnemyFlock {
@@ -18,9 +20,13 @@ class TestEnemyFlock {
 		flock = new EnemyFlock(player);
 		game.add(flock);
 
-		var e:RegularAssZombie;
-		for (i in 0...20) {
-			e = new RegularAssZombie(player);
+		var e:Enemy;
+		for (i in 0...4) {
+			if (i % 2 == 0) {
+				e = new RegularAssZombie(player);
+			} else {
+				e = new ConfusedZombie(player);
+			}
 			e.x = 100 + i * 10;
 			e.y = 100;
 			flock.add(e);

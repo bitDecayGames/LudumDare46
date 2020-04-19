@@ -12,7 +12,8 @@ class RegularAssZombie extends Enemy {
 	public function new(player:Player) {
 		super(player);
 		super.initAnimations(AssetPaths.Zombie__png);
-		personalBubble = 100;
+		personalBubble = 50;
+		speed = 50;
 	}
 
 	override function calculateVelocity() {
