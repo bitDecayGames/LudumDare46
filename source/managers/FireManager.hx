@@ -1,6 +1,7 @@
 package managers;
 
 import flixel.FlxG;
+import constants.GameConstants;
 import flixel.FlxSprite;
 import entities.Fire;
 import screens.GameScreen;
@@ -9,16 +10,11 @@ class FireManager {
 	var game:GameScreen;
 	var fire:Fire;
 	var hitboxMgr:HitboxManager;
-
-	public function new(game:GameScreen, hitboxMgr:HitboxManager) {
-		var fireX = hitboxMgr.getPlayer().getPosition().x;
-		var fireY = hitboxMgr.getPlayer().getPosition().y - 80;
-
+	
+	public function new(game:GameScreen, hitboxMgr: HitboxManager) {
 		this.game = game;
 		this.hitboxMgr = hitboxMgr;
-
-		fire = new Fire(fireX, fireY, 30);
-	
+		fire = new Fire(GameConstants.GAME_START_X, GameConstants.GAME_START_Y - 80, 30);
 		game.add(fire);
 		fire.start();
 	}

@@ -26,6 +26,7 @@ enum EnemyState {
 	GETTING_UP;
 	CARRIED;
 	DANCING;
+	OTHER;
 }
 
 class Enemy extends Throwable {
@@ -253,7 +254,7 @@ class Enemy extends Throwable {
 					hitDirection.normalize();
 					beThrown(hitDirection, force);
 					FlxSpriteUtil.flicker(this, 0.3);
-				case KNOCKED_OUT | FALLING | CARRIED: // do nothing
+				case KNOCKED_OUT | FALLING | CARRIED | OTHER: // do nothing
 			}
 		} else {
 			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.RockHit);
@@ -275,7 +276,7 @@ class Enemy extends Throwable {
 						velocity.set(0, 0);
 						FlxSpriteUtil.flicker(this, 0.3);
 					}
-				case KNOCKED_OUT | FALLING | CARRIED: // do nothing
+				case KNOCKED_OUT | FALLING | CARRIED | OTHER: // do nothing
 			}
 		}
 	}

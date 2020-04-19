@@ -60,7 +60,6 @@ class GameScreen extends FlxUIState {
 		//
 		// only you can prevent merge forest conflict fires
 		//
-		// new TestKingOfPop(this);
 		var hitboxMgr = new HitboxManager(this);
 		hitboxMgr.addTrees();
 
@@ -73,6 +72,7 @@ class GameScreen extends FlxUIState {
 
 		fireMgr = new FireManager(this, hitboxMgr);
 		new EnemySpawnManager(this, hitboxMgr, fireMgr.getSprite());
+		// new TestKingOfPop(this, hitboxMgr, fireMgr);
 	}
 
 	override public function update(elapsed:Float):Void {

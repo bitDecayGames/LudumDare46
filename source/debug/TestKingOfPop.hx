@@ -1,5 +1,6 @@
 package debug;
 
+import managers.FireManager;
 import flixel.group.FlxSpriteGroup;
 import entities.PlayerGroup;
 import hitbox.HitboxSprite;
@@ -20,11 +21,7 @@ import managers.HitboxManager;
 class TestKingOfPop {
 	var hitboxMgr:HitboxManager;
 
-	public function new(game:GameScreen) {
-		hitboxMgr = new HitboxManager(game);
-		var firepit = new FlxSprite(300, 300, AssetPaths.Bush__png);
-		game.add(firepit);
-
+	public function new(game:GameScreen, hitboxMgr:HitboxManager, fireManager:FireManager) {
 		var e:Enemy;
 		var rnd = new FlxRandom();
 		for (i in 0...20) {
