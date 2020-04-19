@@ -19,26 +19,34 @@ class NightShader extends FlxShader {
 		{
 			gl_FragColor = texture2D(bitmap, openfl_TextureCoordv);
 
-			if (gl_FragColor.a > 0.0) {
-				vec3 timeInfluence = mix(nightColor, dayColor, time);
-				float fireInfluence = fireRadius - distance(openfl_TextureCoordv, firePos);
-				
-				// normalize to a linear 0.0-1.0 value
-				fireInfluence = clamp(fireInfluence, 0.0, fireRadius) / fireRadius;
-
-				// reverse exponential decay
-				fireInfluence = (1.0 - pow(fireInfluence - 1.0, 2.0));
-
-				// exponential decay
-				// fireInfluence = pow(fireInfluence, 2.0);
-
-				// This line is for testing the raw fire influence
-				// gl_FragColor.rgba = vec4(fireInfluence, fireInfluence, fireInfluence, 1.0);
-
-				vec3 totalInfluence = mix(timeInfluence, fireColor, fireInfluence);
-
-				gl_FragColor.rgb = gl_FragColor.rgb * totalInfluence;
+			if (openfl_TextureCoordv.y > 0.49 && openfl_TextureCoordv.y < 0.51) {
+				gl_FragColor.rgb = vec3(1,0,0);
+			} else {
+				gl_FragColor.rgb = vec3(0,1,0);
 			}
+			if (openfl_TextureCoordv.x > 0.49 && openfl_TextureCoordv.x < 0.51) {
+				gl_FragColor.rgb = vec3(1,0,0);
+			}
+			// if (gl_FragColor.a > 0.0) {
+			// 	vec3 timeInfluence = mix(nightColor, dayColor, time);
+			// 	float fireInfluence = fireRadius - distance(openfl_TextureCoordv, firePos);
+				
+			// 	// normalize to a linear 0.0-1.0 value
+			// 	fireInfluence = clamp(fireInfluence, 0.0, fireRadius) / fireRadius;
+
+			// 	// reverse exponential decay
+			// 	fireInfluence = (1.0 - pow(fireInfluence - 1.0, 2.0));
+
+			// 	// exponential decay
+			// 	// fireInfluence = pow(fireInfluence, 2.0);
+
+			// 	// This line is for testing the raw fire influence
+			// 	// gl_FragColor.rgba = vec4(fireInfluence, fireInfluence, fireInfluence, 1.0);
+
+			// 	vec3 totalInfluence = mix(timeInfluence, fireColor, fireInfluence);
+
+			// 	gl_FragColor.rgb = gl_FragColor.rgb * totalInfluence;
+			// }
 		}')
 	public function new() {
 		super();

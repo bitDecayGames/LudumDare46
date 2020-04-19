@@ -1,5 +1,6 @@
 package managers;
 
+import cameras.CameraUtils;
 import flixel.FlxG;
 import constants.GameConstants;
 import flixel.FlxSprite;
@@ -10,7 +11,7 @@ class FireManager {
 	var game:GameScreen;
 	var fire:Fire;
 	var hitboxMgr:HitboxManager;
-	
+
 	public function new(game:GameScreen, hitboxMgr: HitboxManager) {
 		this.game = game;
 		this.hitboxMgr = hitboxMgr;
@@ -24,15 +25,15 @@ class FireManager {
 	}
 
 	public function update(delta:Float) {
-		var screenPos = fire.fireArt.getMidpoint();
+		var screenPos = CameraUtils.project(fire.fireArt.getMidpoint(), FlxG.camera);
 		// var screenPos = hitboxMgr.getPlayer().getMidpoint();
 		// trace("Raw pos: " + screenPos);
 		// trace("Cam scroll: " + FlxG.camera.scroll);
-		screenPos.subtract(FlxG.camera.scroll.x , FlxG.camera.scroll.y );
+		// screenPos.subtract(FlxG.camera.scroll.x , FlxG.camera.scroll.y );
 		// trace("Adjust pos: " + screenPos);
 		// trace(FlxG.height);
 		// trace(FlxG.width);
-		screenPos.x /= FlxG.height;
+		screenPos.x /= FlxG.width;
 		screenPos.y /= FlxG.width;
 		// trace("Shader pos: " + screenPos);
 		game.shader.firePos.value = [screenPos.x, screenPos.y];
