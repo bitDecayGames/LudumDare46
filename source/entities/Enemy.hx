@@ -51,6 +51,7 @@ class Enemy extends Throwable {
 
 	public function new(hitboxMgr:HitboxManager) {
 		super();
+		inFlightHitboxScale = 3;
 		rnd = new FlxRandom();
 		this.hitboxMgr = hitboxMgr;
 		this.player = hitboxMgr.getPlayer();
@@ -227,6 +228,21 @@ class Enemy extends Throwable {
 			enemyState = ATTACKING;
 			animation.play("attack_0");
 			velocity.set(0, 0);
+		}
+	}
+
+	public function checkThrowableHit(throwable:Throwable) {
+		if (throwable.state != BEING_THROWN) {
+			// enemies only react to thrown things
+			return;
+		}
+
+		switch (enemyState) {
+			case FALLING | KNOCKED_OUT | CARRIED:
+				// ignore this collision
+			default:
+				takeHit(throwable.getMidpoint(), 3, true);
+				throwable.velocity.set(0,0);
 		}
 	}
 
