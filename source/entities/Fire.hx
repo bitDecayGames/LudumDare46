@@ -1,5 +1,6 @@
 package entities;
 
+import shaders.NightShader;
 import flixel.FlxG;
 import flixel.effects.particles.FlxEmitter;
 import flixel.util.FlxColor;
@@ -22,8 +23,17 @@ class Fire extends FlxGroup
     private var deathRate:Float;
     private var drag:Float = 0;
 
-    public function new(x:Float, y:Float, duration:Float) {
+    private var MAX_RADIUS = 1.2;
+    // Higher the number the more extreme the decay will taper off initially
+    // and the closer it gets to zero
+    private var DECAY_BASE = 200;
+
+    public var shader:NightShader;
+
+    public function new(shader:NightShader, x:Float, y:Float, duration:Float) {
         super();
+        this.shader = shader;
+
         deathRate = (MIN_FREQUENCY - MAX_FREQUENCY) / MAX_DURATION;
         
         if (duration > MAX_DURATION) {
@@ -31,8 +41,7 @@ class Fire extends FlxGroup
         }
 
         this.duration = duration;
-        fireArt = new FireArt(x, y);
-        // add(fireArt);
+        fireArt = new FireArt(x, y, this);
         
         emitter = new FlxEmitter(x + fireArt.width / 2 - 13, y + fireArt.height / 2 - 23, 200);
 		emitter.makeParticles(4, 6, FlxColor.ORANGE, 200);
@@ -49,6 +58,7 @@ class Fire extends FlxGroup
     override public function update(elapsed:Float):Void
     {
         super.update(elapsed);
+        
         if (dead) 
         {
             if (onFizzle != null) {
@@ -56,6 +66,9 @@ class Fire extends FlxGroup
             }
             return;
         }
+
+        shader.fireRadius.value = [calculateRadius()];
+
         duration -= elapsed;
         if (duration <= 0) {
             duration = 0;
@@ -87,6 +100,25 @@ class Fire extends FlxGroup
         updateAnimation(duration);
     }
     
+    function calculateRadius():Float {
+        // value between 0 and 1 representing the strength of the fire
+        var normalized = 1-Math.min(MAX_DURATION, duration) / MAX_DURATION;
+        var radius = MAX_RADIUS;
+
+        if (normalized < 0.6) {
+            // linear decay for strong fire
+            radius = 1 - 1.5*normalized;
+        } else {
+            // exponential for the fading tail
+            radius = Math.pow(50, -normalized);
+        }
+
+        // exponential decay
+        // var normalized = 1 - Math.min(MAX_DURATION, duration) / MAX_DURATION;
+        // var radius = Math.pow(DECAY_BASE, -normalized);
+
+        return radius;
+    }
 
     private function updateAnimation(duration):Void
     {
