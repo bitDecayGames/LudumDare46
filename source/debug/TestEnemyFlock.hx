@@ -13,6 +13,7 @@ import entities.enemies.RegularAssZombie;
 import entities.enemies.HardworkingFirefighter;
 import entities.enemies.ConfusedZombie;
 import flixel.group.FlxGroup;
+import flixel.FlxG;
 
 class TestEnemyFlock {
 	var player:Player;
@@ -20,7 +21,9 @@ class TestEnemyFlock {
 	var playerHitboxes:FlxTypedGroup<HitboxSprite>;
 
 	public function new(game:GameScreen) {
+		FlxG.debugger.drawDebug = true;
 		playerHitboxes = new FlxTypedGroup<HitboxSprite>();
+		game.add(playerHitboxes);
 		player = new Player(new PlayerGroup(new FlxSpriteGroup(0), new FlxTypedGroup<HitboxSprite>(0)), playerHitboxes);
 		player.x = 120;
 		player.y = 300;
@@ -33,7 +36,7 @@ class TestEnemyFlock {
 
 		var e:Enemy;
 		var rnd = new FlxRandom();
-		for (i in 0...20) {
+		for (i in 0...3) {
 			if (i % 5 == 0) {
 				e = new HardworkingFirefighter(player, firepit, playerHitboxes);
 			} else if (i % 2 == 0) {
