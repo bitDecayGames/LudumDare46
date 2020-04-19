@@ -8,6 +8,7 @@ import flixel.addons.ui.FlxUITypedButton;
 import flixel.FlxG;
 import debug.TestEnemyFlock;
 import managers.FireManager;
+import managers.GameManager;
 
 class GameScreen extends FlxUIState {
 	static private inline var PAUSE = "pause_btn";
@@ -18,6 +19,8 @@ class GameScreen extends FlxUIState {
 
 	public var paused = false;
 	private var firstUnpause = true;
+
+	var gameManager:GameManager;
 
 	override public function create():Void {
 		_xml_id = "gameScreen";
@@ -42,11 +45,15 @@ class GameScreen extends FlxUIState {
 		// only you can prevent merge forest conflict fires
 		//
 		new TestEnemyFlock(this);
-		new FireManager(this);
+		// gameManager = new GameManager(this);
 	}
 
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
+		// TODO Eventually remove this check.
+		if (gameManager != null) {
+			gameManager.update(elapsed);
+		}
 		if (FlxG.keys.justPressed.P) {
 			bitdecaySoundBank.PlaySound(BitdecaySounds.MachoManThrowPunch);
 		}
