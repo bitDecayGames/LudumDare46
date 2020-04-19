@@ -51,8 +51,8 @@ class GameScreen extends FlxUIState {
 		//
 		// only you can prevent merge forest conflict fires
 		//
-		new TestKingOfPop(this);
-		// gameManager = new GameManager(this);
+		// new TestKingOfPop(this);
+		gameManager = new GameManager(this);
 	}
 
 	override public function update(elapsed:Float):Void {
