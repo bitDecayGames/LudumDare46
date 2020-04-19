@@ -85,7 +85,7 @@ class GameManager
     private function spawnEnemies() {
         var e:Enemy;
 		var rnd = new FlxRandom();
-		for (i in 0...3) {
+		for (i in 0...20) {
 			if (i % 5 == 0) {
 				e = new HardworkingFirefighter(hitboxMgr, firepit);
 			} else if (i % 2 == 0) {

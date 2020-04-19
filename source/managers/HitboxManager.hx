@@ -89,6 +89,7 @@ class HitboxManager extends FlxBasic {
 
 	override public function update(elapsed:Float):Void
 	{
+		super.update(elapsed);
 		sortGroup.sort(HitboxSorter.sort, FlxSort.ASCENDING);
 		
 		// Environment restrictions
@@ -100,6 +101,29 @@ class HitboxManager extends FlxBasic {
 		FlxG.collide(playerGroup, itemGroup);
 		FlxG.overlap(playerHitboxes, itemGroup, handlePlayerHit);
 		FlxG.overlap(playerHitboxes, treeGroup, hitTree);
+
+		// Character interactions
+		FlxG.overlap(playerHitboxes, enemyFlock, playerHitEnemy);
+		FlxG.overlap(enemyHitboxes, playerGroup, enemyHitPlayer);
+		FlxG.overlap(intraEnemyHitboxes, enemyFlock, enemyHitEnemy);
+	}
+
+	private function playerHitEnemy(hitbox:HitboxSprite, enemy:Enemy) {
+		enemy.takeHit(hitbox.getMidpoint(), 30);
+	}
+
+	private function enemyHitPlayer(enemy:HitboxSprite, player:Player) {
+		FlxG.log.notice("Player got ricked");
+	}
+
+	private function enemyHitEnemy(hitbox:HitboxSprite, enemy:Enemy) {
+		if (hitbox.source == enemy) {
+			// they can't hit themselves
+			return;
+		}
+		FlxG.log.notice("Enemy wrecked themselves");
+		enemy.takeHit(hitbox.getMidpoint(), 30);
+		hitbox.kill();
 	}
 
 	private function hitTree(player: FlxSprite, tree: TreeTrunk) {

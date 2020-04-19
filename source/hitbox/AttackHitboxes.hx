@@ -34,6 +34,8 @@ class AttackHitboxes {
 		} else {
 			lastActive.setMidpoint(parentSprite.getMidpoint().x + lastActive.loc.offset.x, parentSprite.getMidpoint().y + lastActive.loc.offset.y);
 		}
+		// Don't let the hull calculation do it's thing
+		lastActive.last.set(lastActive.x, lastActive.y);
 	}
 
 	public function finishAnimation() {
@@ -45,12 +47,12 @@ class AttackHitboxes {
 	}
 
 	// register animations with the proper hitboxes and what frames they should appear on
-	public function register(group:FlxTypedGroup<HitboxSprite>, animName:String, startFrame:Int, hitboxLocations:Array<HitboxLocation>):Void {
+	public function register(groupAdd:(HitboxSprite) -> Void, animName:String, startFrame:Int, hitboxLocations:Array<HitboxLocation>):Void {
 		var hitboxes:Array<HitboxSprite> = [];
 		for (hbl in hitboxLocations) {
 			var box = new HitboxSprite(hbl, parentSprite);
 			hitboxes.push(box);
-			group.add(box);
+			groupAdd(box);
 		}
 		registrar[animName] = new HitboxRegistration(startFrame, hitboxes);
 	}
@@ -64,9 +66,10 @@ class AttackHitboxes {
 			inspecting = registrar[name];
 			if (frameNumber >= inspecting.offset && frameNumber < inspecting.offset + inspecting.hitboxFrames.length) {
 				var hitboxFrame = inspecting.hitboxFrames[frameNumber - inspecting.offset];
-				hitboxFrame.revive();
 				lastActive = hitboxFrame;
 				update(0);
+				hitboxFrame.revive();
+				
 			}
 		}
 		if (frameNumber == 0 && name == "punch") {

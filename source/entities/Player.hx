@@ -57,7 +57,7 @@ class Player extends FlxSprite {
 		animation.add("punch", [41, 42, 43], 10, false);
 
 		hitboxes = new AttackHitboxes(this);
-		hitboxes.register(hitboxMgr.playerHitboxes, "punch", 2, [new HitboxLocation(13, 15, 13, 0)]);
+		hitboxes.register(hitboxMgr.addPlayerHitbox, "punch", 2, [new HitboxLocation(13, 15, 13, 0)]);
 
 		animation.callback = hitboxes.animCallback;
 		animation.finishCallback = tagFinish;
@@ -70,7 +70,6 @@ class Player extends FlxSprite {
 
 	override public function update(delta:Float):Void {
 		super.update(delta);
-		playerGroup.update(delta);
 		hitboxes.update(delta);
 
 		if (waitForFinish) {

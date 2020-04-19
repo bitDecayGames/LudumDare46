@@ -32,7 +32,7 @@ class Enemy extends FlxSprite {
 	var player:Player;
 	var enemyState:EnemyState;
 	var rnd:FlxRandom;
-	var invulnerableWhileAttacking = true;
+	var invulnerableWhileAttacking = false;
 
 	var playerSafeHitboxes:AttackHitboxes;
 
@@ -90,8 +90,8 @@ class Enemy extends FlxSprite {
 
 		animation.add("carried", [37], 0);
 
-		playerSafeHitboxes.register(hitboxMgr.intraEnemyHitboxes, "fall_left", 0, [new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0), new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)]);
-		playerSafeHitboxes.register(hitboxMgr.intraEnemyHitboxes, "fall_right", 0, [new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0), new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)]);
+		playerSafeHitboxes.register(hitboxMgr.addIntraEnemyHitbox, "fall_left", 0, [new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0), new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)]);
+		playerSafeHitboxes.register(hitboxMgr.addIntraEnemyHitbox, "fall_right", 0, [new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0), new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)]);
 		animation.callback = playerSafeHitboxes.animCallback;
 		animation.finishCallback = finishAnimation;
 	}
