@@ -1,5 +1,7 @@
 package entities;
 
+import flixel.FlxG;
+import flixel.util.FlxSpriteUtil;
 import flixel.math.FlxRandom;
 import flixel.math.FlxMath;
 import flixel.math.FlxVector;
@@ -25,6 +27,7 @@ class Enemy extends FlxSprite {
 	var player:Player;
 	var enemyState:EnemyState;
 	var rnd:FlxRandom;
+	var invulnerableWhileAttacking = true;
 
 	public var flock:EnemyFlock;
 
@@ -84,8 +87,12 @@ class Enemy extends FlxSprite {
 	override public function update(delta:Float):Void {
 		super.update(delta);
 
-		if (player != null && FlxMath.distanceBetween(this, player) <= attackDistance) {
+		if (shouldAttack()) {
 			attack();
+		}
+
+		if (FlxG.keys.justPressed.SPACE) {
+			takeHit(player.getPosition(), 30);
 		}
 
 		var lastFacing = facing;
@@ -112,6 +119,10 @@ class Enemy extends FlxSprite {
 		}
 	}
 
+	function shouldAttack():Bool {
+		return player != null && FlxMath.distanceBetween(this, player) <= attackDistance;
+	}
+
 	function moveTowardsPlayer():FlxVector {
 		var v = new FlxVector(0, 0);
 		if (player != null) {
@@ -124,7 +135,7 @@ class Enemy extends FlxSprite {
 		return v;
 	}
 
-	function keepDistanceFromOtherZombies():FlxVector {
+	function keepDistanceFromOtherEnemies():FlxVector {
 		var v = new FlxVector();
 		var temp = new FlxVector();
 		var enemiesInPersonalBubble = 0.0;
@@ -166,6 +177,7 @@ class Enemy extends FlxSprite {
 					var hitDirection = new FlxVector(x - hitterPosition.x, y - hitterPosition.y);
 					hitDirection.normalize();
 					beThrown(hitDirection, force);
+					FlxSpriteUtil.flicker(this, 0.3);
 				case KNOCKED_OUT | FALLING | CARRIED: // do nothing
 			}
 		} else {
@@ -174,11 +186,20 @@ class Enemy extends FlxSprite {
 					var hitDirection = new FlxVector(x - hitterPosition.x, y - hitterPosition.y);
 					hitDirection.normalize();
 					beThrown(hitDirection, force);
+					FlxSpriteUtil.flicker(this, 0.3);
 				case CHASING:
 					animation.play("hit_" + animationDirection(x - hitterPosition.x));
 					enemyState = HIT;
 					velocity.set(0, 0);
-				case KNOCKED_OUT | FALLING | ATTACKING | CARRIED: // do nothing
+					FlxSpriteUtil.flicker(this, 0.3);
+				case ATTACKING:
+					if (!invulnerableWhileAttacking) {
+						animation.play("hit_" + animationDirection(x - hitterPosition.x));
+						enemyState = HIT;
+						velocity.set(0, 0);
+						FlxSpriteUtil.flicker(this, 0.3);
+					}
+				case KNOCKED_OUT | FALLING | CARRIED: // do nothing
 			}
 		}
 	}
@@ -246,7 +267,7 @@ class Enemy extends FlxSprite {
 	function calculateVelocity() {
 		if (enemyState == CHASING) {
 			var move = moveTowardsPlayer();
-			var keepDistance = keepDistanceFromOtherZombies();
+			var keepDistance = keepDistanceFromOtherEnemies();
 			velocity.set(move.x + keepDistance.x, move.y + keepDistance.y);
 		}
 	}
