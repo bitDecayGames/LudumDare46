@@ -17,9 +17,11 @@ import flixel.group.FlxGroup;
 class TestEnemyFlock {
 	var player:Player;
 	var flock:EnemyFlock;
+	var playerHitboxes:FlxTypedGroup<HitboxSprite>;
 
 	public function new(game:GameScreen) {
-		player = new Player(new PlayerGroup(new FlxSpriteGroup(0), new FlxTypedGroup<HitboxSprite>(0)), new FlxTypedGroup<HitboxSprite>());
+		playerHitboxes = new FlxTypedGroup<HitboxSprite>();
+		player = new Player(new PlayerGroup(new FlxSpriteGroup(0), new FlxTypedGroup<HitboxSprite>(0)), playerHitboxes);
 		player.x = 120;
 		player.y = 300;
 		game.add(player);
@@ -33,11 +35,11 @@ class TestEnemyFlock {
 		var rnd = new FlxRandom();
 		for (i in 0...20) {
 			if (i % 5 == 0) {
-				e = new HardworkingFirefighter(player, firepit);
+				e = new HardworkingFirefighter(player, firepit, playerHitboxes);
 			} else if (i % 2 == 0) {
-				e = new RegularAssZombie(player);
+				e = new RegularAssZombie(player, playerHitboxes);
 			} else {
-				e = new ConfusedZombie(player);
+				e = new ConfusedZombie(player, playerHitboxes);
 			}
 			e.x = 100 + i * 10;
 			e.y = 100 + rnd.float(0, 10);

@@ -1,6 +1,8 @@
 package entities.enemies;
 
 import entities.Player;
+import flixel.group.FlxGroup;
+import hitbox.HitboxSprite;
 
 class ConfusedZombie extends RegularAssZombie {
 	private var timer = 0.0;
@@ -8,8 +10,8 @@ class ConfusedZombie extends RegularAssZombie {
 	private var maxChaseTime = 3.0;
 	private var confused = false;
 
-	public function new(player:Player) {
-		super(player);
+	public function new(player:Player, playerHitboxesGroup:FlxTypedGroup<HitboxSprite>) {
+		super(player, playerHitboxesGroup);
 		super.initAnimations(AssetPaths.Zombie__png);
 		personalBubble = 50;
 		speed = 40;

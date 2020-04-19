@@ -5,12 +5,14 @@ import flixel.math.FlxVector;
 import flixel.FlxSprite;
 import entities.Player;
 import entities.Enemy;
+import flixel.group.FlxGroup;
+import hitbox.HitboxSprite;
 
 class HardworkingFirefighter extends Enemy {
 	var firepit:FlxSprite;
 
-	public function new(player:Player, firepit:FlxSprite) {
-		super(player);
+	public function new(player:Player, firepit:FlxSprite, playerHitboxesGroup:FlxTypedGroup<HitboxSprite>) {
+		super(player, playerHitboxesGroup);
 		this.firepit = firepit;
 		super.initAnimations(AssetPaths.Firefighter__png);
 		personalBubble = 50;

@@ -1,6 +1,7 @@
 package screens;
 
 import states.MovementState;
+import screens.GameScreen;
 import audio.BitdecaySound;
 import audio.SoundBankAccessor;
 import audio.BitdecaySoundBank;
@@ -21,11 +22,10 @@ class MainMenuScreen extends FlxUIState {
 	override public function create():Void {
 		_xml_id = "mainMenuScreen";
 		super.create();
-		
+
 		bitdecaySoundBank = new BitdecaySoundBank();
 		bitdecaySoundBank.PlaySong(BitdecaySongs.TitleScreen);
 		transitioner = new SceneTransitioner();
-
 	}
 
 	override public function update(elapsed:Float):Void {
@@ -40,7 +40,7 @@ class MainMenuScreen extends FlxUIState {
 			if (button != null) {
 				switch (button.name) {
 					case START:
-						transitioner.TransitionWithMusicFade(new MovementState());
+						transitioner.TransitionWithMusicFade(new GameScreen());
 					case CREDITS:
 						FlxG.switchState(new CreditsScreen());
 					case EXIT:

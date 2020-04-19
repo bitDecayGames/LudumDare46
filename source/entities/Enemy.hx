@@ -9,6 +9,10 @@ import flixel.math.FlxPoint;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
+import hitbox.AttackHitboxes;
+import hitbox.HitboxLocation;
+import hitbox.HitboxSprite;
+import flixel.group.FlxGroup;
 
 enum EnemyState {
 	CHASING;
@@ -29,9 +33,11 @@ class Enemy extends FlxSprite {
 	var rnd:FlxRandom;
 	var invulnerableWhileAttacking = true;
 
+	var playerSafeHitboxes:AttackHitboxes;
+
 	public var flock:EnemyFlock;
 
-	public function new(player:Player) {
+	public function new(player:Player, playerHitboxesGroup:FlxTypedGroup<HitboxSprite>) {
 		super();
 		rnd = new FlxRandom();
 		this.player = player;
@@ -44,6 +50,8 @@ class Enemy extends FlxSprite {
 		setFacingFlip(FlxObject.UP | FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.DOWN | FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
+
+		playerSafeHitboxes = new AttackHitboxes(this, playerHitboxesGroup);
 	}
 
 	// MW need to call this from the new function in a subclass
@@ -71,6 +79,9 @@ class Enemy extends FlxSprite {
 
 		animation.add("carried", [37], 0);
 
+		playerSafeHitboxes.register("fall_left", 0, [new HitboxLocation(30, 30, 0, 0), new HitboxLocation(30, 30, 0, 0)]);
+		playerSafeHitboxes.register("fall_right", 0, [new HitboxLocation(30, 30, 0, 0), new HitboxLocation(30, 30, 0, 0)]);
+		animation.callback = playerSafeHitboxes.animCallback;
 		animation.finishCallback = finishAnimation;
 	}
 
@@ -91,6 +102,7 @@ class Enemy extends FlxSprite {
 			attack();
 		}
 
+		// TODO: MW take this debug thing out
 		if (FlxG.keys.justPressed.SPACE) {
 			takeHit(player.getPosition(), 30);
 		}
@@ -232,6 +244,7 @@ class Enemy extends FlxSprite {
 				enemyState = CHASING;
 			} else if (animationName.indexOf("fall") >= 0) {
 				getKnockedOut();
+				playerSafeHitboxes.finishAnimation();
 			} else if (animationName.indexOf("hit") >= 0) {
 				enemyState = CHASING;
 			} else if (animationName.indexOf("get_up") >= 0) {
