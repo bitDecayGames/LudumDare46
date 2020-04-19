@@ -97,6 +97,7 @@ class EnemySpawnManager extends FlxBasic {
 			e = randomEnemyType();
 			if (e.count < e.max || e.max < 0) {
 				var enemy = e.spawn();
+				pickRandomLocation(enemy);
 				hitboxMgr.addEnemy(enemy);
 				e.count += 1;
 				curUnits += e.cost;
@@ -125,6 +126,8 @@ class EnemySpawnManager extends FlxBasic {
 
 	private function pickRandomLocation(enemy:Enemy):Void {
 		// TODO: MW pick a location near the edge of the map, or possibly off the map?
+		enemy.x = rnd.floatNormal() * 500.0;
+		enemy.y = rnd.floatNormal() * 500.0;
 	}
 
 	private function randomEnemyType():EnemyType {
