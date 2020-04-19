@@ -25,7 +25,7 @@ import flixel.FlxBasic;
 class HitboxManager extends FlxBasic {
 	public var playerGroup:PlayerGroup;
 	public var treeGroup:TreeGroup;
-	public var fireGroup:FlxGroup;
+	public var fireGroup:FlxTypedGroup<FireArt>;
 	public var itemGroup:FlxGroup;
 	public var playerHitboxes:FlxTypedGroup<HitboxSprite>;
 	public var enemyHitboxes:FlxTypedGroup<HitboxSprite>;
@@ -46,7 +46,7 @@ class HitboxManager extends FlxBasic {
 
 		playerGroup = new PlayerGroup(this);
 		treeGroup = new TreeGroup();
-		fireGroup = new FlxGroup(0);
+		fireGroup = new  FlxTypedGroup<FireArt>(0);
 		itemGroup = new FlxGroup(0);
 		enemyFlock = new EnemyFlock(playerGroup.player);
 	}
@@ -110,6 +110,7 @@ class HitboxManager extends FlxBasic {
 		FlxG.collide(playerGroup, itemGroup);
 		FlxG.overlap(enemyFlock, fireGroup, enemyTouchFire);
 		FlxG.overlap(enemyFlock, itemGroup, enemyTouchItem);
+		FlxG.collide(itemGroup, fireGroup, itemTouchFire);
 		FlxG.overlap(playerHitboxes, itemGroup, playerHitItem);
 		FlxG.overlap(playerHitboxes, treeGroup, hitTree);
 
@@ -120,9 +121,15 @@ class HitboxManager extends FlxBasic {
 		FlxG.overlap(enemyFlock, enemyFlock, enemiesTouched);
 	}
 
-	private function enemyTouchFire(enemy:Enemy, fire:FlxSprite) {
+	private function itemTouchFire(item:Throwable, fire:FireArt) {
+		if (item.state == BEING_THROWN) {
+			fire.consume(item);
+		}
+	}
+
+	private function enemyTouchFire(enemy:Enemy, fire:FireArt) {
 		if (enemy.state == BEING_THROWN) {
-			enemy.kill();
+			fire.consume(enemy);
 		}
 	}
 

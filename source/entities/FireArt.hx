@@ -27,7 +27,9 @@ class FireArt extends FlxSprite {
     }
 
     public function consume(thing:FlxSprite) {
+        // TODO: maybe tweak things based on what hits the flame
         parent.addTime(5);
+        thing.kill();
     }
 
     public function switchAnimation(newAnimation:String) {

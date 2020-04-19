@@ -102,10 +102,21 @@ class Fire extends FlxGroup
     
     function calculateRadius():Float {
         // value between 0 and 1 representing the strength of the fire
-        var normalized = 1 - Math.min(MAX_DURATION, duration) / MAX_DURATION;
-        FlxG.watch.addQuick("norm: ", normalized);
-        var radius = Math.pow(DECAY_BASE, -normalized);
-        FlxG.watch.addQuick("radius: ", radius);
+        var normalized = 1-Math.min(MAX_DURATION, duration) / MAX_DURATION;
+        var radius = MAX_RADIUS;
+
+        if (normalized < 0.6) {
+            // linear decay for strong fire
+            radius = 1 - 1.5*normalized;
+        } else {
+            // exponential for the fading tail
+            radius = Math.pow(50, -normalized);
+        }
+
+        // exponential decay
+        // var normalized = 1 - Math.min(MAX_DURATION, duration) / MAX_DURATION;
+        // var radius = Math.pow(DECAY_BASE, -normalized);
+
         return radius;
     }
 
