@@ -8,13 +8,13 @@ class HitboxSprite extends FlxSprite {
 
 	public function new(hbl:HitboxLocation, source:FlxSprite) {
 		super();
-		// loadGraphic(AssetPaths.debug__png);
-		// scale.set(hbl.size.x, hbl.size.y);
+		loadGraphic(AssetPaths.transparent__png);
+		scale.set(hbl.size.x, hbl.size.y);
 		loc = hbl;
 		this.source = source;
 		width = hbl.size.x;
 		height = hbl.size.y;
 		kill();
-		visible = false;
+		// visible = false;
 	}
 }
