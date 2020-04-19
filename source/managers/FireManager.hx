@@ -1,13 +1,23 @@
 package managers;
-import flixel.FlxG;
+
+import flixel.FlxSprite;
 import entities.Fire;
 import screens.GameScreen;
 
 class FireManager {
+
     var fire:Fire;
-	public function new(game:GameScreen) {
-        fire = new Fire(FlxG.width / 2, FlxG.height / 2, 30);
+    var fireSpritePoint:FlxSprite;
+
+	public function new(game:GameScreen, x: Float, y: Float) {
+        fireSpritePoint = new FlxSprite(x, y, AssetPaths.transparent__png);
+        game.add(fireSpritePoint);
+        fire = new Fire(x, y, 30);
 		game.add(fire);
         fire.start();
+    }
+
+    public function getSprite(): FlxSprite {
+        return fireSpritePoint;
     }
 }
