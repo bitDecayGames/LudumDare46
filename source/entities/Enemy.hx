@@ -37,6 +37,8 @@ class Enemy extends FlxSprite {
 
 	public var flock:EnemyFlock;
 
+	var hurtboxSize = new FlxPoint(20, 4);
+
 	public function new(player:Player, playerHitboxesGroup:FlxTypedGroup<HitboxSprite>) {
 		super();
 		rnd = new FlxRandom();
@@ -57,6 +59,11 @@ class Enemy extends FlxSprite {
 	// MW need to call this from the new function in a subclass
 	public function initAnimations(graphic:FlxGraphicAsset):Void {
 		super.loadGraphic(graphic, true, 32, 48);
+
+		// an extra -2 on the y to help account for empty space at the bottom of the sprites
+		offset.set(width / 2 - hurtboxSize.x / 2, height - hurtboxSize.y - 2);
+		setSize(hurtboxSize.x, hurtboxSize.y);
+
 		// MW this stuff might need to go into the actual enemy implementations
 		animation.add("stand", [0, 1, 2, 3, 4, 5, 6, 7], 5);
 		animation.add("walk", [10, 11, 12, 13], 5);
@@ -79,8 +86,8 @@ class Enemy extends FlxSprite {
 
 		animation.add("carried", [37], 0);
 
-		playerSafeHitboxes.register("fall_left", 0, [new HitboxLocation(30, 30, 0, 0), new HitboxLocation(30, 30, 0, 0)]);
-		playerSafeHitboxes.register("fall_right", 0, [new HitboxLocation(30, 30, 0, 0), new HitboxLocation(30, 30, 0, 0)]);
+		playerSafeHitboxes.register("fall_left", 0, [new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0), new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)]);
+		playerSafeHitboxes.register("fall_right", 0, [new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0), new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)]);
 		animation.callback = playerSafeHitboxes.animCallback;
 		animation.finishCallback = finishAnimation;
 	}
@@ -97,6 +104,7 @@ class Enemy extends FlxSprite {
 
 	override public function update(delta:Float):Void {
 		super.update(delta);
+		playerSafeHitboxes.update(delta);
 
 		if (shouldAttack()) {
 			attack();

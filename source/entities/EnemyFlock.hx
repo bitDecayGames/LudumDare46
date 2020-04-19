@@ -1,8 +1,10 @@
 package entities;
 
-import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.FlxSprite;
+import flixel.group.FlxSpriteGroup;
 
-class EnemyFlock extends FlxTypedGroup<Enemy> {
+// This needs to be a sprite group to work with render sort ordering
+class EnemyFlock extends FlxSpriteGroup {
 	var player:Player;
 
 	public var enemies:List<Enemy>;
@@ -13,17 +15,23 @@ class EnemyFlock extends FlxTypedGroup<Enemy> {
 		enemies = new List<Enemy>();
 	}
 
-	public override function add(obj:Enemy):Enemy {
+	public override function add(obj:FlxSprite):FlxSprite {
 		super.add(obj);
-		enemies.add(obj);
-		obj.flock = this;
+
+		var enemy = cast(obj, Enemy);
+		enemies.add(enemy);
+		enemy.flock = this;
+
 		return obj;
 	}
 
-	public override function remove(obj:Enemy, splice:Bool = false):Enemy {
+	public override function remove(obj:FlxSprite, splice:Bool = false):FlxSprite {
 		super.remove(obj, splice);
-		enemies.remove(obj);
-		obj.flock = null;
+
+		var enemy = cast(obj, Enemy);
+		enemies.remove(enemy);
+		enemy.flock = null;
+
 		return obj;
 	}
 }

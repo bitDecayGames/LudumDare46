@@ -1,15 +1,18 @@
 package managers;
 
+import entities.Enemy;
+import entities.enemies.ConfusedZombie;
+import entities.enemies.RegularAssZombie;
+import entities.enemies.HardworkingFirefighter;
+import flixel.math.FlxRandom;
 import entities.Player;
 import audio.SoundBankAccessor;
 import audio.BitdecaySoundBank;
 import hitbox.HitboxSprite;
 import flixel.math.FlxVector;
 import entities.TreeTrunk;
-import entities.Tree;
 import flixel.util.FlxSort;
 import flixel.group.FlxSpriteGroup;
-import flixel.util.FlxCollision;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
 import flixel.util.FlxColor;
@@ -18,12 +21,11 @@ import openfl.filters.BitmapFilter;
 import shaders.NightShader;
 import entities.PlayerGroup;
 import entities.TreeGroup;
-import entities.TreeLog;
 import flixel.FlxG;
-import flixel.FlxState;
 import sorting.HitboxSorter;
 import screens.GameScreen;
 import managers.FireManager;
+import entities.EnemyFlock;
 
 class GameManager
 {
@@ -32,14 +34,18 @@ class GameManager
 	var itemGroup:FlxGroup;
 	var playerHitboxes:FlxTypedGroup<HitboxSprite>;
 
-	var sortGroup:FlxSpriteGroup;
+    var sortGroup:FlxSpriteGroup;
+    
+    var flock:EnemyFlock;
 	
 	var filters:Array<BitmapFilter> = [];
 	var shader = new NightShader();
 	
 	var increasing:Bool = true;
 	
-	public var bitdecaySoundBank:BitdecaySoundBank;
+    public var bitdecaySoundBank:BitdecaySoundBank;
+    
+    var firepit:FlxSprite;
 
 	public function new(game:GameScreen):Void
 	{
@@ -70,7 +76,15 @@ class GameManager
 		bitdecaySoundBank = new BitdecaySoundBank();
         bitdecaySoundBank.PlaySong(BitdecaySongs.ZombieFuel);
         
+        // TODO Link to firepit, remove firepit var.
         new FireManager(game);
+        var firepit = new FlxSprite(300, 300, AssetPaths.Bush__png);
+		sortGroup.add(firepit);
+
+        flock = new EnemyFlock(playerGroup.player);
+        sortGroup.add(flock);
+        
+        spawnEnemies();
 	}
 
 	public function update(elapsed:Float):Void
@@ -114,5 +128,22 @@ class GameManager
 	private static function handlePlayerHit(playerHitbox: HitboxSprite, item: FlxSprite) {
 		var player = cast(playerHitbox.source, Player);
 		player.playerGroup.pickUp(item);
-	}
+    }
+    
+    private function spawnEnemies() {
+        var e:Enemy;
+		var rnd = new FlxRandom();
+		for (i in 0...3) {
+			if (i % 5 == 0) {
+				e = new HardworkingFirefighter(playerGroup.player, firepit, playerHitboxes);
+			} else if (i % 2 == 0) {
+				e = new RegularAssZombie(playerGroup.player, playerHitboxes);
+			} else {
+				e = new ConfusedZombie(playerGroup.player, playerHitboxes);
+			}
+			e.x = 100 + i * 10;
+			e.y = 100 + rnd.float(0, 10);
+			flock.add(e);
+		}
+    }
 }
