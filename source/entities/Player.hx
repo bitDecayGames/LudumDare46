@@ -24,7 +24,8 @@ class Player extends FlxSprite {
 		super();
 		super.loadGraphic(AssetPaths.Player__png, true, 32, 48);
 
-		offset.set(width / 2 - hurtboxSize.x / 2, height - hurtboxSize.y);
+		// an extra -2 on the y to help account for empty space at the bottom of the sprites
+		offset.set(width / 2 - hurtboxSize.x / 2, height - hurtboxSize.y - 2);
 		setSize(hurtboxSize.x, hurtboxSize.y);
 
 		setFacingFlip(FlxObject.UP | FlxObject.RIGHT, false, false);

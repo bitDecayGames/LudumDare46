@@ -1,5 +1,6 @@
 package states;
 
+import entities.Tree;
 import flixel.util.FlxSort;
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxCollision;
@@ -39,10 +40,10 @@ class MovementState extends FlxState
 		
 		sortGroup = new FlxSpriteGroup(0);
 		add(sortGroup);
-
-		playerGroup = new FlxGroup(0);
 		playerHitboxes = new FlxGroup(0);
 		add(playerHitboxes);
+
+		playerGroup = new FlxGroup(0);
 
 		player = new Player(playerHitboxes);
 		playerGroup.add(player);
@@ -52,13 +53,8 @@ class MovementState extends FlxState
 		treeGroup.spawn(2);
 		treeGroup.forEach(t -> sortGroup.add(t));
 
-		itemGroup = new FlxGroup();
-		var log = new TreeLog();
-		log.x = 300;
-		log.y = 300;
-		itemGroup.add(log);
-		sortGroup.add(log);
-
+		itemGroup = new FlxGroup(0);
+		
 		camera.filtersEnabled = true;
 		filters.push(new ShaderFilter(shader));
 		camera.bgColor = FlxColor.WHITE;
@@ -70,13 +66,15 @@ class MovementState extends FlxState
 		super.update(elapsed);
 
 		sortGroup.sort(HitboxSorter.sort, FlxSort.ASCENDING);
-
 		
+		// Environment restrictions
 		FlxG.collide(playerGroup, treeGroup);
-		FlxG.collide(playerGroup, itemGroup);
-		
-		FlxG.overlap(playerHitboxes, itemGroup, handlePlayerHit);
+		FlxG.collide(itemGroup, treeGroup);
 
+		// Environment interactions
+		FlxG.collide(playerGroup, itemGroup);
+		FlxG.overlap(playerHitboxes, treeGroup, hitTree);
+		FlxG.overlap(playerHitboxes, itemGroup, handlePlayerHit);
 		
 		elapsed *= 0.1;
 		if (increasing) {
@@ -89,6 +87,14 @@ class MovementState extends FlxState
 			if (shader.time.value[0] <= 0) {
 				increasing = true;
 			}
+		}
+	}
+
+	private function hitTree(player: FlxSprite, tree: Tree) {
+		if (tree.hasLog) {
+			var newLog = tree.spawnLog();
+			itemGroup.add(newLog);
+			sortGroup.add(newLog);
 		}
 	}
 
