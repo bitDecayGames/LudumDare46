@@ -118,7 +118,7 @@ class HitboxManager extends FlxBasic {
 	}
 
 	private function enemyHitPlayer(enemy:HitboxSprite, player:Player) {
-		FlxG.log.notice("Player got ricked");
+		player.getHit(player.getPosition().subtractPoint(enemy.source.getPosition()));
 	}
 
 	private function enemyHitEnemy(hitbox:HitboxSprite, enemy:Enemy) {

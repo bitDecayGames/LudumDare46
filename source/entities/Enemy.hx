@@ -109,6 +109,8 @@ class Enemy extends Throwable {
 			new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0),
 			new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)
 		]);
+
+		playerSafeHitboxes.register(hitboxMgr.addEnemyHitbox, "attack_0", 3, [new HitboxLocation(13, 11, 13, 0)]);
 		animation.callback = animCallback;
 		animation.finishCallback = finishAnimation;
 	}
@@ -324,7 +326,7 @@ class Enemy extends Throwable {
 
 	private function animationDirection(hitDirX:Float):String {
 		var toTheLeft = hitDirX > 0;
-		var facingLeft = (facing & FlxObject.LEFT) != 0;
+		var facingLeft = flipX;
 		return (toTheLeft && facingLeft) || (!toTheLeft && !facingLeft) ? "left" : "right";
 	}
 

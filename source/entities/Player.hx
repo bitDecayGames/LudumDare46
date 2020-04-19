@@ -1,5 +1,6 @@
 package entities;
 
+import flixel.math.FlxVector;
 import managers.HitboxManager;
 import hitbox.HitboxSprite;
 import hitbox.HitboxLocation;
@@ -53,6 +54,8 @@ class Player extends FlxSprite {
 		animation.add("carry_idle", [31], 5);
 		animation.add("throw", [32, 33, 34], 15, false);
 		animation.add("punch", [41, 42, 43], 10, false);
+		animation.add("fall_left", [35, 37], 3, false);
+		animation.add("fall_right", [36,37], 3, false);
 
 		hitboxes = new AttackHitboxes(this);
 		hitboxes.register(hitboxMgr.addPlayerHitbox, "punch", 2, [new HitboxLocation(13, 15, 13, 0)]);
@@ -146,5 +149,18 @@ class Player extends FlxSprite {
 	public function chuck() {
 		animation.play("throw");
 		waitForFinish = true;
+	}
+
+	public function getHit(direction:FlxVector, force:Float = 1) {
+		velocity.add(direction.x * force, direction.y * force);
+		animation.play("fall_" + animationDirection(direction.x));
+		velocity.set(0, 0);
+		waitForFinish = true;
+	}
+
+	private function animationDirection(hitDirX:Float):String {
+		var toTheLeft = hitDirX > 0;
+		var facingLeft = flipX;
+		return (toTheLeft && facingLeft) || (!toTheLeft && !facingLeft) ? "left" : "right";
 	}
 }
