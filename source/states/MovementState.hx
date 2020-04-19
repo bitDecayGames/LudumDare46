@@ -1,6 +1,8 @@
 package states;
 
 import entities.Player;
+import audio.SoundBankAccessor;
+import audio.BitdecaySoundBank;
 import hitbox.HitboxSprite;
 import flixel.math.FlxVector;
 import entities.TreeTrunk;
@@ -34,6 +36,8 @@ class MovementState extends FlxState
 	var shader = new NightShader();
 	
 	var increasing:Bool = true;
+	
+	public var bitdecaySoundBank:BitdecaySoundBank;
 
 	override public function create():Void
 	{
@@ -61,6 +65,9 @@ class MovementState extends FlxState
 		filters.push(new ShaderFilter(shader));
 		camera.bgColor = FlxColor.WHITE;
 		camera.setFilters(filters);
+		
+		bitdecaySoundBank = new BitdecaySoundBank();
+		bitdecaySoundBank.PlaySong(BitdecaySongs.ZombieFuel);
 	}
 
 	override public function update(elapsed:Float):Void
@@ -96,6 +103,7 @@ class MovementState extends FlxState
 		if (tree.hasLog) {
 			var interactVector:FlxVector = player.getMidpoint();
 			interactVector.subtractPoint(tree.getMidpoint());
+			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.TreeHit);
 			var newLog = tree.spawnLog(interactVector);
 			itemGroup.add(newLog);
 			sortGroup.add(newLog);

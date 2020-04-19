@@ -1,5 +1,6 @@
 package audio;
 
+import audio.BitdecaySoundBank.SoundPath;
 import flixel.math.FlxRandom;
 import flixel.system.FlxSound;
 import sys.FileSystem;
@@ -7,21 +8,23 @@ import flixel.FlxG;
 
 class BitdecaySound {
 
+	private var debugSound:Bool = true;
+
 	public var name:String;
 	public var flxSounds:Array<FlxSound> = new Array();
 	private var flxRandom:FlxRandom = new FlxRandom();
 
-	public function new(soundName:String, soundPaths:Array<String>, MaxConcurrent:Int = 1) {
+	public function new(soundName:String, soundPaths:Array<SoundPath>, MaxConcurrent:Int = 1) {
 
 		name = soundName;
 
 		for (soundPath in soundPaths) {
-			if (!FileSystem.exists(soundPath)) {
+			if (!FileSystem.exists(soundPath.path)) {
 				throw 'Unable to find $soundPath sound file';
 			}
 			
 			for (i in 0...MaxConcurrent) {
-				var loadedSound:FlxSound = FlxG.sound.load(soundPath);
+				var loadedSound:FlxSound = FlxG.sound.load(soundPath.path);
 				flxSounds.push(loadedSound);
 			}
 		}
@@ -36,18 +39,24 @@ class BitdecaySound {
 			indexArray.push(i);
 		}
 		flxRandom.shuffle(indexArray);
-		trace("Randomized indexes");
+		// trace("Randomized indexes");
 		for (index in indexArray) {
-			trace('Index: ${index}');
+			// trace('Index: ${index}');
 		}
 		for (index in indexArray) {
 			if (!flxSounds[index].playing){
+				if (debugSound) {
+					trace('Playing ${name}[${index}] at volume ${flxSounds[index].volume}');
+				}
 				flxSounds[index].play();
 				return;
 			}
 		}
 
 		// If everything is currently playing, just reset the first one
+		if (debugSound) {
+			trace('All instances of the sound ${name} were playing. Restarting 0 at volume ${flxSounds[index].volume}');
+		}
 		flxSounds[0].play(true);
 	}
 
