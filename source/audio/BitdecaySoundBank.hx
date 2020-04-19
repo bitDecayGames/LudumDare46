@@ -17,6 +17,7 @@ enum BitdecaySounds {
 	MachoManGruntThrow;
 	MachoManGrunt;
 	MachoManThrowPunch;
+	MenuNavigate;
 	MenuSelect;
 	RockGround;
 	RockHit;
@@ -46,7 +47,7 @@ typedef MusicInfo = {
 
 class BitdecaySoundBank {
 
-	private var mute_music = true;
+	private var mute_music = false;
 
 	public var flxSounds:Map<BitdecaySounds, SoundInfo> = [
 		BitdecaySounds.BulletTimeIn => {name: Std.string(BitdecaySounds.BulletTimeIn), instances: 1, paths: [
@@ -79,6 +80,9 @@ class BitdecaySoundBank {
 		], soundClip: null},
 		BitdecaySounds.MachoManThrowPunch => {name: Std.string(BitdecaySounds.MachoManThrowPunch), instances: 1, paths: [
 			{ path: AssetPaths.macho_man_throw_punch__ogg, volume: 1},
+		], soundClip: null},
+		BitdecaySounds.MenuNavigate => {name: Std.string(BitdecaySounds.MenuNavigate), instances: 1, paths: [
+			{ path: AssetPaths.menu_navigate__ogg, volume: 1},
 		], soundClip: null},
 		BitdecaySounds.MenuSelect => {name: Std.string(BitdecaySounds.MenuSelect), instances: 1, paths: [
 			{ path: AssetPaths.menu_select__ogg, volume: 1},
@@ -217,18 +221,20 @@ class BitdecaySoundBank {
 
 	public function StopSongWithFadeOut(fadeDuration:Int = 1) {
 		if (song == null){
-			trace('song is null');
 			return;
 		}
+
 		StopSongWhenVolumeIsZero = true;
 		song.fadeOut(fadeDuration);
+		if(songLowPass != null){
+			songLowPass.fadeOut(fadeDuration);
+		}
 	}
 
 	public function IsSongPlaying():Bool {
 		if (song == null){
 			return false;
 		}
-
 		return song.playing;
 	}
 
@@ -257,6 +263,7 @@ class BitdecaySoundBank {
 	}
 
 	public function update() {
+
 		for(loopingSound in loopingSounds) {
 			if (!loopingSound.isPlaying()) {
 				loopingSound.play();
@@ -265,8 +272,18 @@ class BitdecaySoundBank {
 
 		if (StopSongWhenVolumeIsZero) {
 			if(song != null && song.volume == 0){
+				if (songLowPass != null) {
+					if (songLowPass.volume == 0) {
+						song.stop();
+						songLowPass.stop();
+						song.group = null;
+					} 
+					else {
+						return;
+					}
+				}
 				song.stop();
-				StopSongWhenVolumeIsZero = false;
+				song.group = null;
 			}
 		}
 	}

@@ -1,5 +1,7 @@
 package screens;
 
+import audio.SoundBankAccessor;
+import transitions.SceneTransitioner;
 import audio.BitdecaySoundBank;
 import flixel.addons.ui.FlxUIState;
 import flixel.addons.ui.FlxUI;
@@ -16,6 +18,7 @@ class GameScreen extends FlxUIState {
 	static private inline var QUIT = "quit_btn";
 
 	public var bitdecaySoundBank:BitdecaySoundBank;
+	public var transitioner:SceneTransitioner;
 
 	public var paused = false;
 	private var firstUnpause = true;
@@ -27,6 +30,8 @@ class GameScreen extends FlxUIState {
 		super.create();
 
 		bitdecaySoundBank = new BitdecaySoundBank();
+		transitioner = new SceneTransitioner();
+		
 		bitdecaySoundBank.PlaySong(BitdecaySongs.ZombieFuel);
 
 		unpause();
@@ -57,6 +62,8 @@ class GameScreen extends FlxUIState {
 		if (FlxG.keys.justPressed.P) {
 			bitdecaySoundBank.PlaySound(BitdecaySounds.MachoManThrowPunch);
 		}
+		transitioner.update();
+		bitdecaySoundBank.update();
 	}
 
 	public function pause():Void {
@@ -80,11 +87,14 @@ class GameScreen extends FlxUIState {
 			if (button != null) {
 				switch (button.name) {
 					case PAUSE:
+						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuNavigate);
 						pause();
 					case RESUME:
+						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuNavigate);
 						unpause();
 					case QUIT:
-						FlxG.switchState(new MainMenuScreen());
+						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuNavigate);
+						transitioner.TransitionWithMusicFade(new MainMenuScreen());
 				}
 			}
 		}
