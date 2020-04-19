@@ -41,6 +41,10 @@ class AttackHitboxes {
 	}
 
 	public function finishAnimation() {
+		// TODO Logor why null when bench lift?
+		if (lastActive == null) {
+			return;
+		}
 		lastActive.kill();
 		lastActive = null;
 	}

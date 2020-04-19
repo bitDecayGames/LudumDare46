@@ -1,10 +1,5 @@
 package entities.enemies;
 
-import flixel.math.FlxVector;
-import flixel.math.FlxPoint;
-import flixel.FlxObject;
-import actions.Actions;
-import flixel.FlxSprite;
 import entities.Player;
 import entities.Enemy;
 
@@ -13,7 +8,8 @@ class RegularAssZombie extends Enemy {
 		super(player);
 		super.initAnimations(AssetPaths.Zombie__png);
 		personalBubble = 50;
-		speed = 50;
+		speed = 40;
+		randomizeStats();
 	}
 
 	override function calculateVelocity() {

@@ -13,18 +13,21 @@ class Player extends FlxSprite {
 	var inControl = false;
 	var control = new Actions();
 
-	var speed = 60;
+	var speed = 70;
 	var waitForFinish = false;
 
 	var hurtboxSize = new FlxPoint(20, 4);
 
 	var hitboxes:AttackHitboxes;
 
+	var isCarrying = false;
+
 	public function new(playerHitboxes:FlxGroup) {
 		super();
 		super.loadGraphic(AssetPaths.Player__png, true, 32, 48);
 
-		offset.set(width / 2 - hurtboxSize.x / 2, height - hurtboxSize.y);
+		// an extra -2 on the y to help account for empty space at the bottom of the sprites
+		offset.set(width / 2 - hurtboxSize.x / 2, height - hurtboxSize.y - 2);
 		setSize(hurtboxSize.x, hurtboxSize.y);
 
 		setFacingFlip(FlxObject.UP | FlxObject.RIGHT, false, false);
@@ -35,11 +38,14 @@ class Player extends FlxSprite {
 		setFacingFlip(FlxObject.DOWN | FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
 
-		animation.add("idle", [0,1,2,3,4,5,6,7], 5);
-		animation.add("walk", [10,11,12,13], 5);
-		animation.add("carry_walk", [14,15,16,17], 5);
-		animation.add("run", [20,21,22,23], 5);
-		animation.add("carry_carry", [24,25,26,27], 5);
+		animation.add("idle", [0, 1, 2, 3, 4, 5, 6, 7], 5);
+		animation.add("walk", [10, 11, 12, 13], 5);
+		animation.add("carry_walk", [14, 15, 16, 17], 5);
+		animation.add("run", [20, 21, 22, 23], 5);
+		animation.add("carry_run", [24, 25, 26, 27], 5);
+		animation.add("pickup", [30, 31], 10, false);
+		animation.add("carry_idle", [31], 5);
+		animation.add("throw", [32, 33, 34], 5, false);
 		animation.add("punch", [41, 42, 43], 10, false);
 
 		hitboxes = new AttackHitboxes(this, playerHitboxes);
@@ -107,15 +113,28 @@ class Player extends FlxSprite {
 			return;
 		}
 
+		if (FlxG.keys.justPressed.O) {
+			waitForFinish = true;
+			if (isCarrying) {
+				isCarrying = false;
+				animation.play("throw");
+			} else {
+				isCarrying = true;
+				animation.play("pickup");
+			}
+			return;
+		}
+
 		facing = newFacing;
 
 		velocity.rotate(FlxPoint.weak(0, 0), newAngle);
 
+		var carryPrefix = isCarrying ? "carry_" : "";
 		// if the player is moving (velocity is not 0 for either axis), we need to change the animation to match their facing
 		if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE) {
-			animation.play("walk");
+			animation.play(carryPrefix + "walk");
 		} else {
-			animation.play("idle");
+			animation.play(carryPrefix + "idle");
 		}
 	}
 }

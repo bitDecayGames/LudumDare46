@@ -15,6 +15,7 @@ class TreeLog extends FlxSprite {
 		setSize(hurtboxWidth, hurtboxHeight);
 
 		animation.add("log", [0], 0);
+		animation.play("log");
 		drag.set(100, 100);
 	}
 
