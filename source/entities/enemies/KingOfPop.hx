@@ -72,7 +72,7 @@ class KingOfPop extends Enemy {
 
 	override public function startChasing():Void {
 		if (startedDancing) {
-			enemyState = KNOCKED_OUT;
+			enemyState = OTHER;
 			animation.play("spin", true, false, 0);
 			velocity.set(0, 0);
 		} else {
@@ -89,10 +89,6 @@ class KingOfPop extends Enemy {
 
 	override private function animCallback(name:String, frameNumber:Int, frameIndex:Int):Void {
 		super.animCallback(name, frameNumber, frameIndex);
-		// playerSafeHitboxes.animCallback(name, frameNumber, frameIndex);
-		// if (name == "dance") {
-		// 	danceFrameIndex = frameIndex;
-		// }
 		if (name == "dance" && frameNumber == 0) {
 			sendOutTheEvilOfTheThriller();
 		}
