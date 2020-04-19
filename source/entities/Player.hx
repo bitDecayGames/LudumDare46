@@ -1,5 +1,6 @@
 package entities;
 
+import hitbox.HitboxSprite;
 import hitbox.HitboxLocation;
 import flixel.FlxG;
 import flixel.group.FlxGroup;
@@ -22,7 +23,7 @@ class Player extends FlxSprite {
 
 	var isCarrying = false;
 
-	public function new(playerHitboxes:FlxGroup) {
+	public function new(playerHitboxes:FlxTypedGroup<HitboxSprite>) {
 		super();
 		super.loadGraphic(AssetPaths.Player__png, true, 32, 48);
 
