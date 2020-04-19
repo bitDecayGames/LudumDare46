@@ -67,8 +67,8 @@ class HitboxManager extends FlxBasic {
 		sortGroup.add(f);
 	}
 
-	public function addTrees(num:Int) {
-		for (t in treeGroup.spawn(num)) {
+	public function addTrees() {
+		for (t in treeGroup.spawn()) {
 			sortGroup.add(t.trunk);
 			sortGroup.add(t.top);
 		}
@@ -108,12 +108,17 @@ class HitboxManager extends FlxBasic {
 		FlxG.overlap(intraEnemyHitboxes, enemyFlock, enemyHitEnemy);
 	}
 
-	private function playerHitEnemy(hitbox:HitboxSprite, enemy:Enemy) {
-		enemy.takeHit(hitbox.getMidpoint(), 30);
+	private function playerHitEnemy(playerHitbox:HitboxSprite, enemy:Enemy) {
+		if (enemy.state == PICKUPABLE) {
+			var player = cast(playerHitbox.source, Player);
+			player.playerGroup.pickUp(enemy);
+		} else {
+			enemy.takeHit(playerHitbox.getMidpoint(), 30);
+		}
 	}
 
 	private function enemyHitPlayer(enemy:HitboxSprite, player:Player) {
-		FlxG.log.notice("Player got ricked");
+		player.getHit(player.getPosition().subtractPoint(enemy.source.getPosition()));
 	}
 
 	private function enemyHitEnemy(hitbox:HitboxSprite, enemy:Enemy) {

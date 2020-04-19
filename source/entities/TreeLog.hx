@@ -16,19 +16,7 @@ class TreeLog extends Throwable {
 
 		animation.add("log", [0], 0);
 		animation.play("log");
-		drag.set(500, 500);
 
 		state = PICKUPABLE;
 	}
-
-	override public function update(delta:Float) {
-		super.update(delta);
-
-		if (state == BEING_THROWN || state == BEING_CARRIED) {
-			drag.set(0, 0);
-		} else {
-			drag.set(500, 500);
-		}
-	}
-
 }

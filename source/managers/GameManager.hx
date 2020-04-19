@@ -40,6 +40,9 @@ class GameManager extends FlxBasic {
 		super();
 		game.add(this);
 
+		// TODO: Probably could put this in a better place
+		hitboxMgr.addTrees();
+
 		game.camera.filtersEnabled = true;
 		filters.push(new ShaderFilter(shader));
 		game.camera.bgColor = FlxColor.WHITE;

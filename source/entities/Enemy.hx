@@ -28,7 +28,7 @@ enum EnemyState {
 	DANCING;
 }
 
-class Enemy extends FlxSprite {
+class Enemy extends Throwable {
 	var speed = 300.0; // to remind people to change this for each enemy individually
 	var personalBubble = 50.0;
 	var attackDistance = 20.0;
@@ -45,6 +45,7 @@ class Enemy extends FlxSprite {
 
 	var hitboxMgr:HitboxManager;
 
+	var stunTime:Float = 0;
 	private var danceTurnFrames:Array<Int>;
 
 	public function new(hitboxMgr:HitboxManager) {
@@ -89,7 +90,7 @@ class Enemy extends FlxSprite {
 
 		animation.add("fall_left", [35, 37], 2, false);
 		animation.add("fall_right", [36, 37], 2, false);
-		animation.add("down", [37, 37, 37, 37, 37], 3, false);
+		animation.add("down", [37], 1);
 
 		animation.add("get_up", [30, 30], 2, false);
 
@@ -108,6 +109,8 @@ class Enemy extends FlxSprite {
 			new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0),
 			new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)
 		]);
+
+		playerSafeHitboxes.register(hitboxMgr.addEnemyHitbox, "attack_0", 3, [new HitboxLocation(13, 11, 13, 0)]);
 		animation.callback = animCallback;
 		animation.finishCallback = finishAnimation;
 	}
@@ -125,6 +128,17 @@ class Enemy extends FlxSprite {
 	override public function update(delta:Float):Void {
 		super.update(delta);
 		playerSafeHitboxes.update(delta);
+
+		if (!shouldUpdate) {
+			return;
+		}
+
+		if (enemyState == KNOCKED_OUT) {
+			stunTime -= delta;
+			if (stunTime <= 0) {
+				finishAnimation("down");
+			}
+		}
 
 		if (shouldAttack()) {
 			attack();
@@ -262,12 +276,15 @@ class Enemy extends FlxSprite {
 	}
 
 	public function getUpOffTheGround():Void {
+		state = DEFAULT;
 		enemyState = GETTING_UP;
 		animation.play("get_up");
 	}
 
 	public function getKnockedOut():Void {
+		state = PICKUPABLE;
 		enemyState = KNOCKED_OUT;
+		stunTime = 1.67; // this was chosen based on originally playing 5 frames at 3/sec
 		velocity.set(0, 0);
 		animation.play("down");
 	}
@@ -309,7 +326,7 @@ class Enemy extends FlxSprite {
 
 	private function animationDirection(hitDirX:Float):String {
 		var toTheLeft = hitDirX > 0;
-		var facingLeft = (facing & FlxObject.LEFT) != 0;
+		var facingLeft = flipX;
 		return (toTheLeft && facingLeft) || (!toTheLeft && !facingLeft) ? "left" : "right";
 	}
 

@@ -23,8 +23,13 @@ class Throwable extends FlxSprite {
 	var start:FlxPoint = new FlxPoint();
 
 	override public function update(delta:Float) {
-		FlxG.watch.addQuick("Throwable's Y: ", y);
 		super.update(delta);
+
+		if (state == BEING_THROWN || state == BEING_CARRIED) {
+			drag.set(0, 0);
+		} else {
+			drag.set(500, 500);
+		}
 
 		if (state == BEING_THROWN) {
 			var lastDistance = last.distanceTo(getPosition());
