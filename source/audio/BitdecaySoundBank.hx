@@ -47,7 +47,7 @@ typedef MusicInfo = {
 
 class BitdecaySoundBank {
 
-	private var mute_music = false;
+	private var mute_music = true;
 
 	public var flxSounds:Map<BitdecaySounds, SoundInfo> = [
 		BitdecaySounds.BulletTimeIn => {name: Std.string(BitdecaySounds.BulletTimeIn), instances: 1, paths: [
