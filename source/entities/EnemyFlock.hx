@@ -7,6 +7,7 @@ import flixel.group.FlxSpriteGroup;
 class EnemyFlock extends FlxSpriteGroup {
 	var player:Player;
 
+	// MW is this going to create memory leaks?
 	public var enemies:List<Enemy>;
 
 	public function new(player:Player) {

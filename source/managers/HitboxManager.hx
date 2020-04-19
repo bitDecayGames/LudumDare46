@@ -67,8 +67,8 @@ class HitboxManager extends FlxBasic {
 		sortGroup.add(f);
 	}
 
-	public function addTrees(num:Int) {
-		for (t in treeGroup.spawn(num)) {
+	public function addTrees() {
+		for (t in treeGroup.spawn()) {
 			sortGroup.add(t.trunk);
 			sortGroup.add(t.top);
 		}
@@ -99,6 +99,7 @@ class HitboxManager extends FlxBasic {
 
 		// Environment interactions
 		FlxG.collide(playerGroup, itemGroup);
+		FlxG.overlap(enemyFlock, itemGroup, enemyTouchItem);
 		FlxG.overlap(playerHitboxes, itemGroup, playerHitItem);
 		FlxG.overlap(playerHitboxes, treeGroup, hitTree);
 
@@ -106,19 +107,40 @@ class HitboxManager extends FlxBasic {
 		FlxG.overlap(playerHitboxes, enemyFlock, playerHitEnemy);
 		FlxG.overlap(enemyHitboxes, playerGroup, enemyHitPlayer);
 		FlxG.overlap(intraEnemyHitboxes, enemyFlock, enemyHitEnemy);
+		FlxG.overlap(enemyFlock, enemyFlock, enemiesTouched);
+	}
+
+	private function enemyTouchItem(enemy:Enemy, item:FlxSprite) {
+		if (Std.is(item, Throwable)) {
+			var throwable = cast(item, Throwable);
+			enemy.checkThrowableHit(throwable);
+		}
 	}
 
 	private function playerHitEnemy(playerHitbox:HitboxSprite, enemy:Enemy) {
+		if (playerHitbox.hasHit(enemy)) {
+			return;
+		}
+		playerHitbox.registerHit(enemy);
+
 		if (enemy.state == PICKUPABLE) {
 			var player = cast(playerHitbox.source, Player);
+			if (player.playerGroup.activelyCarrying) {
+				// can't carry two things
+				return;
+			}
 			player.playerGroup.pickUp(enemy);
 		} else {
 			enemy.takeHit(playerHitbox.getMidpoint(), 30);
 		}
 	}
 
-	private function enemyHitPlayer(enemy:HitboxSprite, player:Player) {
-		FlxG.log.notice("Player got ricked");
+	private function enemyHitPlayer(enemyHitbox:HitboxSprite, player:Player) {
+		if (enemyHitbox.hasHit(player)) {
+			return;
+		}
+		enemyHitbox.registerHit(player);
+		player.getHit(player.getPosition().subtractPoint(enemyHitbox.source.getPosition()));
 	}
 
 	private function enemyHitEnemy(hitbox:HitboxSprite, enemy:Enemy) {
@@ -126,14 +148,27 @@ class HitboxManager extends FlxBasic {
 			// they can't hit themselves
 			return;
 		}
-		FlxG.log.notice("Enemy wrecked themselves");
+		if (hitbox.hasHit(enemy)) {
+			return;
+		}
+		hitbox.registerHit(enemy);
 		enemy.takeHit(hitbox.getMidpoint(), 30);
 		hitbox.kill();
 	}
 
-	private function hitTree(player:FlxSprite, tree:TreeTrunk) {
+	private function enemiesTouched(e1:Enemy, e2:Enemy) {
+		e1.checkThrowableHit(e2);
+		e2.checkThrowableHit(e1);
+	}
+
+	private function hitTree(hitbox:HitboxSprite, tree:TreeTrunk) {
+		if (hitbox.hasHit(tree)) {
+			return;
+		}
+		hitbox.registerHit(tree);
+
 		if (tree.hasLog) {
-			var interactVector:FlxVector = player.getMidpoint();
+			var interactVector:FlxVector = hitbox.source.getMidpoint();
 			interactVector.subtractPoint(tree.getMidpoint());
 			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.TreeHit);
 			var newLog = tree.spawnLog(interactVector);
@@ -143,6 +178,11 @@ class HitboxManager extends FlxBasic {
 	}
 
 	private static function playerHitItem(playerHitbox:HitboxSprite, item:FlxSprite) {
+		if (playerHitbox.hasHit(item)) {
+			return;
+		}
+		playerHitbox.registerHit(item);
+
 		if (Std.is(item, Throwable)) {
 			var throwable = cast(item, Throwable);
 			if (throwable.state == PICKUPABLE) {

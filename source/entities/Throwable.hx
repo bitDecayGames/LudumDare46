@@ -22,6 +22,8 @@ class Throwable extends FlxSprite {
 	var distance:Float;
 	var start:FlxPoint = new FlxPoint();
 
+	public var inFlightHitboxScale:Float = 2;
+
 	override public function update(delta:Float) {
 		super.update(delta);
 
@@ -83,7 +85,7 @@ class Throwable extends FlxSprite {
 		velocity.set(direction.x, direction.y);
 
 		offset.set(defaultOffset.x, carrierOffset.y * .7);
-		setSize(defaultSize.x, defaultSize.y);
+		setSize(defaultSize.x, defaultSize.y * inFlightHitboxScale); // make the object a little big while in air
 		this.setMidpoint(x, y);
 	}
 }

@@ -1,11 +1,14 @@
 package hitbox;
 
+import flixel.FlxObject;
 import flixel.FlxG;
 import flixel.FlxSprite;
 
 class HitboxSprite extends FlxSprite {
 	public var loc:HitboxLocation;
 	public var source:FlxSprite;
+
+	var thingsHit:Map<FlxObject, Bool> = [];
 
 
 	public function new(hbl:HitboxLocation, source:FlxSprite) {
@@ -18,5 +21,17 @@ class HitboxSprite extends FlxSprite {
 		width = hbl.size.x;
 		height = hbl.size.y;
 		kill();
+	}
+
+	public function hasHit(other:FlxObject):Bool {
+		return thingsHit.exists(other);
+	}
+
+	public function registerHit(other:FlxObject) {
+		thingsHit[other] = true;
+	}
+
+	public function clearHits() {
+		thingsHit.clear();
 	}
 }
