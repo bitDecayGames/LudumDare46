@@ -76,6 +76,6 @@ class Fire extends FlxGroup
     {
         var size = 25;
         emitter.setSize(size, size);
-        Sys.print(size + "\n");
+        trace(size + "\n");
     }
 }

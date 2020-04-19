@@ -1,6 +1,5 @@
 package audio;
 
-import states.MovementState;
 import flixel.FlxG;
 import audio.BitdecaySoundBank;
 import screens.GameScreen;
@@ -14,10 +13,6 @@ class SoundBankAccessor {
         } catch( msg : String ) {}
         try {
             var state:MainMenuScreen = cast(FlxG.state, MainMenuScreen);
-            return state.bitdecaySoundBank;
-        } catch( msg : String ) {}
-        try {
-            var state:MovementState = cast(FlxG.state, MovementState);
             return state.bitdecaySoundBank;
         } catch( msg : String ) {}
 

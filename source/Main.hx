@@ -4,10 +4,8 @@ import flixel.util.FlxColor;
 import flixel.addons.transition.TransitionData;
 import flixel.addons.transition.FlxTransitionableState;
 import screens.SplashScreen;
-import screens.MainMenuScreen;
 import flixel.FlxGame;
 import openfl.display.Sprite;
-import states.MovementState;
 
 class Main extends Sprite {
 	public function new() {
