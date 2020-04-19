@@ -13,5 +13,6 @@ class HitboxSprite extends FlxSprite {
 		width = hbl.size.x;
 		height = hbl.size.y;
 		kill();
+		visible = false;
 	}
 }
