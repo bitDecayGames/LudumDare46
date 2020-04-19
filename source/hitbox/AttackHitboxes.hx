@@ -75,5 +75,11 @@ class AttackHitboxes {
 		if (frameNumber == 0 && name == "punch") {
 			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MachoManThrowPunch);
 		}
+		if (frameNumber == 0 && name == "pickup") {
+			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MachoManGrunt);
+		}
+		if (frameNumber == 0 && name == "throw") {
+			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MachoManGruntThrow);
+		}
 	}
 }

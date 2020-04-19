@@ -1,5 +1,7 @@
 package entities;
 
+import flixel.math.FlxPoint;
+import flixel.FlxG;
 import managers.HitboxManager;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
@@ -10,34 +12,44 @@ class PlayerGroup extends FlxGroup {
 	var hitboxMgr:HitboxManager;
 
 	public var player:Player;
-	var savedInstance:FlxSprite;
-	var carry:FlxSprite;
+	public var activelyCarrying:Bool = false;
+	
+	var carryingObject:Throwable;
 
 	public function new(hitboxMgr:HitboxManager) {
 		super(0);
 		this.hitboxMgr = hitboxMgr;
 		player = new Player(this, hitboxMgr);
+		// Set start position
+		player.setPosition(FlxG.width / 2, FlxG.height / 2);
 		add(player);
 		hitboxMgr.addGeneral(player);
 	}
 
-	public function pickUp(thing:FlxSprite) {
-		savedInstance = thing;
-		thing.kill();
-		// TODO: make the over-head sprite
-		carry = new TreeLog();
-		carry.active = false;
-		carry.offset.set(player.offset.x, player.offset.y + 29);
-		carry.setSize(player.width, player.height);
-
-		hitboxMgr.addGeneral(carry);
+	public function pickUp(thing:Throwable) {
+		carryingObject = thing;
+		activelyCarrying = true;
+		thing.pickUp(new FlxPoint(thing.width/2, player.offset.y + 29));
 		update(0);
 		player.hoist();
 	}
 
+	public function throwThing() {
+		var dir = new FlxPoint();
+		if (player.flipX) {
+			dir.set(-1, 0);
+		} else {
+			dir.set(1, 0);
+		}
+
+		carryingObject.getThrown(dir.scale(300), 100);
+		activelyCarrying = false;
+		player.chuck();
+	}
+
 	override public function update(delta:Float) {
-		if (carry != null) {
-			carry.setMidpoint(player.getMidpoint().x, player.getMidpoint().y);
+		if (activelyCarrying) {
+			carryingObject.setMidpoint(player.getMidpoint().x, player.getMidpoint().y);
 		}
 	}
 }

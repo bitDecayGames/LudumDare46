@@ -12,11 +12,16 @@ enum BitdecaySongs {
 enum BitdecaySounds {
 	BulletTimeIn;
 	BulletTimeOut;
+	Campfire;
+	CampfireIgntite;
+	FiremanWater;
 	LogHit;
+	MachoManDamage;
 	MachoManFail;
 	MachoManGruntThrow;
 	MachoManGrunt;
 	MachoManThrowPunch;
+	MachoManOhYeah;
 	MenuNavigate;
 	MenuSelect;
 	RockGround;
@@ -56,50 +61,67 @@ class BitdecaySoundBank {
 		BitdecaySounds.BulletTimeOut => {name: Std.string(BitdecaySounds.BulletTimeOut), instances: 1, paths: [
 			{ path: AssetPaths.BulletTimeOut__ogg, volume: 1}
 		], soundClip: null},
+		BitdecaySounds.Campfire => {name: Std.string(BitdecaySounds.Campfire), instances: 1, paths: [
+			{ path: AssetPaths.campfire__ogg, volume: 0.5}
+		], soundClip: null},
+		BitdecaySounds.CampfireIgntite => {name: Std.string(BitdecaySounds.CampfireIgntite), instances: 1, paths: [
+			{ path: AssetPaths.campfire_ignite1__ogg, volume: 1},
+			{ path: AssetPaths.campfire_ignite2__ogg, volume: 1},
+		], soundClip: null},
+		BitdecaySounds.FiremanWater => {name: Std.string(BitdecaySounds.FiremanWater), instances: 1, paths: [
+			{ path: AssetPaths.fireman_water__ogg, volume: 1}
+		], soundClip: null},
 		BitdecaySounds.LogHit => {name: Std.string(BitdecaySounds.LogHit), instances: 1, paths: [
 			{ path: AssetPaths.log_hit1__ogg, volume: 1},
 			{ path: AssetPaths.log_hit2__ogg, volume: 1},
 			{ path: AssetPaths.log_hit3__ogg, volume: 1}
 		], soundClip: null},
+		BitdecaySounds.MachoManDamage => {name: Std.string(BitdecaySounds.MachoManDamage), instances: 1, paths: [
+			{ path: AssetPaths.macho_man_damage1__ogg, volume: 1},
+			{ path: AssetPaths.macho_man_damage2__ogg, volume: 1},
+			{ path: AssetPaths.macho_man_damage3__ogg, volume: 1},
+			{ path: AssetPaths.macho_man_damage4__ogg, volume: 1}
+		], soundClip: null},
 		BitdecaySounds.MachoManFail => {name: Std.string(BitdecaySounds.MachoManFail), instances: 1, paths: [
 			{ path: AssetPaths.macho_man_fail__ogg, volume: 1}
 		], soundClip: null},
 		BitdecaySounds.MachoManGrunt => {name: Std.string(BitdecaySounds.MachoManGrunt), instances: 1, paths: [
-			{ path: AssetPaths.macho_man_grunt1__ogg, volume: 1},
-			{ path: AssetPaths.macho_man_grunt2__ogg, volume: 1},
+			{ path: AssetPaths.macho_man_grunt2__ogg, volume: .8},
 			{ path: AssetPaths.macho_man_grunt3__ogg, volume: 1},
 			{ path: AssetPaths.macho_man_grunt4__ogg, volume: 1},
 			{ path: AssetPaths.macho_man_grunt5__ogg, volume: 1},
-			{ path: AssetPaths.macho_man_grunt6__ogg, volume: 1},
 			{ path: AssetPaths.macho_man_grunt7__ogg, volume: 1},
 		], soundClip: null},
 		BitdecaySounds.MachoManGruntThrow => {name: Std.string(BitdecaySounds.MachoManGruntThrow), instances: 1, paths: [
-			{ path: AssetPaths.macho_man_grunt_throw1__ogg, volume: 1},
+			{ path: AssetPaths.macho_man_grunt_throw1__ogg, volume: .8},
 			{ path: AssetPaths.macho_man_grunt_throw2__ogg, volume: 1},
 			{ path: AssetPaths.macho_man_grunt_throw3__ogg, volume: 1},
 		], soundClip: null},
 		BitdecaySounds.MachoManThrowPunch => {name: Std.string(BitdecaySounds.MachoManThrowPunch), instances: 1, paths: [
 			{ path: AssetPaths.macho_man_throw_punch__ogg, volume: 1},
 		], soundClip: null},
+		BitdecaySounds.MachoManOhYeah => {name: Std.string(BitdecaySounds.MachoManOhYeah), instances: 1, paths: [
+			{ path: AssetPaths.macho_man_oh_yeah__ogg, volume: 1},
+		], soundClip: null},
 		BitdecaySounds.MenuNavigate => {name: Std.string(BitdecaySounds.MenuNavigate), instances: 1, paths: [
-			{ path: AssetPaths.menu_navigate__ogg, volume: 1},
+			{ path: AssetPaths.menu_navigate__ogg, volume: .5},
 		], soundClip: null},
 		BitdecaySounds.MenuSelect => {name: Std.string(BitdecaySounds.MenuSelect), instances: 1, paths: [
-			{ path: AssetPaths.menu_select__ogg, volume: 1},
+			{ path: AssetPaths.menu_select__ogg, volume: .5},
 		], soundClip: null},
 		BitdecaySounds.RockGround => {name: Std.string(BitdecaySounds.RockGround), instances: 1, paths: [
 			{ path: AssetPaths.rock_ground1__ogg, volume: 1},
 			{ path: AssetPaths.rock_ground2__ogg, volume: 1},
 			{ path: AssetPaths.rock_ground3__ogg, volume: 1},
 		], soundClip: null},
-		BitdecaySounds.RockHit => {name: Std.string(BitdecaySounds.RockHit), instances: 1, paths: [
-			{ path: AssetPaths.rock_hit__ogg, volume: 1},
-			{ path: AssetPaths.rock_hit2__ogg, volume: 1},
-			{ path: AssetPaths.rock_hit3__ogg, volume: 1},
+		BitdecaySounds.RockHit => {name: Std.string(BitdecaySounds.RockHit), instances: 10, paths: [
+			{ path: AssetPaths.rock_hit__ogg, volume: 0.3},
+			{ path: AssetPaths.rock_hit2__ogg, volume: 0.3},
+			{ path: AssetPaths.rock_hit3__ogg, volume: 0.3},
 		], soundClip: null},
 		BitdecaySounds.TreeHit => {name: Std.string(BitdecaySounds.TreeHit), instances: 1, paths: [
-			{ path: AssetPaths.tree_hit1__ogg, volume: 1},
-			{ path: AssetPaths.tree_hit2__ogg, volume: 1},
+			{ path: AssetPaths.tree_hit1__ogg, volume: 0.3},
+			{ path: AssetPaths.tree_hit2__ogg, volume: 0.3},
 		], soundClip: null},
 		BitdecaySounds.WoodFall => {name: Std.string(BitdecaySounds.WoodFall), instances: 1, paths: [
 			{ path: AssetPaths.wood_fall1__ogg, volume: 1},
@@ -118,12 +140,13 @@ class BitdecaySoundBank {
 	];
 
 	public var flxSongs:Map<BitdecaySongs, MusicInfo> = [ 
-		BitdecaySongs.ZombieFuel => {name: Std.string(BitdecaySongs.ZombieFuel), path:AssetPaths.song2__ogg, volume: .5},
-		BitdecaySongs.ZombieFuelLowPass => {name: Std.string(BitdecaySongs.ZombieFuelLowPass), path:AssetPaths.song2_lowpass__ogg, volume: .5},
-		BitdecaySongs.TitleScreen => {name: Std.string(BitdecaySongs.TitleScreen), path:AssetPaths.song__ogg, volume: .5},
+		BitdecaySongs.ZombieFuel => {name: Std.string(BitdecaySongs.ZombieFuel), path:AssetPaths.song2__ogg, volume: .3},
+		BitdecaySongs.ZombieFuelLowPass => {name: Std.string(BitdecaySongs.ZombieFuelLowPass), path:AssetPaths.song2_lowpass__ogg, volume: .3},
+		BitdecaySongs.TitleScreen => {name: Std.string(BitdecaySongs.TitleScreen), path:AssetPaths.song__ogg, volume: .25},
 	];
 
 	public var song:FlxSound;
+	public var preFadeVolume:Float;
 	public var songLowPass:FlxSound;
 
 	public var loopingSoundUniqueId:Int = 1;
@@ -246,8 +269,9 @@ class BitdecaySoundBank {
 		if (song == null || songLowPass == null) {
 			throw 'Tried to get fade to low pass song, but one of the songs wasn\'t loaded';
 		}
+		preFadeVolume = song.volume;
 		song.fadeOut(0.5);
-		songLowPass.fadeIn(0.5);
+		songLowPass.fadeIn(0.5, 0, preFadeVolume);
 	}
 
 	public function TransitionToNormalSong() {
@@ -258,8 +282,8 @@ class BitdecaySoundBank {
 		if (song == null || songLowPass == null) {
 			throw 'Tried to get fade to low pass song, but one of the songs wasn\'t loaded';
 		}
-		song.fadeIn(0.5);
 		songLowPass.fadeOut(0.5);
+		song.fadeIn(0.5, 0, preFadeVolume);
 	}
 
 	public function update() {

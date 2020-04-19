@@ -1,5 +1,6 @@
 package managers;
 
+import entities.Throwable;
 import entities.Enemy;
 import entities.Tree;
 import screens.GameScreen;
@@ -98,7 +99,7 @@ class HitboxManager extends FlxBasic {
 
 		// Environment interactions
 		FlxG.collide(playerGroup, itemGroup);
-		FlxG.overlap(playerHitboxes, itemGroup, handlePlayerHit);
+		FlxG.overlap(playerHitboxes, itemGroup, playerHitItem);
 		FlxG.overlap(playerHitboxes, treeGroup, hitTree);
 
 		// Character interactions
@@ -136,8 +137,13 @@ class HitboxManager extends FlxBasic {
 		}
 	}
 
-	private static function handlePlayerHit(playerHitbox:HitboxSprite, item:FlxSprite) {
-		var player = cast(playerHitbox.source, Player);
-		player.playerGroup.pickUp(item);
+	private static function playerHitItem(playerHitbox:HitboxSprite, item:FlxSprite) {
+		if (Std.is(item, Throwable)) {
+			var throwable = cast(item, Throwable);
+			if (throwable.state == PICKUPABLE) {
+				var player = cast(playerHitbox.source, Player);
+				player.playerGroup.pickUp(throwable);
+			}
+		}
 	}
 }
