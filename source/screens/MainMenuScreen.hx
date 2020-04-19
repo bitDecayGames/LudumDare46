@@ -44,7 +44,9 @@ class MainMenuScreen extends FlxUIState {
 					case CREDITS:
 						FlxG.switchState(new CreditsScreen());
 					case EXIT:
+						#if !html5
 						Sys.exit(0);
+						#end
 				}
 			}
 		}
