@@ -1,5 +1,6 @@
 package screens;
 
+import states.MovementState;
 import audio.BitdecaySound;
 import audio.BitdecaySoundBank;
 import flixel.addons.ui.FlxUIState;
@@ -38,7 +39,7 @@ class MainMenuScreen extends FlxUIState {
 			if (button != null) {
 				switch (button.name) {
 					case START:
-						transitioner.TransitionWithMusicFade(new GameScreen());
+						transitioner.TransitionWithMusicFade(new MovementState());
 					case CREDITS:
 						FlxG.switchState(new CreditsScreen());
 					case EXIT:

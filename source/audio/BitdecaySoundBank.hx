@@ -130,20 +130,18 @@ class BitdecaySoundBank {
 	// }
 
 	public function new () {
-		trace('Instantiating sound engine');
+		// trace('Instantiating sound engine');
 		for(flxSound in flxSounds) {
-			trace('loading data for ${flxSound.name}');
+			// trace('loading data for ${flxSound.name}');
 			flxSound.soundClip = new BitdecaySound(flxSound.name, flxSound.paths, flxSound.instances);
 		}
 	}
 
 	public function PlaySound(soundName:BitdecaySounds) {
-		trace('Trying to playce sound: ${soundName}');
 		var soundInfo = flxSounds[soundName];
 		if (soundInfo == null) {
 			throw 'Tried to play sound effect ($soundName), but it was not found';
 		}
-		trace('Found sound ${soundInfo.name} loaded from ${soundInfo.paths} with sound clip ${soundInfo.soundClip}');
 		soundInfo.soundClip.play();
 	}
 
