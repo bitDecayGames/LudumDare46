@@ -11,7 +11,6 @@ import flixel.FlxSprite;
 using extensions.FlxObjectExt;
 
 class AttackHitboxes {
-
 	var parentSprite:FlxSprite;
 	var hitboxGroup:FlxTypedGroup<HitboxSprite>;
 
@@ -32,13 +31,9 @@ class AttackHitboxes {
 
 		// flipX means we are facing left
 		if (parentSprite.flipX) {
-			lastActive.setMidpoint(
-				parentSprite.getMidpoint().x - lastActive.loc.offset.x, 
-				parentSprite.getMidpoint().y + lastActive.loc.offset.y);
+			lastActive.setMidpoint(parentSprite.getMidpoint().x - lastActive.loc.offset.x, parentSprite.getMidpoint().y + lastActive.loc.offset.y);
 		} else {
-			lastActive.setMidpoint(
-				parentSprite.getMidpoint().x + lastActive.loc.offset.x, 
-				parentSprite.getMidpoint().y + lastActive.loc.offset.y);
+			lastActive.setMidpoint(parentSprite.getMidpoint().x + lastActive.loc.offset.x, parentSprite.getMidpoint().y + lastActive.loc.offset.y);
 		}
 	}
 
@@ -67,7 +62,7 @@ class AttackHitboxes {
 		if (lastActive != null) {
 			lastActive.kill();
 		}
-		if (registrar.exists(name)) {
+		if (registrar != null && name != null && registrar.exists(name)) {
 			inspecting = registrar[name];
 			if (frameNumber >= inspecting.offset && frameNumber < inspecting.offset + inspecting.hitboxFrames.length) {
 				var hitboxFrame = inspecting.hitboxFrames[frameNumber - inspecting.offset];
@@ -76,7 +71,7 @@ class AttackHitboxes {
 				update(0);
 			}
 		}
-		if (frameNumber == 0 && name == "punch"){
+		if (frameNumber == 0 && name == "punch") {
 			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MachoManThrowPunch);
 		}
 	}

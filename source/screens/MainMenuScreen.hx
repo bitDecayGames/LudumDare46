@@ -1,5 +1,6 @@
 package screens;
 
+import screens.GameScreen;
 import audio.BitdecaySound;
 import audio.SoundBankAccessor;
 import audio.BitdecaySoundBank;
@@ -20,16 +21,16 @@ class MainMenuScreen extends FlxUIState {
 	override public function create():Void {
 		_xml_id = "mainMenuScreen";
 		super.create();
-		
+
 		bitdecaySoundBank = new BitdecaySoundBank();
 		transitioner = new SceneTransitioner();
+
 		// This is a hack to track the title screen song when we go to the credits scene
-		if (FlxG.sound.defaultMusicGroup.sounds.length == 0){
+		if (FlxG.sound.defaultMusicGroup.sounds.length == 0) {
 			bitdecaySoundBank.PlaySong(BitdecaySongs.TitleScreen);
 		} else {
 			bitdecaySoundBank.TrackSong(FlxG.sound.defaultMusicGroup.sounds[0]);
 		}
-
 	}
 
 	override public function update(elapsed:Float):Void {
