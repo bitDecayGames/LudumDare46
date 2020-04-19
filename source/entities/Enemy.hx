@@ -80,7 +80,7 @@ class Enemy extends FlxSprite {
 		animation.add("carried", [37], 0);
 
 		playerSafeHitboxes.register("fall_left", 0, [new HitboxLocation(30, 30, 0, 0), new HitboxLocation(30, 30, 0, 0)]);
-		playerSafeHitboxes.register("fall_right", 0, [new HitboxLocation(30, 30, 0, 0), new HitboxLocation(30, 30, 0, 0)]);
+		playerSafeHitboxes.register("fall_right", 0, [new HitboxLocation(80, 80, 0, 0), new HitboxLocation(30, 30, 0, 0)]);
 		animation.callback = playerSafeHitboxes.animCallback;
 		animation.finishCallback = finishAnimation;
 	}
@@ -97,6 +97,7 @@ class Enemy extends FlxSprite {
 
 	override public function update(delta:Float):Void {
 		super.update(delta);
+		playerSafeHitboxes.update(delta);
 
 		if (shouldAttack()) {
 			attack();
