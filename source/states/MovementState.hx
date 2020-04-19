@@ -1,5 +1,6 @@
 package states;
 
+import hitbox.HitboxSprite;
 import flixel.math.FlxVector;
 import entities.TreeTrunk;
 import entities.Tree;
@@ -12,7 +13,7 @@ import flixel.util.FlxColor;
 import openfl.filters.ShaderFilter;
 import openfl.filters.BitmapFilter;
 import shaders.NightShader;
-import entities.Player;
+import entities.PlayerGroup;
 import entities.TreeGroup;
 import entities.TreeLog;
 import flixel.FlxG;
@@ -21,11 +22,10 @@ import sorting.HitboxSorter;
 
 class MovementState extends FlxState
 {
-	var player:Player;
-	var playerGroup:FlxGroup;
+	var playerGroup:PlayerGroup;
 	var treeGroup:TreeGroup;
 	var itemGroup:FlxGroup;
-	var playerHitboxes:FlxGroup;
+	var playerHitboxes:FlxTypedGroup<HitboxSprite>;
 
 	var sortGroup:FlxSpriteGroup;
 	
@@ -42,14 +42,10 @@ class MovementState extends FlxState
 		
 		sortGroup = new FlxSpriteGroup(0);
 		add(sortGroup);
-		playerHitboxes = new FlxGroup(0);
+		playerHitboxes = new FlxTypedGroup<HitboxSprite>(0);
 		add(playerHitboxes);
 
-		playerGroup = new FlxGroup(0);
-
-		player = new Player(playerHitboxes);
-		playerGroup.add(player);
-		sortGroup.add(player);
+		playerGroup = new PlayerGroup(sortGroup, playerHitboxes);
 
 		treeGroup = new TreeGroup();
 		treeGroup.spawn(2);
