@@ -13,7 +13,7 @@ class Player extends FlxSprite {
 	var inControl = false;
 	var control = new Actions();
 
-	var speed = 60;
+	var speed = 70;
 	var waitForFinish = false;
 
 	var hurtboxSize = new FlxPoint(20, 4);
@@ -35,11 +35,11 @@ class Player extends FlxSprite {
 		setFacingFlip(FlxObject.DOWN | FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
 
-		animation.add("idle", [0,1,2,3,4,5,6,7], 5);
-		animation.add("walk", [10,11,12,13], 5);
-		animation.add("carry_walk", [14,15,16,17], 5);
-		animation.add("run", [20,21,22,23], 5);
-		animation.add("carry_carry", [24,25,26,27], 5);
+		animation.add("idle", [0, 1, 2, 3, 4, 5, 6, 7], 5);
+		animation.add("walk", [10, 11, 12, 13], 5);
+		animation.add("carry_walk", [14, 15, 16, 17], 5);
+		animation.add("run", [20, 21, 22, 23], 5);
+		animation.add("carry_carry", [24, 25, 26, 27], 5);
 		animation.add("punch", [41, 42, 43], 10, false);
 
 		hitboxes = new AttackHitboxes(this, playerHitboxes);

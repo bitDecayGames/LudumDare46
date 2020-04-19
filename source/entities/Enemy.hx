@@ -1,12 +1,10 @@
 package entities;
 
-import flixel.FlxG;
-import flixel.input.keyboard.FlxKeyboard.FlxKeyInput;
+import flixel.math.FlxRandom;
 import flixel.math.FlxMath;
 import flixel.math.FlxVector;
 import flixel.math.FlxPoint;
 import flixel.FlxObject;
-import actions.Actions;
 import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 
@@ -21,16 +19,18 @@ enum EnemyState {
 }
 
 class Enemy extends FlxSprite {
-	var speed = 120.0;
+	var speed = 300.0; // to remind people to change this for each enemy individually
 	var personalBubble = 50.0;
+	var attackDistance = 20.0;
 	var player:Player;
 	var enemyState:EnemyState;
-	var attackDistance = 20.0;
+	var rnd:FlxRandom;
 
 	public var flock:EnemyFlock;
 
 	public function new(player:Player) {
 		super();
+		rnd = new FlxRandom();
 		this.player = player;
 		enemyState = CHASING;
 
@@ -62,13 +62,23 @@ class Enemy extends FlxSprite {
 
 		animation.add("fall_left", [35, 37], 2, false);
 		animation.add("fall_right", [36, 37], 2, false);
-		animation.add("down", [37, 37, 37, 37, 37], 2, false);
+		animation.add("down", [37, 37, 37, 37, 37], 3, false);
 
 		animation.add("get_up", [30, 30], 2, false);
 
 		animation.add("carried", [37], 0);
 
 		animation.finishCallback = finishAnimation;
+	}
+
+	public function randomizeStats() {
+		speed = randomizeStat(speed);
+		personalBubble = randomizeStat(personalBubble);
+		attackDistance = randomizeStat(attackDistance);
+	}
+
+	private function randomizeStat(value:Float, deviationPercentage:Float = 0.1):Float {
+		return rnd.float(value - (value * deviationPercentage), value + (value * deviationPercentage));
 	}
 
 	override public function update(delta:Float):Void {
@@ -78,26 +88,12 @@ class Enemy extends FlxSprite {
 			attack();
 		}
 
-		if (FlxG.keys.justPressed.SPACE) {
-			takeHit(player.getPosition(), 10);
-		}
 		var lastFacing = facing;
 
 		calculateVelocity();
 
 		if (enemyState == CHASING) {
-			var newFacing = 0;
-			if (velocity.x > 0) {
-				newFacing = newFacing | FlxObject.RIGHT;
-			} else if (velocity.x < 0) {
-				newFacing = newFacing | FlxObject.LEFT;
-			}
-			if (velocity.y > 0) {
-				newFacing = newFacing | FlxObject.DOWN;
-			} else if (velocity.y < 0) {
-				newFacing = newFacing | FlxObject.UP;
-			}
-			facing = newFacing;
+			calculateFacing();
 
 			if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE) {
 				animation.play("walk");
@@ -159,6 +155,7 @@ class Enemy extends FlxSprite {
 		if (enemyState == CHASING) {
 			enemyState = ATTACKING;
 			animation.play("attack_0");
+			velocity.set(0, 0);
 		}
 	}
 
@@ -178,7 +175,7 @@ class Enemy extends FlxSprite {
 					hitDirection.normalize();
 					beThrown(hitDirection, force);
 				case CHASING:
-					animation.play("hit_" + (hitterPosition.x > x ? "left" : "right"));
+					animation.play("hit_" + animationDirection(x - hitterPosition.x));
 					enemyState = HIT;
 					velocity.set(0, 0);
 				case KNOCKED_OUT | FALLING | ATTACKING | CARRIED: // do nothing
@@ -186,14 +183,14 @@ class Enemy extends FlxSprite {
 		}
 	}
 
-	public function pickUp():Void {
+	public function bePickedUp():Void {
 		enemyState = CARRIED;
 		animation.play("carried");
 	}
 
 	public function beThrown(direction:FlxVector, force:Float = 1):Void {
 		velocity.add(direction.x * force, direction.y * force);
-		animation.play("fall_" + (direction.x < 0 ? "left" : "right"));
+		animation.play("fall_" + animationDirection(direction.x));
 		enemyState = FALLING;
 	}
 
@@ -222,6 +219,27 @@ class Enemy extends FlxSprite {
 				getUpOffTheGround();
 			}
 		}
+	}
+
+	private function animationDirection(hitDirX:Float):String {
+		var toTheLeft = hitDirX > 0;
+		var facingLeft = (facing & FlxObject.LEFT) != 0;
+		return (toTheLeft && facingLeft) || (!toTheLeft && !facingLeft) ? "left" : "right";
+	}
+
+	private function calculateFacing():Void {
+		var newFacing = 0;
+		if (velocity.x > 0) {
+			newFacing = newFacing | FlxObject.RIGHT;
+		} else if (velocity.x < 0) {
+			newFacing = newFacing | FlxObject.LEFT;
+		}
+		if (velocity.y > 0) {
+			newFacing = newFacing | FlxObject.DOWN;
+		} else if (velocity.y < 0) {
+			newFacing = newFacing | FlxObject.UP;
+		}
+		facing = newFacing;
 	}
 
 	// override this for the different enemy behaviours

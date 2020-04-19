@@ -1,5 +1,6 @@
 package debug;
 
+import flixel.math.FlxRandom;
 import entities.Player;
 import screens.GameScreen;
 import entities.EnemyFlock;
@@ -21,14 +22,15 @@ class TestEnemyFlock {
 		game.add(flock);
 
 		var e:Enemy;
-		for (i in 0...4) {
+		var rnd = new FlxRandom();
+		for (i in 0...20) {
 			if (i % 2 == 0) {
 				e = new RegularAssZombie(player);
 			} else {
 				e = new ConfusedZombie(player);
 			}
 			e.x = 100 + i * 10;
-			e.y = 100;
+			e.y = 100 + rnd.float(0, 10);
 			flock.add(e);
 		}
 	}
