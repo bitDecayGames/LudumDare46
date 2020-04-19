@@ -1,5 +1,6 @@
 package screens;
 
+import managers.HitboxManager;
 import audio.SoundBankAccessor;
 import transitions.SceneTransitioner;
 import audio.BitdecaySoundBank;
@@ -12,6 +13,7 @@ import debug.TestEnemyFlock;
 import debug.TestKingOfPop;
 import managers.FireManager;
 import managers.GameManager;
+import managers.EnemySpawnManager;
 
 class GameScreen extends FlxUIState {
 	static private inline var PAUSE = "pause_btn";
@@ -24,8 +26,6 @@ class GameScreen extends FlxUIState {
 	public var paused = false;
 
 	private var firstUnpause = true;
-
-	var gameManager:GameManager;
 
 	override public function create():Void {
 		_xml_id = "gameScreen";
@@ -53,15 +53,14 @@ class GameScreen extends FlxUIState {
 		// only you can prevent merge forest conflict fires
 		//
 		// new TestKingOfPop(this);
-		gameManager = new GameManager(this);
+		var hitboxMgr = new HitboxManager(this);
+		new GameManager(this, hitboxMgr);
+		var fireMgr = new FireManager(this, hitboxMgr);
+		new EnemySpawnManager(this, hitboxMgr, fireMgr.getSprite());
 	}
 
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
-		// TODO Eventually remove this check.
-		if (gameManager != null) {
-			gameManager.update(elapsed);
-		}
 		transitioner.update();
 		bitdecaySoundBank.update();
 	}
