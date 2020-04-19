@@ -6,7 +6,7 @@ class HitboxLocation {
 	public var size:FlxPoint;
 	public var offset:FlxPoint;
 
-	public function new(width:Int, height:Int, xOffset:Int, yOffset:Int) {
+	public function new(width:Float, height:Float, xOffset:Float, yOffset:Float) {
 		size = FlxPoint.get().set(width, height);
 		offset = FlxPoint.get().set(xOffset, yOffset);
 	}
