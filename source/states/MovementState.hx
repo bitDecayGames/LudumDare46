@@ -78,8 +78,8 @@ class MovementState extends FlxState
 
 		// Environment interactions
 		FlxG.collide(playerGroup, itemGroup);
-		FlxG.overlap(playerHitboxes, treeGroup, hitTree);
 		FlxG.overlap(playerHitboxes, itemGroup, handlePlayerHit);
+		FlxG.overlap(playerHitboxes, treeGroup, hitTree);
 		
 		elapsed *= 0.1;
 		if (increasing) {
@@ -106,6 +106,12 @@ class MovementState extends FlxState
 	}
 
 	private static function handlePlayerHit(player: FlxSprite, item: FlxSprite) {
-		item.kill();
+		var interactVector:FlxVector = player.getMidpoint();
+			interactVector.subtractPoint(item.getMidpoint());
+		if (interactVector.x > 0) {
+			item.velocity.x = -300;
+		} else {
+			item.velocity.x = 300;
+		}
 	}
 }
