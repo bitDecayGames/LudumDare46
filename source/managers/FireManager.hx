@@ -19,9 +19,9 @@ class FireManager {
 	public function new(game:GameScreen, hitboxMgr: HitboxManager) {
 		this.game = game;
 		this.hitboxMgr = hitboxMgr;
-		fire = new Fire(GameConstants.GAME_START_X, GameConstants.GAME_START_Y - 80, 30);
+		fire = new Fire(game.shader, GameConstants.GAME_START_X, GameConstants.GAME_START_Y - 80, 30);
 		fire.onFizzle = gameOver;
-		hitboxMgr.addGeneral(fire.fireArt);
+		hitboxMgr.addFire(fire.fireArt);
         transitioner = game.transitioner;
 		game.add(fire);
 		fire.start();
@@ -46,6 +46,5 @@ class FireManager {
 		screenPos.x /= FlxG.width;
 		screenPos.y /= FlxG.width; // haxe seems to assume the screen is square with size width x width
 		game.shader.firePos.value = [screenPos.x, screenPos.y];
-
 	}
 }
