@@ -17,6 +17,7 @@ class HardworkingFirefighter extends Enemy {
 		speed = 30;
 		attackDistance = 100;
 		randomizeStats();
+		invulnerableWhileAttacking = false;
 	}
 
 	function moveTowardsFirepit():FlxVector {
