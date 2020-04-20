@@ -19,10 +19,12 @@ class BitdecaySound {
 	public var flxSounds:Array<FlxSound> = new Array();
 	private var flxRandom:FlxRandom = new FlxRandom();
 	private var lastPlayedIndex:Int = 100;
+	private var maxConcurrent:Int;
 
 	public function new(soundName:String, soundPaths:Array<SoundPath>, MaxConcurrent:Int = 1) {
 
 		name = soundName;
+		maxConcurrent = MaxConcurrent;
 
 		for (soundPath in soundPaths) {
 			#if !html5
@@ -62,7 +64,7 @@ class BitdecaySound {
 
 				if (debugSound) {
 					if (name != Std.string(BitdecaySounds.ZombieGroan)){
-						trace('Playing ${name}[${index}] at volume ${flxSounds[index].volume}');
+						trace('Playing ${name}[${Math.ffloor(index/maxConcurrent)}] at volume ${flxSounds[index].volume}');
 					}
 				}
 				flxSounds[index].play();

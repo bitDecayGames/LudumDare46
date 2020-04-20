@@ -29,7 +29,7 @@ class FireManager {
         //game.add(logs);
         hitboxMgr.addGeneral(logs);
 
-        fire = new Fire(game.shader, x, y, 30);
+        fire = new Fire(game.shader, x, y, 20);
 		fire.onFizzle = gameOver;
 		game.cameraFocalPoint.addObject(fire.fireArt);
 		hitboxMgr.addFire(fire.fireArt);
@@ -41,6 +41,10 @@ class FireManager {
 
 	public function disableLose() {
 		cantLose = true;
+	}
+
+	public function startFireTimer() {
+		fire.startFireTimer();
 	}
 
     public function gameOver() {

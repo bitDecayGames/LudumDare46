@@ -1,5 +1,7 @@
 package entities.enemies;
 
+import audio.BitdecaySoundBank.BitdecaySounds;
+import audio.SoundBankAccessor;
 import flixel.math.FlxPoint;
 import flixel.addons.display.FlxNestedSprite;
 import managers.HitboxManager;
@@ -18,7 +20,7 @@ class NecroDancer extends Enemy {
 	var timer:Float = 0.0;
 	var maxTimeToMove:Float = 5.0;
 	var attackTimer:Float = 0.0;
-	var maxAttackTimer:Float = 12.0;
+	var maxAttackTimer:Float = 6.0;
 	var zombieOffset:Float = 20;
 
 	public function new(hitboxMgr:HitboxManager, firepit:FlxSprite) {
@@ -53,6 +55,8 @@ class NecroDancer extends Enemy {
 
 	override function attack():Void {
 		super.attack();
+		SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.NecromancerRise);
+		SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieGroan);
 		spawnZombie(-zombieOffset, -zombieOffset);
 		spawnZombie(zombieOffset, -zombieOffset);
 		spawnZombie(zombieOffset, zombieOffset);

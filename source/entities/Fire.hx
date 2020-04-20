@@ -21,6 +21,7 @@ class Fire extends FlxGroup
     public var onFizzle:Void->Void;
     private var deathRate:Float;
     private var drag:Float = 0;
+    private var isTimerGoing:Bool = false;
 
     private var MAX_RADIUS = 1.2;
     // Higher the number the more extreme the decay will taper off initially
@@ -54,6 +55,10 @@ class Fire extends FlxGroup
     
     }
 
+    public function startFireTimer() {
+        isTimerGoing = true;
+    }
+
     override public function update(elapsed:Float):Void
     {
         super.update(elapsed);
@@ -68,7 +73,10 @@ class Fire extends FlxGroup
 
         shader.fireRadius.value = [calculateRadius()];
 
-        duration -= elapsed;
+        if (isTimerGoing){
+            duration -= elapsed;
+        }
+        
         if (duration <= 0) {
             duration = 0;
             dead = true;

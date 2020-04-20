@@ -1,5 +1,7 @@
 package entities;
 
+import flixel.FlxG;
+import screens.GameScreen;
 import audio.BitdecaySoundBank.BitdecaySounds;
 import audio.SoundBankAccessor;
 import flixel.math.FlxPoint;
@@ -29,11 +31,19 @@ class FireArt extends FlxSprite {
     }
 
     public function consume(thing:FlxSprite) {
+		// Global lookups are da best
+		try{
+			var gameState:GameScreen = cast(FlxG.state, GameScreen);
+			gameState.startMainSong();
+		} catch (msg:String) {}
+
 
         try {
             var throwable:Throwable = cast(thing, Throwable);
             SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.CampfireIgntite);
-            if (throwable.name != "zombie" && throwable.name != "log") {
+            if (throwable.name == "zombie") {
+                SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieAttack);
+            } else if (throwable.name != "log") {
                 SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.HumanBurn);
             }
         } catch( msg : String ) {
