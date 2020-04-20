@@ -1,9 +1,10 @@
 package tiled;
 
+import flixel.util.FlxColor;
+import flixel.FlxG;
 import haxe.io.Path;
 import flixel.tile.FlxTilemap;
 import entities.Tree;
-import flixel.FlxG;
 import flixel.addons.editors.tiled.TiledLayer.TiledLayerType;
 import flixel.addons.editors.tiled.TiledMap;
 import flixel.addons.editors.tiled.TiledObject;
@@ -29,8 +30,8 @@ class TiledLevel extends TiledMap
 	{
         super(tiledLevel);
 
-        // TODO Jake C-T this might be good to add in
-		// FlxG.camera.setScrollBoundsRect(0, 0, fullWidth, fullHeight, true);
+        // Set background color to match grass.
+        FlxG.state.bgColor = FlxColor.fromString("#839820");
 
 		loadObjects(treeGroup);
 

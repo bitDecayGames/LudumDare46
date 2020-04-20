@@ -121,7 +121,7 @@ class Player extends FlxSprite {
 			velocity.set(0, 0);
 		}
 
-		if (FlxG.keys.justPressed.P) {
+		if (control.attack.check()) {
 			// Filler punch controls
 			if (playerGroup.activelyCarrying) {
 				velocity.set(0, 0);

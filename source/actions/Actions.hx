@@ -1,5 +1,7 @@
 package actions;
 
+import flixel.input.FlxInput.FlxInputState;
+import flixel.input.mouse.FlxMouseButton.FlxMouseButtonID;
 import flixel.input.keyboard.FlxKey;
 import flixel.input.actions.FlxAction.FlxActionDigital;
 
@@ -9,6 +11,7 @@ class Actions {
 	public var down = new FlxActionDigital();
 	public var left = new FlxActionDigital();
 	public var right = new FlxActionDigital();
+	public var attack = new FlxActionDigital();
 
 	public function new() {
 		up.addKey(FlxKey.W, PRESSED);
@@ -22,5 +25,8 @@ class Actions {
 		
 		right.addKey(FlxKey.D, PRESSED);
 		right.addKey(FlxKey.RIGHT, PRESSED);
+
+		attack.addKey(FlxKey.P, JUST_PRESSED);
+		attack.addMouse(FlxMouseButtonID.LEFT, JUST_PRESSED);
 	}
 }
