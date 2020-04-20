@@ -33,8 +33,9 @@ class HardworkingFirefighter extends Enemy {
 
 	override public function update(delta:Float):Void {
 		super.update(delta);
-		if (isWaterOn)
+		if (isWaterOn) {
 			shootWater();
+		}
 	}
 
 	function moveTowardsFirepit():FlxVector {
