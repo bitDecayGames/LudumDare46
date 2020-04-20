@@ -170,6 +170,37 @@ class Player extends FlxSprite {
 		}
 	}
 
+	public function getThrowDir(): FlxPoint {
+		var throwDirX = 0;
+		var throwDirY = 0;
+		// If facing not set, use flipX
+		if (facing == FlxObject.NONE) {
+			if (flipX) {
+				throwDirX = -1;
+			} else {
+				throwDirX = 1;
+			}
+		// Otherwise rely on facing
+		} else {
+			if (facing & FlxObject.LEFT != 0) {
+				throwDirX = -1;
+			}
+			if (facing & FlxObject.RIGHT != 0) {
+				throwDirX = 1;
+			}
+		}
+
+		// Always check up/down
+		if (facing & FlxObject.UP != 0) {
+			throwDirY = -1;
+		}
+		if (facing & FlxObject.DOWN != 0) {
+			throwDirY = 1;
+		}
+
+		return new FlxPoint(throwDirX, throwDirY);
+	}
+
 	private function animationDirection(hitDirX:Float):String {
 		var toTheLeft = hitDirX > 0;
 		var facingLeft = flipX;

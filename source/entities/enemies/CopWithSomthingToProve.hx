@@ -20,8 +20,17 @@ class CopWithSomethingToProve extends ConfusedZombie {
 
 	override public function attack():Void {
 		super.attack();
-		if (enemyState == CHASING) {
-			// TODO: spawn a bullet towards the player
+	}
+
+	function shootBullet() {
+		var b = new Bullet(flipX ? x : x + width, y - frameHeight / 4.0, hitboxMgr.getPlayer().x, hitboxMgr.getPlayer().y);
+		hitboxMgr.addGeneral(b);
+	}
+
+	override private function animCallback(name:String, frameNumber:Int, frameIndex:Int):Void {
+		super.animCallback(name, frameNumber, frameIndex);
+		if (name == "attack_0" && frameIndex == 43) {
+			shootBullet();
 		}
 	}
 }
