@@ -20,7 +20,7 @@ class Player extends FlxSprite {
 	var inControl = false;
 	var control = new Actions();
 
-	var speed = 70;
+	var speed = 80;
 	var waitForFinish = false;
 	var invincible = 0.0;
 	var _invincibleMaxTime = 1.0;
