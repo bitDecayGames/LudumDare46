@@ -1,5 +1,10 @@
 package screens;
 
+import flixel.math.FlxPoint;
+import entities.Logs;
+import flixel.util.FlxColor;
+import entities.FireArt;
+import entities.Fire;
 import audio.BitdecaySoundBank;
 import audio.SoundBankAccessor;
 import flixel.addons.ui.FlxUIState;
@@ -14,9 +19,21 @@ class CreditsScreen extends FlxUIState {
 
 	override public function create():Void {
 		_xml_id = "creditsScreen";
+		bgColor = FlxColor.BLACK;
 		super.create();
 
 		bitdecaySoundBank = new BitdecaySoundBank();
+
+		var pos:FlxPoint = new FlxPoint(300, 550);
+
+		var logs:Logs = new Logs(pos.x, pos.y);
+		logs.scale.set(5, 5);
+		add(logs);
+
+		var fire:FireArt = new FireArt(pos.x, pos.y, null);
+		fire.animation.play("regular");
+		fire.scale.set(5, 5);
+		add(fire);
 	}
 
 	override public function update(elapsed:Float):Void {

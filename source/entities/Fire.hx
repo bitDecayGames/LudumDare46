@@ -103,7 +103,7 @@ class Fire extends FlxGroup
 
 
         if (FlxG.keys.justPressed.H)
-        {            
+        {
             addTime(5);
         }
         
