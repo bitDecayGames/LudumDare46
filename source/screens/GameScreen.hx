@@ -1,5 +1,8 @@
 package screens;
 
+import flixel.util.FlxTimer;
+import flixel.text.FlxBitmapText;
+import flixel.FlxCamera;
 import flixel.util.FlxColor;
 import openfl.filters.ShaderFilter;
 import openfl.filters.BitmapFilter;
@@ -41,6 +44,14 @@ class GameScreen extends FlxUIState {
 	public var paused = false;
 
 	private var firstUnpause = true;
+	private var punchTreeText:FlxBitmapText;
+	private var burnThingsText:FlxBitmapText;
+	private var keepItAliveText:FlxBitmapText;
+	public var isTreeTextDestroyed = false;
+	public var isMainSongPlaying = false;
+	public var finalTextTimer:FlxTimer;
+
+	private var enemySpawnManager:EnemySpawnManager;
 
 	override public function create():Void {
 		_xml_id = "gameScreen";
@@ -49,9 +60,7 @@ class GameScreen extends FlxUIState {
 		bitdecaySoundBank = new BitdecaySoundBank();
 		transitioner = new SceneTransitioner();
 
-		bitdecaySoundBank.PlaySong(BitdecaySongs.ZombieFuel);
-		// bitdecaySoundBank.PlaySoundLooped(BitdecaySounds.Campfire);
-
+		bitdecaySoundBank.PlaySound(BitdecaySounds.Campfire);
 		unpause();
 
 		//
@@ -85,9 +94,17 @@ class GameScreen extends FlxUIState {
 		camera.follow(cameraFocalPoint);
 
 		fireMgr = new FireManager(this, hitboxMgr);
-		new EnemySpawnManager(this, hitboxMgr, fireMgr.getSprite());
+		enemySpawnManager = new EnemySpawnManager(this, hitboxMgr, fireMgr.getSprite());
 		// new TestKingOfPop(this, hitboxMgr, fireMgr);
 		// new TestWaterBlast(this, hitboxMgr);
+
+		
+		punchTreeText = new FlxBitmapText();
+		punchTreeText.x = 580;
+		punchTreeText.y = 535;
+		punchTreeText.text = "Puch the trees with Z";
+		add(punchTreeText);
+		
 		victoryMgr = new ProgressManager(this);
 		add(victoryMgr);
 	}
@@ -103,6 +120,46 @@ class GameScreen extends FlxUIState {
 			transitioning = true;
 			transitioner.TransitionWithMusicFade(new WinScreen());
 		}
+
+	}
+
+	public function destroyTreeText() {
+		if(!isTreeTextDestroyed) {
+			punchTreeText.destroy();
+			
+			burnThingsText = new FlxBitmapText();
+			burnThingsText.x = 475;
+			burnThingsText.y = 400;
+			burnThingsText.text = "Throw things into the fire";
+			add(burnThingsText);
+
+			isTreeTextDestroyed = true;
+		}
+	}
+
+	public function startMainSong() {
+		if(!isMainSongPlaying) {
+			burnThingsText.destroy();
+			bitdecaySoundBank.PlaySong(BitdecaySongs.ZombieFuel);
+
+			keepItAliveText = new FlxBitmapText();
+			keepItAliveText.x = 485;
+			keepItAliveText.y = 400;
+			keepItAliveText.text = "DON'T LET IT GO OUT!!!";
+			add(keepItAliveText);
+
+			finalTextTimer = new FlxTimer();
+			finalTextTimer.start(4, deleteFinalText, 1);
+
+			fireMgr.startFireTimer();
+
+			isMainSongPlaying = true;
+		}
+	}
+
+	private function deleteFinalText(timer:FlxTimer):Void {
+		keepItAliveText.destroy();
+		enemySpawnManager.startSpawningEnemies();
 	}
 
 	public function pause():Void {

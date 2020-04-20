@@ -1,19 +1,20 @@
 package entities;
 
+import flixel.math.FlxPoint;
 import flixel.FlxG;
 import flixel.FlxSprite;
 
-class ProgressMeter extends FlxSprite {
-	var progress:Float;
+using extensions.FlxObjectExt;
 
-	public function new() {
+class ProgressMeter extends FlxSprite {
+	var progress:Float = 0;
+
+	public function new(center:FlxPoint) {
 		super();
 		loadGraphic(AssetPaths.dial__png);
 		updateHitbox();
 
-		x = FlxG.camera.width / 2 - width + (FlxG.camera.width / 2) / FlxG.camera.zoom;
-		y = FlxG.camera.height / 2 - (FlxG.camera.height / 2)  / FlxG.camera.zoom;
-
+		this.setMidpoint(center.x, center.y);
 		scrollFactor.set(0, 0);
 	}
 

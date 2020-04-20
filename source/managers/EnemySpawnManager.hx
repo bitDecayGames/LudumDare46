@@ -5,7 +5,6 @@ import entities.enemies.ConfusedZombie;
 import entities.enemies.RegularAssZombie;
 import entities.enemies.CopWithSomthingToProve;
 import entities.enemies.KingOfPop;
-import entities.enemies.NecroDancer;
 import flixel.math.FlxRandom;
 import entities.Enemy;
 import screens.GameScreen;
@@ -20,7 +19,6 @@ class EnemySpawnManager extends FlxBasic {
 
 	private var timer = 0.0;
 	private var spawnFrequency = 15.0;
-	private var radiusAroundFirePit = 300.0;
 
 	private var flock:EnemyFlock;
 	private var hitboxMgr:HitboxManager;
@@ -29,6 +27,8 @@ class EnemySpawnManager extends FlxBasic {
 	private var rnd:FlxRandom;
 
 	private var enemyTypes:Array<EnemyType>;
+
+	private var shouldSpawnEnemies:Bool = false;
 
 	public function new(game:GameScreen, hitboxMgr:HitboxManager, firepit:FlxSprite) {
 		super();
@@ -41,12 +41,15 @@ class EnemySpawnManager extends FlxBasic {
 
 		enemyTypes = [
 			new EnemyType(Type.getClassName(RegularAssZombie), -1, 1, spawnRegularAssZombie),
-			// new EnemyType(Type.getClassName(ConfusedZombie), -1, 1, spawnConfusedZombie),
-			new EnemyType(Type.getClassName(HardworkingFirefighter), 1, 1, spawnHardworkingFirefighter),
-			// new EnemyType(Type.getClassName(CopWithSomethingToProve), 3, 1, spawnCopWithSomethingToProve),
-			// new EnemyType(Type.getClassName(KingOfPop), 1, 3, spawnKingOfPop),
-			// new EnemyType(Type.getClassName(NecroDancer), 3, 2, spawnNecroDancer),
+			new EnemyType(Type.getClassName(ConfusedZombie), -1, 1, spawnConfusedZombie),
+			new EnemyType(Type.getClassName(HardworkingFirefighter), 5, 1, spawnHardworkingFirefighter),
+			new EnemyType(Type.getClassName(CopWithSomethingToProve), 3, 1, spawnCopWithSomethingToProve),
+			new EnemyType(Type.getClassName(KingOfPop), 1, 3, spawnKingOfPop),
 		];
+	}
+
+	public function startSpawningEnemies() {
+		shouldSpawnEnemies = true;
 	}
 
 	public function spawnRegularAssZombie():Enemy {
@@ -69,15 +72,13 @@ class EnemySpawnManager extends FlxBasic {
 		return new KingOfPop(hitboxMgr);
 	}
 
-	public function spawnNecroDancer():Enemy {
-		return new NecroDancer(hitboxMgr, firepit);
-	}
-
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
-		timer -= elapsed;
-		if (timer < 0) {
-			triggerSpawnEvent();
+		if(shouldSpawnEnemies){
+			timer -= elapsed;
+			if (timer < 0) {
+				triggerSpawnEvent();
+			}
 		}
 	}
 
@@ -118,12 +119,9 @@ class EnemySpawnManager extends FlxBasic {
 	}
 
 	private function pickRandomLocation(enemy:Enemy):Void {
-		var v = new FlxVector(rnd.float(-1, 1), rnd.float(-1, 1));
-		v.normalize();
-		v.scale(radiusAroundFirePit);
-		v.add(firepit.x, firepit.y);
-		enemy.x = v.x;
-		enemy.y = v.y;
+		// TODO: MW pick a location near the edge of the map, or possibly off the map?
+		enemy.x = rnd.floatNormal() * 500.0;
+		enemy.y = rnd.floatNormal() * 500.0;
 	}
 
 	private function randomEnemyType():EnemyType {

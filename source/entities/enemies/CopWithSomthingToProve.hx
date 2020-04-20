@@ -1,5 +1,7 @@
 package entities.enemies;
 
+import audio.BitdecaySoundBank.BitdecaySounds;
+import audio.SoundBankAccessor;
 import managers.HitboxManager;
 import entities.Player;
 import flixel.group.FlxGroup;
@@ -25,6 +27,7 @@ class CopWithSomethingToProve extends ConfusedZombie {
 	function shootBullet() {
 		var b = new Bullet(flipX ? x : x + width, y - frameHeight / 4.0, hitboxMgr.getPlayer().x, hitboxMgr.getPlayer().y);
 		hitboxMgr.addGeneral(b);
+		SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.CopShoot);
 	}
 
 	override private function animCallback(name:String, frameNumber:Int, frameIndex:Int):Void {

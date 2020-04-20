@@ -1,5 +1,7 @@
 package entities;
 
+import screens.GameScreen;
+import flixel.FlxG;
 import flixel.math.FlxVector;
 import flixel.FlxSprite;
 
@@ -29,6 +31,14 @@ class TreeTrunk extends FlxSprite {
 	}
 
 	public function spawnLog(interact:FlxVector):TreeLog {
+		// Global lookups are da best
+		try{
+			var gameState:GameScreen = cast(FlxG.state, GameScreen);
+			gameState.destroyTreeText();
+		} catch (msg:String) {
+
+		}
+
 		if (interact.x < 0) {
 			parentTree.top.animation.play("hitFromLeft");
 		} else {
