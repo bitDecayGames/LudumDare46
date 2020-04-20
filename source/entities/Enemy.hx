@@ -90,8 +90,8 @@ class Enemy extends Throwable {
 		animation.add("hit_left", [45], 2, false);
 		animation.add("hit_right", [46], 2, false);
 
-		animation.add("fall_left", [35, 37], 2, false);
-		animation.add("fall_right", [36, 37], 2, false);
+		animation.add("fall_left", [35], 2, false);
+		animation.add("fall_right", [36], 2, false);
 		animation.add("down", [37], 1);
 
 		animation.add("get_up", [30, 30], 2, false);
