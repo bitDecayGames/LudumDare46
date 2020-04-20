@@ -18,7 +18,6 @@ class HardworkingFirefighter extends Enemy {
 	var num:Float = 0;
 	var i:Int = 0;
 	var isWaterOn:Bool = false;
-	var isPlayingWaterSound:Bool = false;
 
 	public function new(hitboxMgr:HitboxManager, firepit:FlxSprite) {
 		super(hitboxMgr);
@@ -78,7 +77,7 @@ class HardworkingFirefighter extends Enemy {
 	override private function animCallback(name:String, frameNumber:Int, frameIndex:Int):Void {
 		super.animCallback(name, frameNumber, frameIndex);
 		isWaterOn = name == "attack_0" && frameNumber > 0;
-		if (name == "attack_0" && frameNumber == 0 && !isPlayingWaterSound){
+		if (name == "attack_0" && frameNumber == 0){
 			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.FiremanWater);
 		}
 	}
