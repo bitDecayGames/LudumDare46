@@ -62,7 +62,7 @@ class BitdecaySound {
 
 				if (debugSound) {
 					if (name != Std.string(BitdecaySounds.ZombieGroan)){
-						trace('Playing ${name}[${index}] at volume ${flxSounds[index].volume}');
+						//trace('Playing ${name}[${index}] at volume ${flxSounds[index].volume}');
 					}
 				}
 				flxSounds[index].play();

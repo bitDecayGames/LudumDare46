@@ -5,7 +5,9 @@ import flixel.FlxG;
 import flixel.effects.particles.FlxEmitter;
 import flixel.util.FlxColor;
 import flixel.group.FlxGroup;
+import flixel.FlxSprite;
 import entities.FireArt;
+import entities.Throwable;
 
 class Fire extends FlxGroup
 {
@@ -13,6 +15,7 @@ class Fire extends FlxGroup
     public var fireArt:FireArt;
     public var dead:Bool;
     public var duration:Float;
+    public var alwaysBurns:Bool = false;
     public var MAX_DURATION:Float = 30;
     public var MIN_FREQUENCY:Float = 0.01;
     public var MAX_FREQUENCY:Float = 0.3;
@@ -41,7 +44,7 @@ class Fire extends FlxGroup
 
         this.duration = duration;
         fireArt = new FireArt(x, y, this);
-        
+        trace("made new fireart");
         emitter = new FlxEmitter(x + fireArt.width / 2 - 13, y + fireArt.height / 2 - 23, 200);
 		emitter.makeParticles(4, 6, FlxColor.ORANGE, 200);
 		emitter.color.set(FlxColor.YELLOW, FlxColor.RED, FlxColor.BLACK);
@@ -51,7 +54,10 @@ class Fire extends FlxGroup
         resize();
 
         add(emitter);
-    
+    }
+
+    public function setOnConsume(func:Throwable->Void) {
+        this.fireArt.onConsume = func;
     }
 
     override public function update(elapsed:Float):Void
@@ -66,8 +72,9 @@ class Fire extends FlxGroup
             return;
         }
 
-        shader.fireRadius.value = [calculateRadius()];
-
+        if (shader != null) { 
+            shader.fireRadius.value = [calculateRadius()];
+        }
         duration -= elapsed;
         if (duration <= 0) {
             duration = 0;
@@ -126,9 +133,10 @@ class Fire extends FlxGroup
             newAnimation = "raging";
         } else if (duration > 0.3 * MAX_DURATION) {
             newAnimation = "regular";
-        } else if (duration > 0.1 * MAX_DURATION) {
+        } else if (duration > 0.1 * MAX_DURATION || alwaysBurns)  {
             newAnimation = "tiny";
         } else {
+            trace("hiding a fire");
             newAnimation = "none";
         }
 

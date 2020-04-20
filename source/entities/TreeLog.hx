@@ -10,8 +10,8 @@ class TreeLog extends Throwable {
 
 		name = "log";
 		
-		var hurtboxWidth = 20;
-		var hurtboxHeight = 6;
+		var hurtboxWidth = 23;
+		var hurtboxHeight = 12;
 
 		offset.set((width / 2) - (hurtboxWidth / 2), height - hurtboxHeight);
 		setSize(hurtboxWidth, hurtboxHeight);
