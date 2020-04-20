@@ -38,6 +38,8 @@ class Enemy extends Throwable {
 	var rnd:FlxRandom;
 	var invulnerableWhileAttacking = false;
 
+	public var hitsOtherEnemies = false;
+
 	var playerSafeHitboxes:AttackHitboxes;
 
 	public var flock:EnemyFlock;
@@ -239,10 +241,10 @@ class Enemy extends Throwable {
 
 		switch (enemyState) {
 			case FALLING | KNOCKED_OUT | CARRIED:
-				// ignore this collision
+			// ignore this collision
 			default:
 				takeHit(throwable.getMidpoint(), 3, true);
-				throwable.velocity.set(0,0);
+				throwable.velocity.set(0, 0);
 		}
 	}
 
