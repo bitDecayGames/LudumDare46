@@ -9,6 +9,7 @@ class CopWithSomethingToProve extends ConfusedZombie {
 	public function new(hitboxMgr:HitboxManager) {
 		super(hitboxMgr);
 		super.initAnimations(AssetPaths.Cop__png);
+		name = "cop";
 		personalBubble = 50;
 		speed = 40;
 		attackDistance = 150;

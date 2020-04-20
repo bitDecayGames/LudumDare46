@@ -30,6 +30,7 @@ enum BitdecaySounds {
 	RockHit;
 	TreeHit;
 	WoodFall;
+	ZombieAttack;
 	ZombieCrush;
 	ZombieGroan;
 	ZombieHit;
@@ -68,8 +69,8 @@ class BitdecaySoundBank {
 			{ path: AssetPaths.campfire__ogg, volume: 0.5}
 		], soundClip: null},
 		BitdecaySounds.CampfireIgntite => {name: Std.string(BitdecaySounds.CampfireIgntite), instances: 1, paths: [
-			{ path: AssetPaths.campfire_ignite1__ogg, volume: 1},
-			{ path: AssetPaths.campfire_ignite2__ogg, volume: 1},
+			{ path: AssetPaths.campfire_ignite1__ogg, volume: .55},
+			{ path: AssetPaths.campfire_ignite2__ogg, volume: .55},
 		], soundClip: null},
 		BitdecaySounds.FiremanWater => {name: Std.string(BitdecaySounds.FiremanWater), instances: 1, paths: [
 			{ path: AssetPaths.fireman_water__ogg, volume: 1}
@@ -80,9 +81,9 @@ class BitdecaySoundBank {
 			{ path: AssetPaths.log_hit3__ogg, volume: 1}
 		], soundClip: null},
 		BitdecaySounds.LogLand => {name: Std.string(BitdecaySounds.LogLand), instances: 1, paths: [
-			{ path: AssetPaths.log_land1__ogg, volume: .3},
-			{ path: AssetPaths.log_land2__ogg, volume: .3},
-			{ path: AssetPaths.log_land3__ogg, volume: .3},
+			{ path: AssetPaths.log_land1__ogg, volume: .2},
+			{ path: AssetPaths.log_land2__ogg, volume: .2},
+			{ path: AssetPaths.log_land3__ogg, volume: .2},
 		], soundClip: null},
 		BitdecaySounds.MachoManDamage => {name: Std.string(BitdecaySounds.MachoManDamage), instances: 1, paths: [
 			{ path: AssetPaths.macho_man_damage2__ogg, volume: 1},
@@ -134,6 +135,11 @@ class BitdecaySoundBank {
 			{ path: AssetPaths.wood_fall1__ogg, volume: 1},
 			{ path: AssetPaths.wood_fall2__ogg, volume: 1},
 			{ path: AssetPaths.wood_fall3__ogg, volume: 1},
+		], soundClip: null},
+		BitdecaySounds.ZombieAttack => {name: Std.string(BitdecaySounds.ZombieAttack), instances: 1, paths: [
+			{ path: AssetPaths.zombie_attack1__ogg, volume: .35},
+			{ path: AssetPaths.zombie_attack2__ogg, volume: .35},
+			{ path: AssetPaths.zombie_attack3__ogg, volume: .35},
 		], soundClip: null},
 		BitdecaySounds.ZombieCrush => {name: Std.string(BitdecaySounds.ZombieCrush), instances: 1, paths: [
 			{ path: AssetPaths.zombie_crush1__ogg, volume: 1},
