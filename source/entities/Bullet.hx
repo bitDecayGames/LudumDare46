@@ -16,11 +16,16 @@ import hitbox.AttackHitboxes;
 import hitbox.HitboxLocation;
 import hitbox.HitboxSprite;
 import flixel.group.FlxGroup;
+import hitbox.HitboxSprite;
 
-class Bullet extends FlxSprite {
-	public function new(x:Float, y:Float, targetX:Float, targetY:Float) {
-		super(x, y);
+class Bullet extends HitboxSprite {
+	var hitboxes:AttackHitboxes;
+
+	public function new(source:FlxSprite, x:Float, y:Float, targetX:Float, targetY:Float) {
+		super();
 		super.loadGraphic(AssetPaths.Bullet__png);
+		name = "bullet";
+
 		this.x = x - width / 2.0;
 		this.y = y - height / 2.0;
 		var distX = targetX - this.x;
@@ -31,6 +36,9 @@ class Bullet extends FlxSprite {
 		velocity.x = (distX - (acceleration.x / 2.0)) / (health);
 		velocity.y = (distY - (acceleration.y / 2.0)) / (health);
 		updateAngle();
+
+		loc = new HitboxLocation(width, height, 0, 0);
+		this.source = source;
 	}
 
 	override public function update(delta:Float):Void {

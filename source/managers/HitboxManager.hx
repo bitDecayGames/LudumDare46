@@ -52,7 +52,7 @@ class HitboxManager extends FlxBasic {
 		intraEnemyHitboxes = new FlxTypedGroup<HitboxSprite>(0);
 
 		playerGroup = new PlayerGroup(this);
-		fireGroup = new  FlxTypedGroup<FireArt>(0);
+		fireGroup = new FlxTypedGroup<FireArt>(0);
 		itemGroup = new FlxGroup(0);
 		enemyFlock = new EnemyFlock(playerGroup.player);
 
@@ -63,16 +63,16 @@ class HitboxManager extends FlxBasic {
 		var width = maxX - minX;
 		var height = maxY - minY;
 
-		var leftBound = new FlxObject(minX-10, minY-10, 10, height+20);
+		var leftBound = new FlxObject(minX - 10, minY - 10, 10, height + 20);
 		leftBound.immovable = true;
 
-		var topBound = new FlxObject(minX-10, minY-10, width+20, 10);
+		var topBound = new FlxObject(minX - 10, minY - 10, width + 20, 10);
 		topBound.immovable = true;
-		
-		var rightBound = new FlxObject(maxX, minY-10, 10, height+20);
+
+		var rightBound = new FlxObject(maxX, minY - 10, 10, height + 20);
 		rightBound.immovable = true;
-		
-		var bottomBound = new FlxObject(minX-10, maxY, width+20, 10);
+
+		var bottomBound = new FlxObject(minX - 10, maxY, width + 20, 10);
 		bottomBound.immovable = true;
 
 		boundsGroup.add(leftBound);
@@ -194,7 +194,7 @@ class HitboxManager extends FlxBasic {
 			}
 			player.playerGroup.pickUp(enemy);
 		} else {
-			enemy.takeHit(playerHitbox.getMidpoint(), 30);
+			enemy.takeHit(playerHitbox.getMidpoint(), 80);
 		}
 	}
 
@@ -204,6 +204,11 @@ class HitboxManager extends FlxBasic {
 		}
 		enemyHitbox.registerHit(player);
 		player.getHit(player.getPosition().subtractPoint(enemyHitbox.source.getPosition()));
+
+		if (enemyHitbox.name == "bullet") {
+			// bullets only hit one thing
+			enemyHitbox.kill();
+		}
 	}
 
 	private function enemyHitEnemy(hitbox:HitboxSprite, enemy:Enemy) {
