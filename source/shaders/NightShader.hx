@@ -15,6 +15,8 @@ class NightShader extends FlxShader {
 		uniform vec2 firePos;
 		uniform float fireRadius;
 
+		uniform bool debugLoc;
+
 		void main()
 		{
 			gl_FragColor = texture2D(bitmap, openfl_TextureCoordv);
@@ -39,6 +41,15 @@ class NightShader extends FlxShader {
 
 				gl_FragColor.rgb = gl_FragColor.rgb * totalInfluence;
 			}
+
+			if (debugLoc) {
+				if (openfl_TextureCoordv.x > firePos.x - 0.001 && openfl_TextureCoordv.x < firePos.x + 0.001) {
+					gl_FragColor.rgb = vec3(1,0,0);
+				}
+				if (openfl_TextureCoordv.y > firePos.y - 0.001 && openfl_TextureCoordv.y < firePos.y + 0.001) {
+					gl_FragColor.rgb = vec3(1,0,0);
+				}
+			}
 		}')
 	public function new() {
 		super();
@@ -49,5 +60,6 @@ class NightShader extends FlxShader {
 		this.fireColor.value = [0.929, 0.890, 0.352];
 		this.fireRadius.value = [0.2];
 		this.time.value = [0.0];
+		this.debugLoc.value = [true];
 	}
 }

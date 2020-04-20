@@ -1,5 +1,6 @@
 package managers;
 
+import flixel.FlxObject;
 import entities.FireArt;
 import entities.Throwable;
 import entities.Enemy;
@@ -130,6 +131,8 @@ class HitboxManager extends FlxBasic {
 	private function enemyTouchFire(enemy:Enemy, fire:FireArt) {
 		if (enemy.state == BEING_THROWN) {
 			fire.consume(enemy);
+		} else {
+			FlxObject.separate(enemy, fire);
 		}
 	}
 
