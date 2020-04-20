@@ -20,7 +20,6 @@ class PlayerGroup extends FlxGroup {
 		super(0);
 		this.hitboxMgr = hitboxMgr;
 		player = new Player(this, hitboxMgr);
-		// Sets start location of all game world things
 		player.x = GameConstants.GAME_START_X;
 		player.y = GameConstants.GAME_START_Y;
 		FlxG.watch.add(player, "x", "PlayerX: ");
