@@ -40,7 +40,7 @@ class Enemy extends Throwable {
 
 	public var hitsOtherEnemies = false;
 
-	var playerSafeHitboxes:AttackHitboxes;
+	var hitboxes:AttackHitboxes;
 
 	public var flock:EnemyFlock;
 
@@ -67,7 +67,7 @@ class Enemy extends Throwable {
 		setFacingFlip(FlxObject.DOWN | FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
 
-		playerSafeHitboxes = new AttackHitboxes(this);
+		hitboxes = new AttackHitboxes(this);
 	}
 
 	// MW need to call this from the new function in a subclass
@@ -105,16 +105,16 @@ class Enemy extends Throwable {
 		], 5);
 		danceTurnFrames = [5, 8, 16, 28, 31];
 
-		playerSafeHitboxes.register(hitboxMgr.addIntraEnemyHitbox, "fall_left", 0, [
+		hitboxes.register(hitboxMgr.addIntraEnemyHitbox, "fall_left", 0, [
 			new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0),
 			new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)
 		]);
-		playerSafeHitboxes.register(hitboxMgr.addIntraEnemyHitbox, "fall_right", 0, [
+		hitboxes.register(hitboxMgr.addIntraEnemyHitbox, "fall_right", 0, [
 			new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0),
 			new HitboxLocation(hurtboxSize.x * 1.5, hurtboxSize.y * 2, 0, 0)
 		]);
 
-		playerSafeHitboxes.register(hitboxMgr.addEnemyHitbox, "attack_0", 3, [new HitboxLocation(13, 11, 13, 0)]);
+		hitboxes.register(hitboxMgr.addEnemyHitbox, "attack_0", 3, [new HitboxLocation(13, 11, 13, 0)]);
 		animation.callback = animCallback;
 		animation.finishCallback = finishAnimation;
 	}
@@ -131,7 +131,7 @@ class Enemy extends Throwable {
 
 	override public function update(delta:Float):Void {
 		super.update(delta);
-		playerSafeHitboxes.update(delta);
+		hitboxes.update(delta);
 
 		if (!shouldUpdate) {
 			return;
@@ -252,49 +252,47 @@ class Enemy extends Throwable {
 		if (strong) {
 			switch (enemyState) {
 				case HIT | GETTING_UP | CHASING | ATTACKING | DANCING:
-					var hitDirection = new FlxVector(x - hitterPosition.x, y - hitterPosition.y);
-					hitDirection.normalize();
-					beThrown(hitDirection, force);
-					FlxSpriteUtil.flicker(this, 0.3);
-					SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
-					FlxG.camera.shake(0.001, .1);
+					largeHit(hitterPosition, force);
 				case KNOCKED_OUT | FALLING | CARRIED | OTHER: // do nothing
 			}
 		} else {
 			switch (enemyState) {
 				case HIT | GETTING_UP:
-					var hitDirection = new FlxVector(x - hitterPosition.x, y - hitterPosition.y);
-					hitDirection.normalize();
-					beThrown(hitDirection, force);
-					FlxSpriteUtil.flicker(this, 0.3);
-					SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
-					if (this.name == "zombie") {
-						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieAttack);
-						FlxG.camera.shake(0.002, .1);
-					} else if (this.name != "skeleton"){
-						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.HumanKnockout);
-						FlxG.camera.shake(0.002, .1);
-					} else {
-						FlxG.camera.shake(0.002, .1);
-					}
+					largeHit(hitterPosition, force);
 				case CHASING | DANCING:
-					animation.play("hit_" + animationDirection(x - hitterPosition.x));
-					enemyState = HIT;
-					velocity.set(0, 0);
-					FlxSpriteUtil.flicker(this, 0.3);
-					SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
-					FlxG.camera.shake(0.001, .1);
+					minorHit(hitterPosition);
 				case ATTACKING:
 					if (!invulnerableWhileAttacking) {
-						animation.play("hit_" + animationDirection(x - hitterPosition.x));
-						enemyState = HIT;
-						velocity.set(0, 0);
-						FlxSpriteUtil.flicker(this, 0.3);
-						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
-						FlxG.camera.shake(0.001, .1);
+						minorHit(hitterPosition);
 					}
 				case KNOCKED_OUT | FALLING | CARRIED | OTHER: // do nothing
 			}
+		}
+	}
+
+	private function minorHit(hitterPosition:FlxPoint) {
+		animation.play("hit_" + animationDirection(x - hitterPosition.x));
+		enemyState = HIT;
+		velocity.set(0, 0);
+		FlxSpriteUtil.flicker(this, 0.3);
+		SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
+		FlxG.camera.shake(0.001, .1);
+	}
+
+	private function largeHit(hitterPosition:FlxPoint, force:Float) {
+		var hitDirection = new FlxVector(x - hitterPosition.x, y - hitterPosition.y);
+		hitDirection.normalize();
+		beThrown(hitDirection, force);
+		FlxSpriteUtil.flicker(this, 0.3);
+		SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
+		if (this.name == "zombie") {
+			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieAttack);
+			FlxG.camera.shake(0.002, .1);
+		} else if (this.name != "skeleton") {
+			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.HumanKnockout);
+			FlxG.camera.shake(0.002, .1);
+		} else {
+			FlxG.camera.shake(0.002, .1);
 		}
 	}
 
@@ -333,7 +331,7 @@ class Enemy extends Throwable {
 				startChasing();
 			} else if (animationName.indexOf("fall") >= 0) {
 				getKnockedOut();
-				playerSafeHitboxes.finishAnimation();
+				hitboxes.finishAnimation();
 			} else if (animationName.indexOf("hit") >= 0) {
 				startChasing();
 			} else if (animationName.indexOf("get_up") >= 0) {
@@ -345,7 +343,7 @@ class Enemy extends Throwable {
 	}
 
 	private function animCallback(name:String, frameNumber:Int, frameIndex:Int):Void {
-		playerSafeHitboxes.animCallback(name, frameNumber, frameIndex);
+		hitboxes.animCallback(name, frameNumber, frameIndex);
 		if (name == "dance") {
 			var indexOfFrame = danceTurnFrames.indexOf(frameNumber);
 			if (indexOfFrame >= 0) {
@@ -401,5 +399,4 @@ class Enemy extends Throwable {
 	override public function yOffretForFireSpawn():Float {
 		return -6;
 	}
-
 }

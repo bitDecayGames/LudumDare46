@@ -22,7 +22,7 @@ class HardworkingFirefighter extends Enemy {
 	public function new(hitboxMgr:HitboxManager, firepit:FlxSprite) {
 		super(hitboxMgr);
 		this.firepit = firepit;
-		super.initAnimations(AssetPaths.Firefighter__png);
+		initAnimations(AssetPaths.Firefighter__png);
 		name = "firefighters";
 		personalBubble = 50;
 		speed = 30;
@@ -59,11 +59,13 @@ class HardworkingFirefighter extends Enemy {
 		i += 1;
 		if (i % 3 == 0) {
 			num += 0.5;
-			hitboxMgr.addGeneral(new WaterSplash(
-				flipX ? x : x + width,
-				y - frameHeight / 4.0, 
-				firepit.x + firepit.width / 2.0 + Math.sin(num) * 3,
-				firepit.y + firepit.height / 2.0 + Math.sin(num) * 3));
+			hitboxMgr.addGeneral(new WaterSplash(flipX ? x : x + width, y
+				- frameHeight / 4.0, firepit.x
+				+ firepit.width / 2.0
+				+ Math.sin(num) * 3,
+				firepit.y
+				+ firepit.height / 2.0
+				+ Math.sin(num) * 3));
 		}
 	}
 
@@ -78,7 +80,7 @@ class HardworkingFirefighter extends Enemy {
 	override private function animCallback(name:String, frameNumber:Int, frameIndex:Int):Void {
 		super.animCallback(name, frameNumber, frameIndex);
 		isWaterOn = name == "attack_0" && frameNumber > 0;
-		if (name == "attack_0" && frameNumber == 0){
+		if (name == "attack_0" && frameNumber == 0) {
 			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.FiremanWater);
 		}
 	}

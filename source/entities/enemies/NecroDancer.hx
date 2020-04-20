@@ -27,7 +27,7 @@ class NecroDancer extends Enemy {
 	public function new(hitboxMgr:HitboxManager, firepit:FlxSprite) {
 		super(hitboxMgr);
 		this.firepit = firepit;
-		super.initAnimations(AssetPaths.Necromancer__png);
+		initAnimations(AssetPaths.Necromancer__png);
 		name = "necrodancer";
 		personalBubble = 50;
 		speed = 80;

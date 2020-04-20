@@ -170,7 +170,7 @@ class Player extends FlxSprite {
 		}
 	}
 
-	public function getThrowDir(): FlxPoint {
+	public function getThrowDir():FlxPoint {
 		var throwDirX = 0;
 		var throwDirY = 0;
 		// If facing not set, use flipX
@@ -180,7 +180,7 @@ class Player extends FlxSprite {
 			} else {
 				throwDirX = 1;
 			}
-		// Otherwise rely on facing
+			// Otherwise rely on facing
 		} else {
 			if (facing & FlxObject.LEFT != 0) {
 				throwDirX = -1;

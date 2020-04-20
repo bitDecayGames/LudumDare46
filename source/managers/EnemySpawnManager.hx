@@ -20,6 +20,7 @@ class EnemySpawnManager extends FlxBasic {
 	private var maxUnits:Int = 15;
 	private var curUnits:Int = 0;
 	private var spawnFrequency:Float = 15.0;
+	private var spawnRingRadius:Float = 200.0;
 
 	private var timer = 0.0;
 	private var flock:EnemyFlock;
@@ -39,12 +40,12 @@ class EnemySpawnManager extends FlxBasic {
 		rnd = new FlxRandom();
 
 		enemyTypes = [
-			new EnemyType(Type.getClassName(RegularAssZombie), -1, 1, spawnRegularAssZombie),
-			new EnemyType(Type.getClassName(ConfusedZombie), -1, 1, spawnConfusedZombie),
+			new EnemyType(Type.getClassName(RegularAssZombie), 5, 1, spawnRegularAssZombie),
+			new EnemyType(Type.getClassName(ConfusedZombie), 5, 1, spawnConfusedZombie),
 			new EnemyType(Type.getClassName(HardworkingFirefighter), 5, 1, spawnHardworkingFirefighter),
 			new EnemyType(Type.getClassName(CopWithSomethingToProve), 3, 1, spawnCopWithSomethingToProve),
 			new EnemyType(Type.getClassName(KingOfPop), 1, 3, spawnKingOfPop),
-			new EnemyType(Type.getClassName(SmokeyTheBear), 4, 2, spawnSmokeyTheBear),
+			new EnemyType(Type.getClassName(SmokeyTheBear), 2, 3, spawnSmokeyTheBear),
 			new EnemyType(Type.getClassName(ShinyDemon), 1, 4, spawnShinyDemon),
 			new EnemyType(Type.getClassName(NecroDancer), 2, 4, spawnNecroDancer),
 		];
@@ -101,7 +102,8 @@ class EnemySpawnManager extends FlxBasic {
 		timer = spawnFrequency;
 		maxUnits = Math.ceil(maxUnits * 1.1);
 		var e:EnemyType;
-		while (curUnits < maxUnits) {
+		var failureToFindEnemy:Int = 0;
+		while (curUnits < maxUnits && failureToFindEnemy < 20) {
 			e = randomEnemyType();
 			if (e.count < e.max || e.max < 0) {
 				var enemy = e.spawn();
@@ -109,6 +111,8 @@ class EnemySpawnManager extends FlxBasic {
 				hitboxMgr.addEnemy(enemy);
 				e.count += 1;
 				curUnits += e.cost;
+			} else {
+				failureToFindEnemy += 1;
 			}
 		}
 	}
@@ -133,9 +137,16 @@ class EnemySpawnManager extends FlxBasic {
 	}
 
 	private function pickRandomLocation(enemy:Enemy):Void {
-		// TODO: MW pick a location near the edge of the map, or possibly off the map?
-		enemy.x = rnd.floatNormal() * 500.0;
-		enemy.y = rnd.floatNormal() * 500.0;
+		if (enemy.name == "devil") {
+			enemy.x = firepit.x;
+			enemy.y = firepit.y - 20;
+		} else {
+			var v = new FlxVector(rnd.float(-1.0, 1.0), rnd.float(-1.0, 1.0));
+			v.normalize();
+			v.scale(spawnRingRadius);
+			enemy.x = v.x + firepit.x;
+			enemy.y = v.y + firepit.y;
+		}
 	}
 
 	private function randomEnemyType():EnemyType {

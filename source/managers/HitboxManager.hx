@@ -105,6 +105,12 @@ class HitboxManager extends FlxBasic {
 		sortGroup.add(f);
 	}
 
+	public function addUniversalHitbox(f:HitboxSprite) {
+		enemyHitboxes.add(f);
+		intraEnemyHitboxes.add(f);
+		sortGroup.add(f);
+	}
+
 	public function addFire(f:FireArt) {
 		fireGroup.add(f);
 		sortGroup.add(f);
@@ -194,7 +200,7 @@ class HitboxManager extends FlxBasic {
 			}
 			player.playerGroup.pickUp(enemy);
 		} else {
-			enemy.takeHit(playerHitbox.getMidpoint(), 80);
+			enemy.takeHit(playerHitbox.getMidpoint(), 150);
 		}
 	}
 
@@ -220,7 +226,7 @@ class HitboxManager extends FlxBasic {
 			return;
 		}
 		hitbox.registerHit(enemy);
-		enemy.takeHit(hitbox.getMidpoint(), 30);
+		enemy.takeHit(hitbox.getMidpoint(), 150);
 		hitbox.kill();
 	}
 
