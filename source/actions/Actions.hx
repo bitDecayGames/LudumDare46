@@ -28,6 +28,7 @@ class Actions {
 
 		attack.addKey(FlxKey.P, JUST_PRESSED);
 		attack.addKey(FlxKey.Z, JUST_PRESSED);
+		attack.addKey(FlxKey.SPACE, JUST_PRESSED);
 		attack.addMouse(FlxMouseButtonID.LEFT, JUST_PRESSED);
 	}
 }
