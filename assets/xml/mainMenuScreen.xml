@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<data>	
+<data>
+	<button name="background_btn" use_def="button_def" x="screen.center" y="screen.center" width="screen.width" height="screen.height" resize="true">
+		<anchor x="0" y="0" x-flush="center" y-flush="center" />
+		<graphic name="up" image="ui/TitleScreen_sized"/>
+		<graphic name="over" image="ui/TitleScreen_sized"/>
+		<graphic name="down" image="ui/TitleScreen_sized"/>
+	</button>
+
 	<definition name="button_def">
 		<!-- <graphic name="all" image="test_button"/> -->
 	</definition>
