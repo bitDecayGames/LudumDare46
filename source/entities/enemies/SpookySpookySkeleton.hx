@@ -9,7 +9,7 @@ import hitbox.HitboxSprite;
 class SpookySpookySkeleton extends Enemy {
 	public function new(hitboxMgr:HitboxManager) {
 		super(hitboxMgr);
-		super.initAnimations(AssetPaths.Skeleton__png);
+		initAnimations(AssetPaths.Skeleton__png);
 		name = "skeleton";
 		personalBubble = 50;
 		speed = 40;

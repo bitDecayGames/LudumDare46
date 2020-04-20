@@ -36,5 +36,10 @@ class HitboxSprite extends FlxSprite {
 
 	public function clearHits() {
 		thingsHit.clear();
+
+		// MW make sure to ignore the parent of this hitbox
+		if (source != null) {
+			registerHit(source);
+		}
 	}
 }

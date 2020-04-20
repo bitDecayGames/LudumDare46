@@ -1,5 +1,6 @@
 package entities.enemies;
 
+import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.math.FlxVector;
 import hitbox.HitboxLocation;
 import flixel.FlxSprite;
@@ -16,14 +17,22 @@ class SmokeyTheBear extends ConfusedZombie {
 
 	public function new(hitboxMgr:HitboxManager) {
 		super(hitboxMgr);
-		super.initAnimations(AssetPaths.Bear__png);
+		initAnimations(AssetPaths.Bear__png);
 		name = "bear";
-		personalBubble = 100;
-		speed = 70;
-		maxWaitTime = 0.5;
+		personalBubble = 10;
+		speed = 90;
+		attackDistance = 10;
+		maxWaitTime = 0.25;
 		maxChaseTime = 5.0;
 		hitsOtherEnemies = true;
 		randomizeStats();
+		toggleConfusion();
+	}
+
+	override public function initAnimations(graphic:FlxGraphicAsset):Void {
+		super.initAnimations(graphic);
+		animation.add("attack_0", [40, 41, 42, 43], 15, false);
+		hitboxes.register(hitboxMgr.addUniversalHitbox, "attack_0", 3, [new HitboxLocation(13, 11, 13, 0)]);
 	}
 
 	override function shouldAttack():Bool {
@@ -44,7 +53,11 @@ class SmokeyTheBear extends ConfusedZombie {
 			flock.forEachAlive((s) -> {
 				var dist = FlxMath.distanceBetween(this, s);
 				if (dist < minDist) {
-					target = s;
+					var enemy = cast(s, Enemy);
+					if (enemy != null && (enemy.enemyState == CHASING || enemy.enemyState == HIT) && this.name != enemy.name) {
+						dist = minDist;
+						target = s;
+					}
 				}
 			});
 		}
