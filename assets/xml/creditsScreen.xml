@@ -29,7 +29,7 @@
 	<text name="tools_1"            use_def="body_def"  text="Pyxel Edit" />
 	<text name="tools_2"            use_def="body_def"  text="FLStudio" />
 
-	<align name="credits_list" axis="vertical" x="0" y="screen.center">
+	<align name="credits_list" axis="vertical" x="200" y="screen.center">
 		<bounds top="screen.height/-3.0" bottom="screen.height/3.0"/>
 		<objects value="programmer_title,programmer_0,programmer_1,programmer_2,programmer_3,music_title,music_0,art_title,art_0,tools_title,tools_0,tools_1,tools_2"/>
 	</align>
