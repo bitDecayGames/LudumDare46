@@ -62,7 +62,7 @@ class Throwable extends FlxSprite {
 					}
 				}
 
-				trace('Thing that hit ground: ${name}');
+				trace('Thing that hit ground: ${name}, state: ${state}');
 
 				// TODO: what here? falling? 
 				state = PICKUPABLE;
@@ -106,6 +106,27 @@ class Throwable extends FlxSprite {
 		setSize(defaultSize.x, defaultSize.y * inFlightHitboxScale); // make the object a little big while in air
 		this.setMidpoint(x, y);
 	}
+
+	public function upInFlames() {
+		// Make sure this thing stops and hits the ground before it goes on fire
+		velocity.set(0, 0);
+		resetThings();
+
+		state = ON_FIRE;
+	}
+
+	public function isOnFire() {
+		return state == ON_FIRE;
+	}
+
+	public function xOffretForFireSpawn():Float {
+		return 0;
+	}
+
+	public function yOffretForFireSpawn():Float {
+		return 0;
+	}
+
 }
 
 enum ThrowableState {
@@ -113,4 +134,5 @@ enum ThrowableState {
 	PICKUPABLE;
 	BEING_CARRIED;
 	BEING_THROWN;
+	ON_FIRE;
 }

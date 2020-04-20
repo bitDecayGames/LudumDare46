@@ -6,12 +6,14 @@ import audio.BitdecaySoundBank.BitdecaySounds;
 import audio.SoundBankAccessor;
 import flixel.math.FlxPoint;
 import flixel.FlxSprite;
+import entities.Throwable;
 
 class FireArt extends FlxSprite {
     public var currentAnimation = "raging";
 
     var hurtboxSize:FlxPoint = new FlxPoint(28, 16);
     var parent:Fire;
+    public var onConsume:Throwable->Void;
 
     public function new(x:Float, y:Float, parent:Fire) {
         super(x, y);
@@ -30,7 +32,7 @@ class FireArt extends FlxSprite {
         animation.play(currentAnimation);
     }
 
-    public function consume(thing:FlxSprite) {
+    public function consume(thing:Throwable) {
         // Global lookups are da best
 		try {
             var gameState = cast(FlxG.state, GameScreen);
@@ -56,11 +58,20 @@ class FireArt extends FlxSprite {
 
         // TODO: maybe tweak things based on what hits the flame
         parent.addTime(5);
-        thing.kill();
+
+        trace("fire.consume");
+        if (onConsume != null) {
+            trace("calling onConsume");
+            onConsume(thing);
+        } else {
+            trace("killing in the name of");
+            thing.kill();
+        }
     }
 
     public function switchAnimation(newAnimation:String) {
         if (currentAnimation != newAnimation) {
+            trace("switch to: " + newAnimation);
             if (newAnimation == "none") {
                 kill();
             } else {
