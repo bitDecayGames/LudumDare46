@@ -52,6 +52,7 @@ class GameScreen extends FlxUIState {
 	public var finalTextTimer:FlxTimer;
 
 	private var enemySpawnManager:EnemySpawnManager;
+	private var campfireSound:Int;
 
 	override public function create():Void {
 		_xml_id = "gameScreen";
@@ -60,7 +61,7 @@ class GameScreen extends FlxUIState {
 		bitdecaySoundBank = new BitdecaySoundBank();
 		transitioner = new SceneTransitioner();
 
-		bitdecaySoundBank.PlaySound(BitdecaySounds.Campfire);
+		campfireSound = bitdecaySoundBank.PlaySoundLooped(BitdecaySounds.Campfire);
 		unpause();
 
 		//
@@ -140,6 +141,7 @@ class GameScreen extends FlxUIState {
 			FlxG.camera.shake(0.005, .5);
 
 			burnThingsText.destroy();
+			bitdecaySoundBank.StopSoundLooped(campfireSound);
 			bitdecaySoundBank.PlaySong(BitdecaySongs.ZombieFuel);
 
 			keepItAliveText = new FlxBitmapText();

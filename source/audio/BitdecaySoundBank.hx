@@ -11,6 +11,7 @@ enum BitdecaySongs {
 }
 
 enum BitdecaySounds {
+	Ambience;
 	BulletTimeIn;
 	BulletTimeOut;
 	Campfire;
@@ -63,6 +64,9 @@ class BitdecaySoundBank {
 	private var mute_music = false;
 
 	public var flxSounds:Map<BitdecaySounds, SoundInfo> = [
+		BitdecaySounds.Ambience => {name: Std.string(BitdecaySounds.Ambience), instances: 1, paths: [
+			{ path: AssetPaths.ambience__ogg, volume: .15}
+		], soundClip: null},
 		BitdecaySounds.BulletTimeIn => {name: Std.string(BitdecaySounds.BulletTimeIn), instances: 1, paths: [
 			{ path: AssetPaths.BulletTimeIn__ogg, volume: 1}
 		], soundClip: null},
@@ -105,7 +109,7 @@ class BitdecaySoundBank {
 			{ path: AssetPaths.macho_man_damage4__ogg, volume: 1}
 		], soundClip: null},
 		BitdecaySounds.NecromancerRise => {name: Std.string(BitdecaySounds.NecromancerRise), instances: 1, paths: [
-			{ path: AssetPaths.rise3__ogg, volume: .4},
+			{ path: AssetPaths.rise3__ogg, volume: .3},
 		], soundClip: null},
 		BitdecaySounds.MachoManFail => {name: Std.string(BitdecaySounds.MachoManFail), instances: 1, paths: [
 			{ path: AssetPaths.macho_man_fail__ogg, volume: 1}
