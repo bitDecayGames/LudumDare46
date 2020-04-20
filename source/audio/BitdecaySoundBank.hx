@@ -14,7 +14,7 @@ enum BitdecaySounds {
 	BulletTimeIn;
 	BulletTimeOut;
 	Campfire;
-	CampfireIgntite;
+	CampfireIgnite;
 	CopShoot;
 	FiremanWater;
 	HumanBurn;
@@ -72,7 +72,7 @@ class BitdecaySoundBank {
 		BitdecaySounds.Campfire => {name: Std.string(BitdecaySounds.Campfire), instances: 1, paths: [
 			{ path: AssetPaths.campfire__ogg, volume: 0.5}
 		], soundClip: null},
-		BitdecaySounds.CampfireIgntite => {name: Std.string(BitdecaySounds.CampfireIgntite), instances: 1, paths: [
+		BitdecaySounds.CampfireIgnite => {name: Std.string(BitdecaySounds.CampfireIgnite), instances: 1, paths: [
 			{ path: AssetPaths.campfire_ignite1__ogg, volume: .55},
 			{ path: AssetPaths.campfire_ignite2__ogg, volume: .55},
 		], soundClip: null},

@@ -40,12 +40,14 @@ class FireArt extends FlxSprite {
 
         try {
             var throwable:Throwable = cast(thing, Throwable);
-            SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.CampfireIgntite);
+            SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.CampfireIgnite);
             if (throwable.name == "zombie") {
                 SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieAttack);
             } else if (throwable.name != "log") {
                 SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.HumanBurn);
             }
+            // FlxG.camera.flash(0.05);
+            // FlxG.camera.shake(0.002, .1);
         } catch( msg : String ) {
             throw 'Tried to consume something that wasn\'t throwable';
         }

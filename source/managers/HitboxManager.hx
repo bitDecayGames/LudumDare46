@@ -186,7 +186,6 @@ class HitboxManager extends FlxBasic {
 			return;
 		}
 		playerHitbox.registerHit(enemy);
-
 		if (enemy.state == PICKUPABLE) {
 			var player = cast(playerHitbox.source, Player);
 			if (player.playerGroup.activelyCarrying) {
@@ -235,6 +234,7 @@ class HitboxManager extends FlxBasic {
 			var interactVector:FlxVector = hitbox.source.getMidpoint();
 			interactVector.subtractPoint(tree.getMidpoint());
 			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.TreeHit);
+			FlxG.camera.shake(0.0005, .1);
 			var newLog = tree.spawnLog(interactVector);
 			itemGroup.add(newLog);
 			sortGroup.add(newLog);

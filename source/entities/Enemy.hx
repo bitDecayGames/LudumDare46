@@ -255,6 +255,7 @@ class Enemy extends Throwable {
 					beThrown(hitDirection, force);
 					FlxSpriteUtil.flicker(this, 0.3);
 					SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
+					FlxG.camera.shake(0.001, .1);
 				case KNOCKED_OUT | FALLING | CARRIED | OTHER: // do nothing
 			}
 		} else {
@@ -267,8 +268,10 @@ class Enemy extends Throwable {
 					SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
 					if (this.name == "zombie") {
 						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieAttack);
+						FlxG.camera.shake(0.002, .1);
 					} else {
 						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.HumanKnockout);
+						FlxG.camera.shake(0.002, .1);
 					}
 				case CHASING | DANCING:
 					animation.play("hit_" + animationDirection(x - hitterPosition.x));
@@ -276,6 +279,7 @@ class Enemy extends Throwable {
 					velocity.set(0, 0);
 					FlxSpriteUtil.flicker(this, 0.3);
 					SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
+					FlxG.camera.shake(0.001, .1);
 				case ATTACKING:
 					if (!invulnerableWhileAttacking) {
 						animation.play("hit_" + animationDirection(x - hitterPosition.x));
@@ -283,6 +287,7 @@ class Enemy extends Throwable {
 						velocity.set(0, 0);
 						FlxSpriteUtil.flicker(this, 0.3);
 						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
+						FlxG.camera.shake(0.001, .1);
 					}
 				case KNOCKED_OUT | FALLING | CARRIED | OTHER: // do nothing
 			}

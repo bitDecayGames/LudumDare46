@@ -100,7 +100,7 @@ class GameScreen extends FlxUIState {
 
 		
 		punchTreeText = new FlxBitmapText();
-		punchTreeText.x = 580;
+		punchTreeText.x = 540;
 		punchTreeText.y = 535;
 		punchTreeText.text = "Punch the trees with Z, Space, or Left Click";
 		add(punchTreeText);
@@ -139,6 +139,9 @@ class GameScreen extends FlxUIState {
 
 	public function startMainSong() {
 		if(!isMainSongPlaying) {
+			FlxG.camera.flash(0.5);
+			FlxG.camera.shake(0.005, .5);
+
 			burnThingsText.destroy();
 			bitdecaySoundBank.PlaySong(BitdecaySongs.ZombieFuel);
 

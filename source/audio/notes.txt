@@ -2,7 +2,6 @@ notes:
 
 - Lead instrument on main song might be tweajabke
 
-- Tutorial screen
 - Screenshake
 - SFX on the win and lose screen
 - Michael Jackson
