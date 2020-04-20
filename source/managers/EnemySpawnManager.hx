@@ -106,15 +106,14 @@ class EnemySpawnManager extends FlxBasic {
 		maxUnits = Math.ceil(maxUnits * 1.1);
 		var e:EnemyType;
 		e = randomEnemyType();
-			if (e.count < e.max || e.max < 0) {
-				var enemy = e.spawn();
-				pickRandomLocation(enemy);
-				hitboxMgr.addEnemy(enemy);
-				e.count += 1;
-				curUnits += e.cost;
-			} else {
-				FlxG.log.notice("Can't spawn: " + e.name);
-			}
+		if (e.count < e.max || e.max < 0) {
+			var enemy = e.spawn();
+			pickRandomLocation(enemy);
+			hitboxMgr.addEnemy(enemy);
+			e.count += 1;
+			curUnits += e.cost;
+		} else {
+			FlxG.log.notice("Can't spawn: " + e.name);
 		}
 	}
 

@@ -1,5 +1,7 @@
 package managers;
 
+import audio.BitdecaySoundBank.BitdecaySounds;
+import audio.SoundBankAccessor;
 import cameras.CameraUtils;
 import flixel.FlxG;
 import constants.GameConstants;
@@ -80,8 +82,9 @@ class FireManager {
 			return;
 		}
         trace("game over");
-        FlxG.switchState(new GameOverScreen());
-        //transitioner.TransitionWithMusicFade(new GameOverScreen());
+        SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.CampfirePutout);
+        // FlxG.switchState(new GameOverScreen());
+        transitioner.TransitionWithMusicFade(new GameOverScreen());
 
         // this might be a bad plan since this gets called inside the fire object, 
         // but it seems to be okay
