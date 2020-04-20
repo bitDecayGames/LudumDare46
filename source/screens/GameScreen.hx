@@ -1,5 +1,6 @@
 package screens;
 
+import flixel.FlxCamera;
 import flixel.util.FlxColor;
 import openfl.filters.ShaderFilter;
 import openfl.filters.BitmapFilter;
@@ -86,8 +87,7 @@ class GameScreen extends FlxUIState {
 
 		fireMgr = new FireManager(this, hitboxMgr);
 		new EnemySpawnManager(this, hitboxMgr, fireMgr.getSprite());
-		// new TestKingOfPop(this, hitboxMgr, fireMgr);
-		// new TestWaterBlast(this, hitboxMgr);
+
 		victoryMgr = new ProgressManager(this);
 		add(victoryMgr);
 	}
