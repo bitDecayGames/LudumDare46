@@ -102,7 +102,7 @@ class GameScreen extends FlxUIState {
 		punchTreeText = new FlxBitmapText();
 		punchTreeText.x = 580;
 		punchTreeText.y = 535;
-		punchTreeText.text = "Puch the trees with Z";
+		punchTreeText.text = "Punch the trees with Z or Left Click";
 		add(punchTreeText);
 		
 		victoryMgr = new ProgressManager(this);
@@ -152,6 +152,7 @@ class GameScreen extends FlxUIState {
 			finalTextTimer.start(4, deleteFinalText, 1);
 
 			fireMgr.startFireTimer();
+			victoryMgr.startProgressTimer();
 
 			isMainSongPlaying = true;
 		}

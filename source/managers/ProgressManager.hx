@@ -18,6 +18,7 @@ class ProgressManager extends FlxGroup {
 
 	var winTime:Float = MINUTE_TO_WINUTES * 60;
 	var elapsedTime:Float = 0.0;
+	var isTimerGoing:Bool = false;
 
 	public function new(game:GameScreen) {
 		super();
@@ -29,10 +30,15 @@ class ProgressManager extends FlxGroup {
 		
 	}
 
+	public function startProgressTimer() {
+        isTimerGoing = true;
+	}
+
 	override public function update(delta:Float) {
 		super.update(delta);
-
-		elapsedTime += delta;
+		if(isTimerGoing){
+			elapsedTime += delta;
+		}
 		var normalized = (elapsedTime / winTime);
 		var shaderTime = Math.pow(normalized, 5);
 		game.shader.time.value = [shaderTime];
