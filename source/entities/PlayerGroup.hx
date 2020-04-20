@@ -37,13 +37,7 @@ class PlayerGroup extends FlxGroup {
 	}
 
 	public function throwThing() {
-		var dir = new FlxPoint();
-		if (player.flipX) {
-			dir.set(-1, 0);
-		} else {
-			dir.set(1, 0);
-		}
-
+		var dir = player.getThrowDir();
 		carryingObject.getThrown(dir.scale(300), 100);
 		activelyCarrying = false;
 		player.chuck();
