@@ -340,6 +340,12 @@ class Enemy extends Throwable {
 				}
 			}
 		}
+
+		if (name == "attack_0" && frameNumber == 2) {
+			if (this.name == "zombie") {
+				SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieAttack);
+			}
+		}
 	}
 
 	private function animationDirection(hitDirX:Float):String {

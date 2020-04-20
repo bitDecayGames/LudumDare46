@@ -21,6 +21,7 @@ class HardworkingFirefighter extends Enemy {
 		super(hitboxMgr);
 		this.firepit = firepit;
 		super.initAnimations(AssetPaths.Firefighter__png);
+		name = "firefighters";
 		personalBubble = 50;
 		speed = 30;
 		attackDistance = 100;
