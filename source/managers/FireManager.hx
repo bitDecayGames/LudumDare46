@@ -17,6 +17,7 @@ class FireManager {
 	var hitboxMgr:HitboxManager;
     var transitioner:SceneTransitioner;
     var logs:Logs;
+	var cantLose:Bool = false;
 	
 	public function new(game:GameScreen, hitboxMgr: HitboxManager) {
 		this.game = game;
@@ -37,7 +38,14 @@ class FireManager {
 
 	}
 
+	public function disableLose() {
+		cantLose = true;
+	}
+
     public function gameOver() {
+		if (cantLose) {
+			return;
+		}
         trace("game over");
         // FlxG.switchState(new GameOverScreen());
         //transitioner.TransitionWithMusicFade(new GameOverScreen());
