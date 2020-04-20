@@ -66,6 +66,7 @@ class FireManager {
             // We don't use addFire here because you shouldn't be able to throw things into this fire
             hitboxMgr.addGeneral(thingFire.fireArt);
             game.add(thingFire);
+            thingFire.startFireTimer();
             thingFire.start();
         }
     }
