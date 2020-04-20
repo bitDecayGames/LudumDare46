@@ -71,6 +71,7 @@ class GameScreen extends FlxUIState {
 		victoryMgr = new ProgressManager(this);
 		add(victoryMgr);
 		var hitboxMgr = new HitboxManager(this);
+		hitboxMgr.setPlayZone(27, 130, 1000, 750);
 		hitboxMgr.addTrees();
 
 		camera.filtersEnabled = true;
@@ -81,6 +82,8 @@ class GameScreen extends FlxUIState {
 
 		cameraFocalPoint = new PositionAverager();
 		cameraFocalPoint.addObject(hitboxMgr.getPlayer());
+		FlxG.watch.add(hitboxMgr.getPlayer(), "x", "x: ");
+		FlxG.watch.add(hitboxMgr.getPlayer(), "y", "y: ");
 		add(cameraFocalPoint);
 		camera.follow(cameraFocalPoint);
 
