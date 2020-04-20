@@ -32,6 +32,7 @@ class Analytics {
             body += '"name": "${name}",';
             body += '"timestamp": "${Date.now().toString()}",';
             body += "}";
+
             var http = new Http(SERVER_URL);
             http.setPostData(body);
             #if debug
