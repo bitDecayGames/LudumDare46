@@ -5,6 +5,7 @@ import flixel.FlxG;
 import constants.GameConstants;
 import flixel.FlxSprite;
 import entities.Fire;
+import entities.Logs;
 import screens.GameScreen;
 import screens.GameOverScreen;
 import transitions.SceneTransitioner;
@@ -14,18 +15,27 @@ class FireManager {
 	var game:GameScreen;
 	var fire:Fire;
 	var hitboxMgr:HitboxManager;
-	var transitioner:SceneTransitioner;
+    var transitioner:SceneTransitioner;
+    var logs:Logs;
 	var cantLose:Bool = false;
 	
 	public function new(game:GameScreen, hitboxMgr: HitboxManager) {
 		this.game = game;
-		this.hitboxMgr = hitboxMgr;
-		fire = new Fire(game.shader, GameConstants.GAME_START_X, GameConstants.GAME_START_Y - 80, 30);
+        this.hitboxMgr = hitboxMgr;
+        var x:Float = GameConstants.GAME_START_X;
+        var y:Float = GameConstants.GAME_START_Y - 80;
+
+        logs = new Logs(x, y);
+        //game.add(logs);
+        hitboxMgr.addGeneral(logs);
+
+        fire = new Fire(game.shader, x, y, 30);
 		fire.onFizzle = gameOver;
 		hitboxMgr.addFire(fire.fireArt);
         transitioner = game.transitioner;
 		game.add(fire);
-		fire.start();
+        fire.start();
+
 	}
 
 	public function disableLose() {

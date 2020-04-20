@@ -7,7 +7,6 @@ import flixel.util.FlxColor;
 import flixel.group.FlxGroup;
 import entities.FireArt;
 
-
 class Fire extends FlxGroup
 {
     public var emitter:FlxEmitter;
