@@ -176,9 +176,9 @@ class BitdecaySoundBank {
 	];
 
 	public var flxSongs:Map<BitdecaySongs, MusicInfo> = [ 
-		BitdecaySongs.ZombieFuel => {name: Std.string(BitdecaySongs.ZombieFuel), path:AssetPaths.song2__ogg, volume: .1},
-		BitdecaySongs.ZombieFuelLowPass => {name: Std.string(BitdecaySongs.ZombieFuelLowPass), path:AssetPaths.song2_lowpass__ogg, volume: .1},
-		BitdecaySongs.TitleScreen => {name: Std.string(BitdecaySongs.TitleScreen), path:AssetPaths.song__ogg, volume: .1},
+		BitdecaySongs.ZombieFuel => {name: Std.string(BitdecaySongs.ZombieFuel), path:AssetPaths.song2__ogg, volume: .2},
+		BitdecaySongs.ZombieFuelLowPass => {name: Std.string(BitdecaySongs.ZombieFuelLowPass), path:AssetPaths.song2_lowpass__ogg, volume: .2},
+		BitdecaySongs.TitleScreen => {name: Std.string(BitdecaySongs.TitleScreen), path:AssetPaths.song__ogg, volume: .2},
 	];
 
 	public var song:FlxSound;

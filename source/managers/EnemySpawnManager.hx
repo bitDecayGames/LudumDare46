@@ -42,6 +42,8 @@ class EnemySpawnManager extends FlxBasic {
 
 	private var enemyTypes:Array<EnemyType>;
 
+	private var shouldSpawnEnemies:Bool = false;
+
 	public function new(game:GameScreen, hitboxMgr:HitboxManager, firepit:FlxSprite) {
 		super();
 		game.add(this);
@@ -58,6 +60,10 @@ class EnemySpawnManager extends FlxBasic {
 			new EnemyType(Type.getClassName(CopWithSomethingToProve), 3, 1, spawnCopWithSomethingToProve),
 			new EnemyType(Type.getClassName(KingOfPop), 1, 3, spawnKingOfPop),
 		];
+	}
+
+	public function startSpawningEnemies() {
+		shouldSpawnEnemies = true;
 	}
 
 	public function spawnRegularAssZombie():Enemy {
@@ -82,9 +88,11 @@ class EnemySpawnManager extends FlxBasic {
 
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
-		timer -= elapsed;
-		if (timer < 0) {
-			triggerSpawnEvent();
+		if(shouldSpawnEnemies){
+			timer -= elapsed;
+			if (timer < 0) {
+				triggerSpawnEvent();
+			}
 		}
 	}
 
