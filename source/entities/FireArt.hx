@@ -1,24 +1,45 @@
 package entities;
 
+import flixel.math.FlxPoint;
 import flixel.FlxSprite;
 
 class FireArt extends FlxSprite {
-    var currentAnimation = "raging";
+    public var currentAnimation = "raging";
 
-    public function new(x:Float, y:Float) {
-		super(x, y);
-    
+    var hurtboxSize:FlxPoint = new FlxPoint(28, 16);
+    var parent:Fire;
+
+    public function new(x:Float, y:Float, parent:Fire) {
+        super(x, y);
+        this.parent = parent;
+        immovable = true;
+
         super.loadGraphic(AssetPaths.Fire__png, true, 32, 48);
-        animation.add("tiny", [0, 1, 2, 3], 10);
-		animation.add("regular", [4, 5, 6, 7], 10);
-		animation.add("raging", [8, 9, 10, 11], 10);
+
+        // an extra -2 on the y to help account for empty space at the bottom of the sprites
+		offset.set(width / 2 - hurtboxSize.x / 2, height - hurtboxSize.y - 2);
+        setSize(hurtboxSize.x, hurtboxSize.y);
+        
+        animation.add("tiny", [0, 1, 2, 3], 15);
+		animation.add("regular", [4, 5, 6, 7], 15);
+		animation.add("raging", [8, 9, 10, 11], 15);
         animation.play(currentAnimation);
+    }
+
+    public function consume(thing:FlxSprite) {
+        // TODO: maybe tweak things based on what hits the flame
+        parent.addTime(5);
+        thing.kill();
     }
 
     public function switchAnimation(newAnimation:String) {
         if (currentAnimation != newAnimation) {
-            animation.play(newAnimation);
-            currentAnimation = newAnimation;
+            if (newAnimation == "none") {
+                kill();
+            } else {
+                animation.play(newAnimation);
+            }
+            currentAnimation = newAnimation;    
         }
     }
 

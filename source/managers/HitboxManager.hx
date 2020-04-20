@@ -1,5 +1,6 @@
 package managers;
 
+import entities.FireArt;
 import entities.Throwable;
 import entities.Enemy;
 import entities.Tree;
@@ -24,6 +25,7 @@ import flixel.FlxBasic;
 class HitboxManager extends FlxBasic {
 	public var playerGroup:PlayerGroup;
 	public var treeGroup:TreeGroup;
+	public var fireGroup:FlxTypedGroup<FireArt>;
 	public var itemGroup:FlxGroup;
 	public var playerHitboxes:FlxTypedGroup<HitboxSprite>;
 	public var enemyHitboxes:FlxTypedGroup<HitboxSprite>;
@@ -44,6 +46,7 @@ class HitboxManager extends FlxBasic {
 
 		playerGroup = new PlayerGroup(this);
 		treeGroup = new TreeGroup();
+		fireGroup = new  FlxTypedGroup<FireArt>(0);
 		itemGroup = new FlxGroup(0);
 		enemyFlock = new EnemyFlock(playerGroup.player);
 	}
@@ -64,6 +67,11 @@ class HitboxManager extends FlxBasic {
 
 	public function addIntraEnemyHitbox(f:HitboxSprite) {
 		intraEnemyHitboxes.add(f);
+		sortGroup.add(f);
+	}
+
+	public function addFire(f:FireArt) {
+		fireGroup.add(f);
 		sortGroup.add(f);
 	}
 
@@ -94,12 +102,15 @@ class HitboxManager extends FlxBasic {
 
 		// Environment restrictions
 		FlxG.collide(playerGroup, treeGroup);
+		FlxG.collide(playerGroup, fireGroup);
 		FlxG.collide(enemyFlock, treeGroup);
 		FlxG.collide(itemGroup, treeGroup);
 
 		// Environment interactions
 		FlxG.collide(playerGroup, itemGroup);
+		FlxG.overlap(enemyFlock, fireGroup, enemyTouchFire);
 		FlxG.overlap(enemyFlock, itemGroup, enemyTouchItem);
+		FlxG.collide(itemGroup, fireGroup, itemTouchFire);
 		FlxG.overlap(playerHitboxes, itemGroup, playerHitItem);
 		FlxG.overlap(playerHitboxes, treeGroup, hitTree);
 
@@ -108,6 +119,18 @@ class HitboxManager extends FlxBasic {
 		FlxG.overlap(enemyHitboxes, playerGroup, enemyHitPlayer);
 		FlxG.overlap(intraEnemyHitboxes, enemyFlock, enemyHitEnemy);
 		FlxG.overlap(enemyFlock, enemyFlock, enemiesTouched);
+	}
+
+	private function itemTouchFire(item:Throwable, fire:FireArt) {
+		if (item.state == BEING_THROWN) {
+			fire.consume(item);
+		}
+	}
+
+	private function enemyTouchFire(enemy:Enemy, fire:FireArt) {
+		if (enemy.state == BEING_THROWN) {
+			fire.consume(enemy);
+		}
 	}
 
 	private function enemyTouchItem(enemy:Enemy, item:FlxSprite) {

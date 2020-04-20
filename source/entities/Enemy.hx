@@ -44,7 +44,7 @@ class Enemy extends Throwable {
 
 	var hurtboxSize = new FlxPoint(20, 4);
 
-	var hitboxMgr:HitboxManager;
+	public var hitboxMgr:HitboxManager;
 
 	var stunTime:Float = 0;
 	private var danceTurnFrames:Array<Int>;
@@ -248,6 +248,7 @@ class Enemy extends Throwable {
 
 	public function takeHit(hitterPosition:FlxPoint, force:Float = 1, strong:Bool = false):Void {
 		if (strong) {
+			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
 			switch (enemyState) {
 				case HIT | GETTING_UP | CHASING | ATTACKING | DANCING:
 					var hitDirection = new FlxVector(x - hitterPosition.x, y - hitterPosition.y);
@@ -257,7 +258,7 @@ class Enemy extends Throwable {
 				case KNOCKED_OUT | FALLING | CARRIED | OTHER: // do nothing
 			}
 		} else {
-			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.RockHit);
+			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
 			switch (enemyState) {
 				case HIT | GETTING_UP:
 					var hitDirection = new FlxVector(x - hitterPosition.x, y - hitterPosition.y);
