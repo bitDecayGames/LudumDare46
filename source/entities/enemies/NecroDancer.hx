@@ -62,7 +62,7 @@ class NecroDancer extends Enemy {
 
 		var toRemove:List<FlxSprite> = new List<FlxSprite>();
 		for (zom in curZombies) {
-			if (!zom.alive) {
+			if (zom == null || !zom.alive) {
 				toRemove.add(zom);
 			}
 		}
