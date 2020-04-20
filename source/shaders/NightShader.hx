@@ -22,31 +22,17 @@ class NightShader extends FlxShader {
 			gl_FragColor = texture2D(bitmap, openfl_TextureCoordv);
 
 			if (gl_FragColor.a > 0.0) {
-
-				// linear day influence
-				// vec3 timeInfluence = mix(nightColor, dayColor, time);
-
-				// exponential day influence
-				vec3 timeInfluence = mix(nightColor, dayColor, pow(time, 2));
+				vec3 timeInfluence = mix(nightColor, dayColor, time);
 				float fireInfluence = fireRadius - distance(openfl_TextureCoordv, firePos);
 				
 				// normalize to a linear 0.0-1.0 value
 				fireInfluence = clamp(fireInfluence, 0.0, fireRadius) / fireRadius;
 
 				// reverse exponential decay
-				float revExpFireInfluence = (1.0 - pow(fireInfluence - 1.0, 2.0));
+				fireInfluence = (1.0 - pow(fireInfluence - 1.0, 2.0));
 
 				// exponential decay
-				float expfireInfluence = pow(fireInfluence, 2.0);
-
-				// Weighted average
-				float expInfluence = 1 - fireRadius;
-				fireInfluence = revExpFireInfluence * (1-expInfluence);
-				fireInfluence += expfireInfluence * expInfluence;
-
-				// Straight average
-				// fireInfluence = revExpFireInfluence + expfireInfluence;
-				fireInfluence /= 2;
+				// fireInfluence = pow(fireInfluence, 2.0);
 
 				// This line is for testing the raw fire influence
 				// gl_FragColor.rgba = vec4(fireInfluence, fireInfluence, fireInfluence, 1.0);
@@ -67,10 +53,8 @@ class NightShader extends FlxShader {
 		}')
 	public function new() {
 		super();
-		// this.nightColor.value = [0.14, 0.14, 0.18];
-		this.nightColor.value = [0.21, 0.21, 0.27];
-		// this.nightColor.value = [0.28, 0.28, 0.36];
-		// this.nightColor.value = [0.454, 0.459, 0.714];
+		this.nightColor.value = [0.454, 0.459, 0.714];
+		// this.dayColor.value = [0.898, 0.870, 0.267];
 		this.dayColor.value = [1.0, 1.0, 1.0];
 		this.firePos.value = [0.25, 0.5];
 		this.fireColor.value = [0.929, 0.890, 0.352];

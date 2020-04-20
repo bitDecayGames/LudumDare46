@@ -22,6 +22,7 @@ class NecroDancer extends Enemy {
 	var attackTimer:Float = 0.0;
 	var maxAttackTimer:Float = 6.0;
 	var zombieOffset:Float = 20;
+	var curZombies:List<FlxSprite>;
 
 	public function new(hitboxMgr:HitboxManager, firepit:FlxSprite) {
 		super(hitboxMgr);
@@ -35,6 +36,7 @@ class NecroDancer extends Enemy {
 		invulnerableWhileAttacking = false;
 		target = new FlxPoint();
 		attackTimer = maxAttackTimer;
+		curZombies = new List<FlxSprite>();
 	}
 
 	override public function randomizeStats() {
@@ -57,18 +59,34 @@ class NecroDancer extends Enemy {
 		super.attack();
 		SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.NecromancerRise);
 		SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieGroan);
-		spawnZombie(-zombieOffset, -zombieOffset);
-		spawnZombie(zombieOffset, -zombieOffset);
-		spawnZombie(zombieOffset, zombieOffset);
-		spawnZombie(-zombieOffset, zombieOffset);
+
+		var toRemove:List<FlxSprite> = new List<FlxSprite>();
+		for (zom in curZombies) {
+			if (zom == null || !zom.alive) {
+				toRemove.add(zom);
+			}
+		}
+		for (zom in toRemove) {
+			curZombies.remove(zom);
+		}
+		var count = curZombies.length;
+		if (count < 4)
+			spawnZombie(-zombieOffset, -zombieOffset);
+		if (count < 3)
+			spawnZombie(zombieOffset, -zombieOffset);
+		if (count < 2)
+			spawnZombie(zombieOffset, zombieOffset);
+		if (count < 1)
+			spawnZombie(-zombieOffset, zombieOffset);
 	}
 
 	private function spawnZombie(offsetX:Float, offsetY:Float) {
-		var e = new RegularAssZombie(hitboxMgr);
+		var e = new SpookySpookySkeleton(hitboxMgr);
 		e.x = x + offsetX;
 		e.y = y + offsetY;
 		e.getKnockedOut();
 		hitboxMgr.addEnemy(e);
+		curZombies.add(e);
 	}
 
 	function randomTarget() {
