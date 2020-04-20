@@ -11,12 +11,18 @@
 		<!-- <graphic name="all" image="test_button"/> -->
 	</definition>
 
-	<button name="start_game_btn" use_def="button_def" label="Start" color="green">
+	<button name="start_game_btn" use_def="button_def">
 		<anchor x="0" y="0" x-flush="center" y-flush="center" />
+		<graphic name="up" image="ui/start_up"/>
+		<graphic name="over" image="ui/start_over"/>
+		<graphic name="down" image="ui/start_down"/>
 	</button>
 
-	<button name="credits_btn" use_def="button_def" label="Credits" color="yellow">
+	<button name="credits_btn" use_def="button_def">
 		<anchor x="0" y="0" x-flush="center" y-flush="center" />
+		<graphic name="up" image="ui/start_up"/>
+		<graphic name="over" image="ui/start_over"/>
+		<graphic name="down" image="ui/start_down"/>
 	</button>
 
 	<button name="exit_btn" use_def="button_def" label="Exit" color="red">
@@ -24,8 +30,8 @@
 	</button>
 
 	
-	<align name="btn_list" axis="vertical" x="screen.center" y="screen.bottom-20">
-		<bounds top="-80" bottom="0"/>
-		<objects value="start_game_btn,credits_btn,exit_btn"/>
+	<align name="btn_list" axis="horizontal" spacing="2" y="screen.center">
+		<bounds left="screen.width*0.25" right="screen.width*0.75"/>
+		<objects value="start_game_btn,credits_btn"/>
 	</align>
 </data>
