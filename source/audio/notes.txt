@@ -2,7 +2,6 @@ notes:
 
 - Lead instrument on main song might be tweajabke
 
-- fireman noise
-- zombie attack
-- thud from zombies hitting the ground
-- Taking damage
+- Screenshake
+- SFX on the win and lose screen
+- Michael Jackson

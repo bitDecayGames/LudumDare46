@@ -33,8 +33,13 @@ class HitboxManager extends FlxBasic {
 	public var enemyFlock:EnemyFlock;
 	public var sortGroup:FlxSpriteGroup;
 
+	var boundsGroup:FlxGroup;
+
+	var game:GameScreen;
+
 	public function new(game:GameScreen) {
 		super();
+		this.game = game;
 		game.add(this);
 		treeGroup = new TreeGroup();
 		game.add(treeGroup.getTiles());
@@ -50,6 +55,35 @@ class HitboxManager extends FlxBasic {
 		fireGroup = new  FlxTypedGroup<FireArt>(0);
 		itemGroup = new FlxGroup(0);
 		enemyFlock = new EnemyFlock(playerGroup.player);
+
+		boundsGroup = new FlxGroup(0);
+	}
+
+	public function setPlayZone(minX:Float, minY:Float, maxX:Float, maxY:Float) {
+		var width = maxX - minX;
+		var height = maxY - minY;
+
+		var leftBound = new FlxObject(minX-10, minY-10, 10, height+20);
+		leftBound.immovable = true;
+
+		var topBound = new FlxObject(minX-10, minY-10, width+20, 10);
+		topBound.immovable = true;
+		
+		var rightBound = new FlxObject(maxX, minY-10, 10, height+20);
+		rightBound.immovable = true;
+		
+		var bottomBound = new FlxObject(minX-10, maxY, width+20, 10);
+		bottomBound.immovable = true;
+
+		boundsGroup.add(leftBound);
+		boundsGroup.add(topBound);
+		boundsGroup.add(rightBound);
+		boundsGroup.add(bottomBound);
+
+		game.add(leftBound);
+		game.add(topBound);
+		game.add(rightBound);
+		game.add(bottomBound);
 	}
 
 	public function getPlayer():Player {
@@ -107,6 +141,10 @@ class HitboxManager extends FlxBasic {
 		FlxG.collide(enemyFlock, treeGroup);
 		FlxG.collide(itemGroup, treeGroup);
 
+		// Keep things in bounds
+		FlxG.collide(playerGroup, boundsGroup);
+		FlxG.collide(itemGroup, boundsGroup);
+
 		// Environment interactions
 		FlxG.collide(playerGroup, itemGroup);
 		FlxG.overlap(enemyFlock, fireGroup, enemyTouchFire);
@@ -148,7 +186,6 @@ class HitboxManager extends FlxBasic {
 			return;
 		}
 		playerHitbox.registerHit(enemy);
-
 		if (enemy.state == PICKUPABLE) {
 			var player = cast(playerHitbox.source, Player);
 			if (player.playerGroup.activelyCarrying) {
@@ -197,6 +234,7 @@ class HitboxManager extends FlxBasic {
 			var interactVector:FlxVector = hitbox.source.getMidpoint();
 			interactVector.subtractPoint(tree.getMidpoint());
 			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.TreeHit);
+			FlxG.camera.shake(0.0005, .1);
 			var newLog = tree.spawnLog(interactVector);
 			itemGroup.add(newLog);
 			sortGroup.add(newLog);

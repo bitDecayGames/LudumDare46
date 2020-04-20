@@ -5,26 +5,13 @@ import entities.enemies.ConfusedZombie;
 import entities.enemies.RegularAssZombie;
 import entities.enemies.CopWithSomthingToProve;
 import entities.enemies.KingOfPop;
+import entities.enemies.SmokeyTheBear;
 import flixel.math.FlxRandom;
-import entities.Throwable;
 import entities.Enemy;
-import entities.Tree;
 import screens.GameScreen;
-import audio.BitdecaySoundBank.BitdecaySounds;
-import audio.SoundBankAccessor;
-import entities.TreeTrunk;
-import entities.Player;
 import flixel.FlxSprite;
 import flixel.math.FlxVector;
-import flixel.util.FlxSort;
-import sorting.HitboxSorter;
-import flixel.FlxG;
-import flixel.group.FlxSpriteGroup;
 import entities.EnemyFlock;
-import hitbox.HitboxSprite;
-import flixel.group.FlxGroup;
-import entities.TreeGroup;
-import entities.PlayerGroup;
 import flixel.FlxBasic;
 
 class EnemySpawnManager extends FlxBasic {
@@ -42,6 +29,8 @@ class EnemySpawnManager extends FlxBasic {
 
 	private var enemyTypes:Array<EnemyType>;
 
+	private var shouldSpawnEnemies:Bool = false;
+
 	public function new(game:GameScreen, hitboxMgr:HitboxManager, firepit:FlxSprite) {
 		super();
 		game.add(this);
@@ -57,7 +46,12 @@ class EnemySpawnManager extends FlxBasic {
 			new EnemyType(Type.getClassName(HardworkingFirefighter), 5, 1, spawnHardworkingFirefighter),
 			new EnemyType(Type.getClassName(CopWithSomethingToProve), 3, 1, spawnCopWithSomethingToProve),
 			new EnemyType(Type.getClassName(KingOfPop), 1, 3, spawnKingOfPop),
+			new EnemyType(Type.getClassName(SmokeyTheBear), 4, 2, spawnSmokeyTheBear),
 		];
+	}
+
+	public function startSpawningEnemies() {
+		shouldSpawnEnemies = true;
 	}
 
 	public function spawnRegularAssZombie():Enemy {
@@ -80,11 +74,17 @@ class EnemySpawnManager extends FlxBasic {
 		return new KingOfPop(hitboxMgr);
 	}
 
+	public function spawnSmokeyTheBear():Enemy {
+		return new SmokeyTheBear(hitboxMgr);
+	}
+
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
-		timer -= elapsed;
-		if (timer < 0) {
-			triggerSpawnEvent();
+		if (shouldSpawnEnemies) {
+			timer -= elapsed;
+			if (timer < 0) {
+				triggerSpawnEvent();
+			}
 		}
 	}
 

@@ -57,7 +57,7 @@ class Throwable extends FlxSprite {
 					}
 				}
 				if (cast(velocity, FlxVector).length > 0) {
-					if (name == "enemy"){
+					if (name == "zombie"){
 						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.RockHit);
 					}
 				}

@@ -1,5 +1,8 @@
 package screens;
 
+import flixel.util.FlxTimer;
+import flixel.text.FlxBitmapText;
+import flixel.FlxCamera;
 import flixel.util.FlxColor;
 import openfl.filters.ShaderFilter;
 import openfl.filters.BitmapFilter;
@@ -19,6 +22,7 @@ import debug.TestWaterBlast;
 import managers.FireManager;
 import managers.ProgressManager;
 import managers.EnemySpawnManager;
+import cameras.PositionAverager;
 
 class GameScreen extends FlxUIState {
 	static private inline var PAUSE = "pause_btn";
@@ -29,7 +33,9 @@ class GameScreen extends FlxUIState {
 	public var shader = new NightShader();
 
 	var fireMgr:FireManager;
-	var victoryMgr:ProgressManager;
+	public var victoryMgr:ProgressManager;
+
+	public var cameraFocalPoint:PositionAverager;
 
 	public var bitdecaySoundBank:BitdecaySoundBank;
 	public var transitioner:SceneTransitioner;
@@ -38,6 +44,14 @@ class GameScreen extends FlxUIState {
 	public var paused = false;
 
 	private var firstUnpause = true;
+	private var punchTreeText:FlxBitmapText;
+	private var burnThingsText:FlxBitmapText;
+	private var keepItAliveText:FlxBitmapText;
+	public var isTreeTextDestroyed = false;
+	public var isMainSongPlaying = false;
+	public var finalTextTimer:FlxTimer;
+
+	private var enemySpawnManager:EnemySpawnManager;
 
 	override public function create():Void {
 		_xml_id = "gameScreen";
@@ -46,9 +60,7 @@ class GameScreen extends FlxUIState {
 		bitdecaySoundBank = new BitdecaySoundBank();
 		transitioner = new SceneTransitioner();
 
-		bitdecaySoundBank.PlaySong(BitdecaySongs.ZombieFuel);
-		// bitdecaySoundBank.PlaySoundLooped(BitdecaySounds.Campfire);
-
+		bitdecaySoundBank.PlaySound(BitdecaySounds.Campfire);
 		unpause();
 
 		//
@@ -64,10 +76,8 @@ class GameScreen extends FlxUIState {
 		//
 		// only you can prevent merge forest conflict fires
 		//
-
-		victoryMgr = new ProgressManager(this);
-		add(victoryMgr);
 		var hitboxMgr = new HitboxManager(this);
+		hitboxMgr.setPlayZone(27, 130, 1000, 750);
 		hitboxMgr.addTrees();
 
 		camera.filtersEnabled = true;
@@ -75,12 +85,25 @@ class GameScreen extends FlxUIState {
 		camera.bgColor = FlxColor.WHITE;
 		camera.setFilters(filters);
 		camera.zoom = 2;
-		camera.follow(hitboxMgr.getPlayer());
+
+		cameraFocalPoint = new PositionAverager();
+		cameraFocalPoint.addObject(hitboxMgr.getPlayer());
+		FlxG.watch.add(hitboxMgr.getPlayer(), "x", "x: ");
+		FlxG.watch.add(hitboxMgr.getPlayer(), "y", "y: ");
+		add(cameraFocalPoint);
+		camera.follow(cameraFocalPoint);
 
 		fireMgr = new FireManager(this, hitboxMgr);
-		new EnemySpawnManager(this, hitboxMgr, fireMgr.getSprite());
-		// new TestKingOfPop(this, hitboxMgr, fireMgr);
-		new TestWaterBlast(this, hitboxMgr);
+		enemySpawnManager = new EnemySpawnManager(this, hitboxMgr, fireMgr.getSprite());
+		
+		punchTreeText = new FlxBitmapText();
+		punchTreeText.x = 540;
+		punchTreeText.y = 535;
+		punchTreeText.text = "Punch the trees with Z, Space, or Left Click";
+		add(punchTreeText);
+		
+		victoryMgr = new ProgressManager(this);
+		add(victoryMgr);
 	}
 
 	override public function update(elapsed:Float):Void {
@@ -94,6 +117,50 @@ class GameScreen extends FlxUIState {
 			transitioning = true;
 			transitioner.TransitionWithMusicFade(new WinScreen());
 		}
+
+	}
+
+	public function destroyTreeText() {
+		if(!isTreeTextDestroyed) {
+			punchTreeText.destroy();
+			
+			burnThingsText = new FlxBitmapText();
+			burnThingsText.x = 475;
+			burnThingsText.y = 400;
+			burnThingsText.text = "Throw things into the fire";
+			add(burnThingsText);
+
+			isTreeTextDestroyed = true;
+		}
+	}
+
+	public function startMainSong() {
+		if(!isMainSongPlaying) {
+			FlxG.camera.flash(0.5);
+			FlxG.camera.shake(0.005, .5);
+
+			burnThingsText.destroy();
+			bitdecaySoundBank.PlaySong(BitdecaySongs.ZombieFuel);
+
+			keepItAliveText = new FlxBitmapText();
+			keepItAliveText.x = 485;
+			keepItAliveText.y = 400;
+			keepItAliveText.text = "DON'T LET IT GO OUT!!!";
+			add(keepItAliveText);
+
+			finalTextTimer = new FlxTimer();
+			finalTextTimer.start(4, deleteFinalText, 1);
+
+			fireMgr.startFireTimer();
+			victoryMgr.startProgressTimer();
+
+			isMainSongPlaying = true;
+		}
+	}
+
+	private function deleteFinalText(timer:FlxTimer):Void {
+		keepItAliveText.destroy();
+		enemySpawnManager.startSpawningEnemies();
 	}
 
 	public function pause():Void {

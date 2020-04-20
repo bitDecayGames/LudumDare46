@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="72">
+ <tileset firstgid="1" source="tiles.tsx"/>
+ <layer id="1" name="Background" width="32" height="32">
+  <properties>
+   <property name="tileset" value="tiles"/>
+  </properties>
+  <data encoding="csv">
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,
+14,15,15,14,14,14,15,16,16,16,15,15,16,16,16,14,14,16,15,16,14,14,15,15,16,15,16,16,15,14,16,14,
+14,15,14,15,15,16,14,15,16,15,15,14,14,14,14,15,15,14,14,16,14,14,15,15,14,16,16,16,14,15,14,16,
+15,16,16,16,16,16,16,14,16,15,15,16,14,15,15,14,14,15,14,15,16,15,16,14,15,14,16,14,15,16,14,14,
+16,14,14,14,16,16,15,16,14,15,15,14,14,15,16,15,15,16,15,15,15,16,14,16,14,15,16,16,15,16,16,16,
+16,14,16,16,15,16,16,16,14,14,15,14,14,14,16,14,15,15,15,15,16,15,15,15,16,15,16,14,14,15,14,16,
+14,15,16,14,16,16,16,16,14,15,14,16,14,14,14,15,14,15,15,16,15,15,15,14,16,16,14,16,15,14,15,16,
+15,16,16,14,14,16,16,14,14,14,15,15,15,15,15,16,15,14,15,1,2,3,16,15,15,16,15,15,14,15,15,14,
+14,15,15,16,14,14,16,15,16,15,15,15,15,15,15,16,16,14,15,9,6,11,16,16,16,15,15,15,15,14,15,16,
+15,16,14,15,16,16,14,16,16,16,14,1,2,3,16,15,15,16,16,17,18,19,15,14,16,16,14,15,16,16,14,14,
+15,15,15,15,15,15,16,14,15,15,16,9,6,11,14,15,15,14,14,14,15,15,15,15,14,15,16,14,15,14,15,16,
+14,16,15,16,16,14,14,14,16,14,15,17,18,19,14,1,2,3,15,15,15,16,16,14,14,15,15,14,15,15,14,14,
+16,15,16,14,14,14,14,14,15,14,16,15,15,15,15,9,6,11,15,14,16,15,15,16,16,16,15,14,14,15,15,15,
+14,15,15,16,15,15,15,14,15,15,15,15,16,15,15,17,12,5,3,15,15,15,15,14,16,15,15,15,15,15,16,16,
+15,14,15,16,14,14,15,14,15,15,14,15,15,16,15,14,17,12,11,14,14,16,15,16,14,15,15,16,14,15,16,14,
+16,15,15,14,14,14,15,15,14,15,15,15,16,14,16,14,15,9,5,3,16,14,15,16,16,14,15,15,15,1,2,2,
+15,15,15,14,14,16,14,14,14,15,14,16,16,16,14,16,14,17,12,11,14,14,14,15,15,16,16,14,14,9,6,8,
+14,15,15,14,15,14,15,15,14,14,16,16,16,15,16,16,16,15,9,11,14,14,14,15,14,14,14,14,15,9,7,8,
+16,15,15,14,14,15,14,15,16,14,16,14,14,14,15,15,14,14,9,5,3,14,16,16,14,14,15,15,15,9,6,6,
+16,16,14,15,16,16,16,16,14,16,14,16,1,2,3,14,16,15,9,7,11,14,14,14,14,15,16,16,14,9,6,6,
+15,1,2,3,16,1,3,15,1,3,16,16,9,7,11,14,15,16,9,7,11,15,16,16,14,16,1,2,2,4,7,6,
+2,4,7,5,2,4,5,2,4,5,2,2,4,7,5,2,2,2,4,7,5,2,2,2,2,2,4,7,6,6,8,8,
+31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,
+22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,
+22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+</data>
+ </layer>
+ <objectgroup id="2" name="Trees">
+  <object id="1" type="tree" x="400" y="374">
+   <point/>
+  </object>
+  <object id="2" type="tree" x="655.667" y="310">
+   <point/>
+  </object>
+  <object id="3" type="tree" x="625" y="662.333">
+   <point/>
+  </object>
+  <object id="6" type="tree" x="109" y="143">
+   <point/>
+  </object>
+  <object id="8" type="tree" x="208" y="112">
+   <point/>
+  </object>
+  <object id="9" type="tree" x="239" y="178">
+   <point/>
+  </object>
+  <object id="11" type="tree" x="303" y="141">
+   <point/>
+  </object>
+  <object id="12" type="tree" x="368" y="115">
+   <point/>
+  </object>
+  <object id="14" type="tree" x="466" y="143">
+   <point/>
+  </object>
+  <object id="15" type="tree" x="527" y="173">
+   <point/>
+  </object>
+  <object id="16" type="tree" x="559" y="115">
+   <point/>
+  </object>
+  <object id="18" type="tree" x="687" y="144">
+   <point/>
+  </object>
+  <object id="19" type="tree" x="753" y="111">
+   <point/>
+  </object>
+  <object id="21" type="tree" x="881" y="140">
+   <point/>
+  </object>
+  <object id="23" type="tree" x="1008" y="109">
+   <point/>
+  </object>
+  <object id="24" type="tree" x="81" y="209">
+   <point/>
+  </object>
+  <object id="25" type="tree" x="19" y="171">
+   <point/>
+  </object>
+  <object id="26" type="tree" x="399" y="144">
+   <point/>
+  </object>
+  <object id="27" type="tree" x="497" y="111">
+   <point/>
+  </object>
+  <object id="28" type="tree" x="625" y="142">
+   <point/>
+  </object>
+  <object id="29" type="tree" x="817" y="112">
+   <point/>
+  </object>
+  <object id="30" type="tree" x="978" y="144">
+   <point/>
+  </object>
+  <object id="31" type="tree" x="144" y="176">
+   <point/>
+  </object>
+  <object id="32" type="tree" x="49" y="239">
+   <point/>
+  </object>
+  <object id="33" type="tree" x="178" y="241">
+   <point/>
+  </object>
+  <object id="34" type="tree" x="335" y="213">
+   <point/>
+  </object>
+  <object id="35" type="tree" x="401" y="239">
+   <point/>
+  </object>
+  <object id="36" type="tree" x="592" y="212">
+   <point/>
+  </object>
+  <object id="37" type="tree" x="720" y="176">
+   <point/>
+  </object>
+  <object id="38" type="tree" x="816" y="176">
+   <point/>
+  </object>
+  <object id="39" type="tree" x="1007" y="208">
+   <point/>
+  </object>
+  <object id="40" type="tree" x="912" y="206">
+   <point/>
+  </object>
+  <object id="41" type="tree" x="18" y="303">
+   <point/>
+  </object>
+  <object id="42" type="tree" x="143" y="334">
+   <point/>
+  </object>
+  <object id="43" type="tree" x="305" y="275">
+   <point/>
+  </object>
+  <object id="44" type="tree" x="530" y="237">
+   <point/>
+  </object>
+  <object id="45" type="tree" x="787" y="274">
+   <point/>
+  </object>
+  <object id="46" type="tree" x="689" y="239">
+   <point/>
+  </object>
+  <object id="47" type="tree" x="1009" y="305">
+   <point/>
+  </object>
+  <object id="48" type="tree" x="946" y="272">
+   <point/>
+  </object>
+  <object id="49" type="tree" x="914" y="336">
+   <point/>
+  </object>
+  <object id="50" type="tree" x="977" y="366">
+   <point/>
+  </object>
+  <object id="51" type="tree" x="947" y="435">
+   <point/>
+  </object>
+  <object id="52" type="tree" x="1011" y="465">
+   <point/>
+  </object>
+  <object id="53" type="tree" x="973" y="561">
+   <point/>
+  </object>
+  <object id="54" type="tree" x="51" y="365">
+   <point/>
+  </object>
+  <object id="55" type="tree" x="114" y="398">
+   <point/>
+  </object>
+  <object id="56" type="tree" x="21" y="462">
+   <point/>
+  </object>
+  <object id="57" type="tree" x="80" y="430">
+   <point/>
+  </object>
+  <object id="58" type="tree" x="80" y="528">
+   <point/>
+  </object>
+  <object id="59" type="tree" x="692" y="368">
+   <point/>
+  </object>
+  <object id="60" type="tree" x="818" y="399">
+   <point/>
+  </object>
+  <object id="61" type="tree" x="18" y="624">
+   <point/>
+  </object>
+  <object id="62" type="tree" x="272" y="339">
+   <point/>
+  </object>
+  <object id="63" type="tree" x="337" y="563">
+   <point/>
+  </object>
+  <object id="64" type="tree" x="239" y="460">
+   <point/>
+  </object>
+  <object id="65" type="tree" x="178" y="654">
+   <point/>
+  </object>
+  <object id="68" type="tree" x="850" y="492">
+   <point/>
+  </object>
+  <object id="69" type="tree" x="913" y="688">
+   <point/>
+  </object>
+  <object id="70" type="tree" x="269" y="626">
+   <point/>
+  </object>
+  <object id="71" type="tree" x="756" y="528">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="4" name="Player">
+  <object id="67" name="Player" x="527" y="502">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="Fire">
+  <object id="4" name="Fire" x="526.667" y="446.667">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

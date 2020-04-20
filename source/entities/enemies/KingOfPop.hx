@@ -19,6 +19,7 @@ class KingOfPop extends Enemy {
 	public function new(hitboxMgr:HitboxManager) {
 		super(hitboxMgr);
 		super.initAnimations(AssetPaths.Jackson__png);
+		name = "kingofpop";
 		animation.add("spin", [40, 41, 42, 43, 44, 43, 44, 40, 40, 40], 3, false);
 		personalBubble = 50;
 		speed = 40;

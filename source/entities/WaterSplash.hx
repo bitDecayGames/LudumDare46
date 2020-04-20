@@ -1,23 +1,13 @@
 package entities;
 
-import audio.SoundBankAccessor;
-import audio.BitdecaySoundBank;
-import managers.HitboxManager;
-import flixel.FlxG;
-import flixel.util.FlxSpriteUtil;
 import flixel.math.FlxRandom;
-import flixel.math.FlxMath;
-import flixel.math.FlxVector;
 import flixel.math.FlxPoint;
-import flixel.FlxObject;
 import flixel.FlxSprite;
-import flixel.system.FlxAssets.FlxGraphicAsset;
-import hitbox.AttackHitboxes;
-import hitbox.HitboxLocation;
-import hitbox.HitboxSprite;
-import flixel.group.FlxGroup;
 
 class WaterSplash extends FlxSprite {
+
+	var standin:FlxPoint = new FlxPoint();
+
 	public function new(x:Float, y:Float, targetX:Float, targetY:Float) {
 		super(x, y);
 		super.loadGraphic(AssetPaths.WaterBlast__png, true, 8, 5);
@@ -43,6 +33,7 @@ class WaterSplash extends FlxSprite {
 	}
 
 	function updateAngle() {
-		angle = velocity.angleBetween(new FlxPoint()) - 90.0;
+		standin.set(0, 0);
+		angle = velocity.angleBetween(standin) - 90.0;
 	}
 }

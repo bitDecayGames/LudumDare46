@@ -1,5 +1,9 @@
 package entities;
 
+import flixel.FlxG;
+import screens.GameScreen;
+import audio.BitdecaySoundBank.BitdecaySounds;
+import audio.SoundBankAccessor;
 import flixel.math.FlxPoint;
 import flixel.FlxSprite;
 import entities.Throwable;
@@ -29,6 +33,29 @@ class FireArt extends FlxSprite {
     }
 
     public function consume(thing:Throwable) {
+        // Global lookups are da best
+		try {
+            var gameState = cast(FlxG.state, GameScreen);
+            if (gameState.isMainSongPlaying){
+                // FlxG.camera.flash(0.05);
+                FlxG.camera.shake(0.002, .1);
+            }
+			gameState.victoryMgr.logAdded();
+		} catch (msg:String) {}
+
+
+        try {
+            var throwable:Throwable = cast(thing, Throwable);
+            SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.CampfireIgnite);
+            if (throwable.name == "zombie") {
+                SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieAttack);
+            } else if (throwable.name != "log") {
+                SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.HumanBurn);
+            }
+        } catch( msg : String ) {
+            throw 'Tried to consume something that wasn\'t throwable';
+        }
+
         // TODO: maybe tweak things based on what hits the flame
         parent.addTime(5);
 
