@@ -3,7 +3,6 @@ package managers;
 import entities.FireArt;
 import entities.Throwable;
 import entities.Enemy;
-import entities.Tree;
 import screens.GameScreen;
 import audio.BitdecaySoundBank.BitdecaySounds;
 import audio.SoundBankAccessor;
@@ -36,6 +35,8 @@ class HitboxManager extends FlxBasic {
 	public function new(game:GameScreen) {
 		super();
 		game.add(this);
+		treeGroup = new TreeGroup();
+		game.add(treeGroup.getTiles());
 
 		sortGroup = new FlxSpriteGroup(0);
 		game.add(sortGroup);
@@ -45,7 +46,6 @@ class HitboxManager extends FlxBasic {
 		intraEnemyHitboxes = new FlxTypedGroup<HitboxSprite>(0);
 
 		playerGroup = new PlayerGroup(this);
-		treeGroup = new TreeGroup();
 		fireGroup = new  FlxTypedGroup<FireArt>(0);
 		itemGroup = new FlxGroup(0);
 		enemyFlock = new EnemyFlock(playerGroup.player);
