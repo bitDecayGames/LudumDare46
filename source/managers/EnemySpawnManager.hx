@@ -83,7 +83,7 @@ class EnemySpawnManager extends FlxBasic {
 	}
 
 	public function spawnNecroDancer():Enemy {
-		return new NecroDancer(hitboxMgr);
+		return new NecroDancer(hitboxMgr, firepit);
 	}
 
 	override public function update(elapsed:Float):Void {
