@@ -15,6 +15,7 @@ enum BitdecaySounds {
 	BulletTimeOut;
 	Campfire;
 	CampfireIgntite;
+	CopShoot;
 	FiremanWater;
 	HumanBurn;
 	HumanKnockout;
@@ -28,6 +29,7 @@ enum BitdecaySounds {
 	MachoManOhYeah;
 	MenuNavigate;
 	MenuSelect;
+	NecromancerRise;
 	RockGround;
 	RockHit;
 	TreeHit;
@@ -74,6 +76,9 @@ class BitdecaySoundBank {
 			{ path: AssetPaths.campfire_ignite1__ogg, volume: .55},
 			{ path: AssetPaths.campfire_ignite2__ogg, volume: .55},
 		], soundClip: null},
+		BitdecaySounds.CopShoot => {name: Std.string(BitdecaySounds.CopShoot), instances: 5, paths: [
+			{ path: AssetPaths.shoot__ogg, volume: .08}
+		], soundClip: null},
 		BitdecaySounds.FiremanWater => {name: Std.string(BitdecaySounds.FiremanWater), instances: 10, paths: [
 			{ path: AssetPaths.fireman_water4__ogg, volume: .1}
 		], soundClip: null},
@@ -81,8 +86,8 @@ class BitdecaySoundBank {
 			{ path: AssetPaths.human_burn__ogg, volume: .3},
 		], soundClip: null},
 		BitdecaySounds.HumanKnockout => {name: Std.string(BitdecaySounds.HumanKnockout), instances: 1, paths: [
-			{ path: AssetPaths.human_knockout1__ogg, volume: .6},
-			{ path: AssetPaths.human_knockout2__ogg, volume: .6},
+			{ path: AssetPaths.human_knockout1__ogg, volume: .4},
+			{ path: AssetPaths.human_knockout2__ogg, volume: .4},
 		], soundClip: null},
 		BitdecaySounds.LogHit => {name: Std.string(BitdecaySounds.LogHit), instances: 1, paths: [
 			{ path: AssetPaths.log_hit1__ogg, volume: 1},
@@ -99,20 +104,23 @@ class BitdecaySoundBank {
 			{ path: AssetPaths.macho_man_damage3__ogg, volume: 1},
 			{ path: AssetPaths.macho_man_damage4__ogg, volume: 1}
 		], soundClip: null},
+		BitdecaySounds.NecromancerRise => {name: Std.string(BitdecaySounds.NecromancerRise), instances: 1, paths: [
+			{ path: AssetPaths.rise3__ogg, volume: .4},
+		], soundClip: null},
 		BitdecaySounds.MachoManFail => {name: Std.string(BitdecaySounds.MachoManFail), instances: 1, paths: [
 			{ path: AssetPaths.macho_man_fail__ogg, volume: 1}
 		], soundClip: null},
 		BitdecaySounds.MachoManGrunt => {name: Std.string(BitdecaySounds.MachoManGrunt), instances: 1, paths: [
-			{ path: AssetPaths.macho_man_grunt2__ogg, volume: .7},
-			{ path: AssetPaths.macho_man_grunt3__ogg, volume: .8},
-			{ path: AssetPaths.macho_man_grunt4__ogg, volume: .8},
-			{ path: AssetPaths.macho_man_grunt5__ogg, volume: .8},
-			{ path: AssetPaths.macho_man_grunt7__ogg, volume: .8},
+			{ path: AssetPaths.macho_man_grunt2__ogg, volume: .5},
+			{ path: AssetPaths.macho_man_grunt3__ogg, volume: .6},
+			{ path: AssetPaths.macho_man_grunt4__ogg, volume: .6},
+			{ path: AssetPaths.macho_man_grunt5__ogg, volume: .6},
+			{ path: AssetPaths.macho_man_grunt7__ogg, volume: .6},
 		], soundClip: null},
 		BitdecaySounds.MachoManGruntThrow => {name: Std.string(BitdecaySounds.MachoManGruntThrow), instances: 1, paths: [
-			{ path: AssetPaths.macho_man_grunt_throw1__ogg, volume: .4},
-			{ path: AssetPaths.macho_man_grunt_throw2__ogg, volume: .6},
-			{ path: AssetPaths.macho_man_grunt_throw3__ogg, volume: .6},
+			{ path: AssetPaths.macho_man_grunt_throw1__ogg, volume: .2},
+			{ path: AssetPaths.macho_man_grunt_throw2__ogg, volume: .4},
+			{ path: AssetPaths.macho_man_grunt_throw3__ogg, volume: .4},
 		], soundClip: null},
 		BitdecaySounds.MachoManThrowPunch => {name: Std.string(BitdecaySounds.MachoManThrowPunch), instances: 5, paths: [
 			{ path: AssetPaths.macho_man_throw_punch__ogg, volume: 1},
