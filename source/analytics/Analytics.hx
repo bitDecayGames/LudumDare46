@@ -30,7 +30,7 @@ class Analytics {
             var body = "{";
             body += '"game_guid": "${game_guid}",';
             body += '"name": "${name}",';
-            body += '"timestamp": "${Date.now().toString()}",';
+            body += '"timestamp": "${Date.now().toString()}"';
             body += "}";
 
             var http = new Http(SERVER_URL);
