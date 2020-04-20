@@ -88,7 +88,7 @@ class BitdecaySoundBank {
 			{ path: AssetPaths.shoot__ogg, volume: .08}
 		], soundClip: null},
 		BitdecaySounds.FiremanWater => {name: Std.string(BitdecaySounds.FiremanWater), instances: 10, paths: [
-			{ path: AssetPaths.fireman_water4__ogg, volume: .1}
+			{ path: AssetPaths.fireman_water4__ogg, volume: .075}
 		], soundClip: null},
 		BitdecaySounds.HumanBurn => {name: Std.string(BitdecaySounds.HumanBurn), instances: 1, paths: [
 			{ path: AssetPaths.human_burn__ogg, volume: .3},
