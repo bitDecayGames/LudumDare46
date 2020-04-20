@@ -42,11 +42,11 @@ class NightShader extends FlxShader {
 				// Weighted average
 				float expInfluence = 1 - fireRadius;
 				fireInfluence = revExpFireInfluence * (1-expInfluence);
-				fireInfluence += expfireInfluence * expInfluence;
+				fireInfluence = fireInfluence + (expfireInfluence * expInfluence);
 
 				// Straight average
 				// fireInfluence = revExpFireInfluence + expfireInfluence;
-				fireInfluence /= 2;
+				fireInfluence = fireInfluence / 2;
 
 				// This line is for testing the raw fire influence
 				// gl_FragColor.rgba = vec4(fireInfluence, fireInfluence, fireInfluence, 1.0);
