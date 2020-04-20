@@ -10,17 +10,18 @@ class HitboxSprite extends FlxSprite {
 
 	var thingsHit:Map<FlxObject, Bool> = [];
 
-
-	public function new(hbl:HitboxLocation, source:FlxSprite) {
+	public function new(?hbl:HitboxLocation, ?source:FlxSprite) {
 		super();
-		loadGraphic(AssetPaths.transparent__png);
-		scale.set(hbl.size.x, hbl.size.y);
-		loc = hbl;
-		moves = false;
-		this.source = source;
-		width = hbl.size.x;
-		height = hbl.size.y;
-		kill();
+		if (hbl != null && source != null) {
+			loadGraphic(AssetPaths.transparent__png);
+			scale.set(hbl.size.x, hbl.size.y);
+			loc = hbl;
+			moves = faslse;
+			this.source = source;
+			width = hbl.size.x;
+			height = hbl.size.y;
+			kill();
+		}
 	}
 
 	public function hasHit(other:FlxObject):Bool {

@@ -25,8 +25,8 @@ class CopWithSomethingToProve extends ConfusedZombie {
 	}
 
 	function shootBullet() {
-		var b = new Bullet(flipX ? x : x + width, y - frameHeight / 4.0, hitboxMgr.getPlayer().x, hitboxMgr.getPlayer().y);
-		hitboxMgr.addGeneral(b);
+		var b = new Bullet(this, flipX ? x : x + width, y - frameHeight / 4.0, hitboxMgr.getPlayer().x, hitboxMgr.getPlayer().y);
+		hitboxMgr.addEnemyHitbox(b);
 		SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.CopShoot);
 	}
 
