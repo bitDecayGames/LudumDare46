@@ -8,6 +8,8 @@ import flixel.group.FlxGroup;
 import hitbox.HitboxSprite;
 
 class CopWithSomethingToProve extends ConfusedZombie {
+	var lockedAndLoaded = false;
+
 	public function new(hitboxMgr:HitboxManager) {
 		super(hitboxMgr);
 		super.initAnimations(AssetPaths.Cop__png);
@@ -25,15 +27,22 @@ class CopWithSomethingToProve extends ConfusedZombie {
 	}
 
 	function shootBullet() {
-		var b = new Bullet(flipX ? x : x + width, y - frameHeight / 4.0, hitboxMgr.getPlayer().x, hitboxMgr.getPlayer().y);
-		hitboxMgr.addGeneral(b);
-		SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.CopShoot);
+		if (lockedAndLoaded) {
+			lockedAndLoaded = false;
+			var b = new Bullet(this, flipX ? x : x + width, y - frameHeight / 4.0, hitboxMgr.getPlayer().x, hitboxMgr.getPlayer().y);
+			hitboxMgr.addEnemyHitbox(b);
+			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.CopShoot);
+		}
 	}
 
 	override private function animCallback(name:String, frameNumber:Int, frameIndex:Int):Void {
 		super.animCallback(name, frameNumber, frameIndex);
-		if (name == "attack_0" && frameIndex == 43) {
-			shootBullet();
+		if (name == "attack_0") {
+			if (frameIndex == 41) {
+				lockedAndLoaded = true;
+			} else if (frameIndex == 43) {
+				shootBullet();
+			}
 		}
 	}
 }
