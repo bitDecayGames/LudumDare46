@@ -11,6 +11,7 @@ import flixel.addons.ui.FlxUITypedButton;
 import flixel.FlxG;
 import debug.TestEnemyFlock;
 import debug.TestKingOfPop;
+import debug.TestWaterBlast;
 import managers.FireManager;
 import managers.GameManager;
 import managers.EnemySpawnManager;
@@ -57,6 +58,7 @@ class GameScreen extends FlxUIState {
 		var fireMgr = new FireManager(this, hitboxMgr);
 		new EnemySpawnManager(this, hitboxMgr, fireMgr.getSprite());
 		// new TestKingOfPop(this, hitboxMgr, fireMgr);
+		new TestWaterBlast(this, hitboxMgr);
 	}
 
 	override public function update(elapsed:Float):Void {
