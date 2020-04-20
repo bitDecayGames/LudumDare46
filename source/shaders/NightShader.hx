@@ -53,8 +53,7 @@ class NightShader extends FlxShader {
 		}')
 	public function new() {
 		super();
-		this.nightColor.value = [0.454, 0.459, 0.714];
-		// this.dayColor.value = [0.898, 0.870, 0.267];
+		this.nightColor.value = [0.21, 0.21, 0.27];
 		this.dayColor.value = [1.0, 1.0, 1.0];
 		this.firePos.value = [0.25, 0.5];
 		this.fireColor.value = [0.929, 0.890, 0.352];
