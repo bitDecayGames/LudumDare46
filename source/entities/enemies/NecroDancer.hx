@@ -64,7 +64,7 @@ class NecroDancer extends Enemy {
 	}
 
 	private function spawnZombie(offsetX:Float, offsetY:Float) {
-		var e = new RegularAssZombie(hitboxMgr);
+		var e = new SpookySpookySkeleton(hitboxMgr);
 		e.x = x + offsetX;
 		e.y = y + offsetY;
 		e.getKnockedOut();
