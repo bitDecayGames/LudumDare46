@@ -50,21 +50,20 @@ class Throwable extends FlxSprite {
 			}
 
 			if (distance <= 0 || cast(velocity, FlxVector).length == 0) {
-				
 				if (cast(velocity, FlxVector).length > 0) {
-					if (name == "log"){
+					if (name == "log") {
 						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.LogLand);
 					}
 				}
 				if (cast(velocity, FlxVector).length > 0) {
-					if (name == "zombie"){
+					if (name == "zombie") {
 						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.RockHit);
 					}
 				}
 
 				trace('Thing that hit ground: ${name}, state: ${state}');
 
-				// TODO: what here? falling? 
+				// TODO: what here? falling?
 				state = PICKUPABLE;
 				shouldUpdate = true;
 
@@ -126,7 +125,6 @@ class Throwable extends FlxSprite {
 	public function yOffretForFireSpawn():Float {
 		return 0;
 	}
-
 }
 
 enum ThrowableState {

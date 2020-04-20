@@ -30,15 +30,18 @@ class GameScreen extends FlxUIState {
 	static private inline var QUIT = "quit_btn";
 
 	var filters:Array<BitmapFilter> = [];
+
 	public var shader = new NightShader();
 
 	var fireMgr:FireManager;
+
 	public var victoryMgr:ProgressManager;
 
 	public var cameraFocalPoint:PositionAverager;
 
 	public var bitdecaySoundBank:BitdecaySoundBank;
 	public var transitioner:SceneTransitioner;
+
 	var transitioning:Bool = false;
 
 	public var paused = false;
@@ -47,11 +50,13 @@ class GameScreen extends FlxUIState {
 	private var punchTreeText:FlxBitmapText;
 	private var burnThingsText:FlxBitmapText;
 	private var keepItAliveText:FlxBitmapText;
+
 	public var isTreeTextDestroyed = false;
 	public var isMainSongPlaying = false;
 	public var finalTextTimer:FlxTimer;
 
 	private var enemySpawnManager:EnemySpawnManager;
+	private var campfireSound:Int;
 
 	override public function create():Void {
 		_xml_id = "gameScreen";
@@ -60,7 +65,7 @@ class GameScreen extends FlxUIState {
 		bitdecaySoundBank = new BitdecaySoundBank();
 		transitioner = new SceneTransitioner();
 
-		bitdecaySoundBank.PlaySound(BitdecaySounds.Campfire);
+		campfireSound = bitdecaySoundBank.PlaySoundLooped(BitdecaySounds.Campfire);
 		unpause();
 
 		//
@@ -95,13 +100,16 @@ class GameScreen extends FlxUIState {
 
 		fireMgr = new FireManager(this, hitboxMgr);
 		enemySpawnManager = new EnemySpawnManager(this, hitboxMgr, fireMgr.getSprite());
-		
+
+		// TODO: MW this is just for testing
+		// enemySpawnManager.startSpawningEnemies();
+
 		punchTreeText = new FlxBitmapText();
 		punchTreeText.x = 540;
 		punchTreeText.y = 535;
 		punchTreeText.text = "Punch the trees by pressing Space or Left Click";
 		add(punchTreeText);
-		
+
 		victoryMgr = new ProgressManager(this);
 		add(victoryMgr);
 	}
@@ -117,13 +125,12 @@ class GameScreen extends FlxUIState {
 			transitioning = true;
 			transitioner.TransitionWithMusicFade(new WinScreen());
 		}
-
 	}
 
 	public function destroyTreeText() {
-		if(!isTreeTextDestroyed) {
+		if (!isTreeTextDestroyed) {
 			punchTreeText.destroy();
-			
+
 			burnThingsText = new FlxBitmapText();
 			burnThingsText.x = 475;
 			burnThingsText.y = 400;
@@ -135,11 +142,12 @@ class GameScreen extends FlxUIState {
 	}
 
 	public function startMainSong() {
-		if(!isMainSongPlaying) {
+		if (!isMainSongPlaying) {
 			FlxG.camera.flash(0.5);
 			FlxG.camera.shake(0.005, .5);
 
 			burnThingsText.destroy();
+			bitdecaySoundBank.StopSoundLooped(campfireSound);
 			bitdecaySoundBank.PlaySong(BitdecaySongs.ZombieFuel);
 
 			keepItAliveText = new FlxBitmapText();

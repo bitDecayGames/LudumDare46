@@ -17,7 +17,7 @@ class ConfusedZombie extends RegularAssZombie {
 
 	public function new(hitboxMgr:HitboxManager) {
 		super(hitboxMgr);
-		super.initAnimations(AssetPaths.Zombie__png);
+		initAnimations(AssetPaths.Zombie__png);
 		personalBubble = 50;
 		speed = 40;
 		randomizeStats();
@@ -28,7 +28,7 @@ class ConfusedZombie extends RegularAssZombie {
 	private function playGroan(timer:FlxTimer):Void {
 		try {
 			SoundBankAccessor.GetBitdecaySoundBank().PlaySoundAtLocation(BitdecaySounds.ZombieGroan, this, hitboxMgr.getPlayer());
-		} catch (msg:String){
+		} catch (msg:String) {
 			trace('Failed to play zombie groan: {$msg}');
 		}
 	}
