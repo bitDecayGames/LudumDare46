@@ -198,7 +198,7 @@ class Player extends FlxSprite {
 			throwDirY = 1;
 		}
 
-		return new FlxPoint(throwDirX, throwDirY);
+		return new FlxVector(throwDirX, throwDirY).normalize();
 	}
 
 	private function animationDirection(hitDirX:Float):String {

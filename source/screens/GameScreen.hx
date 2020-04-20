@@ -99,7 +99,7 @@ class GameScreen extends FlxUIState {
 		punchTreeText = new FlxBitmapText();
 		punchTreeText.x = 540;
 		punchTreeText.y = 535;
-		punchTreeText.text = "Punch the trees with Z, Space, or Left Click";
+		punchTreeText.text = "Punch the trees by pressing Space or Left Click";
 		add(punchTreeText);
 		
 		victoryMgr = new ProgressManager(this);
