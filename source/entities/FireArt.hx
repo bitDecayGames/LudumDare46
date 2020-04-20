@@ -31,9 +31,13 @@ class FireArt extends FlxSprite {
     }
 
     public function consume(thing:FlxSprite) {
-		// Global lookups are da best
-		try{
-			var gameState:GameScreen = cast(FlxG.state, GameScreen);
+        // Global lookups are da best
+		try {
+            var gameState = cast(FlxG.state, GameScreen);
+            if (gameState.isMainSongPlaying){
+                // FlxG.camera.flash(0.05);
+                FlxG.camera.shake(0.002, .1);
+            }
 			gameState.startMainSong();
 		} catch (msg:String) {}
 
@@ -46,8 +50,6 @@ class FireArt extends FlxSprite {
             } else if (throwable.name != "log") {
                 SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.HumanBurn);
             }
-            // FlxG.camera.flash(0.05);
-            // FlxG.camera.shake(0.002, .1);
         } catch( msg : String ) {
             throw 'Tried to consume something that wasn\'t throwable';
         }
