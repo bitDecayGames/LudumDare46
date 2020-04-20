@@ -1,5 +1,6 @@
 package screens;
 
+import flixel.input.mouse.FlxMouse;
 import analytics.Analytics;
 import flixel.util.FlxTimer;
 import flixel.text.FlxBitmapText;
@@ -68,6 +69,8 @@ class GameScreen extends FlxUIState {
 
 		campfireSound = bitdecaySoundBank.PlaySoundLooped(BitdecaySounds.Campfire);
 		unpause();
+
+		FlxG.mouse.visible = false;
 
 		//
 		// KEEP THIS CLASS CLEAN
