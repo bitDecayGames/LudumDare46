@@ -271,8 +271,10 @@ class Enemy extends Throwable {
 					if (this.name == "zombie") {
 						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieAttack);
 						FlxG.camera.shake(0.002, .1);
-					} else {
+					} else if (this.name != "skeleton"){
 						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.HumanKnockout);
+						FlxG.camera.shake(0.002, .1);
+					} else {
 						FlxG.camera.shake(0.002, .1);
 					}
 				case CHASING | DANCING:

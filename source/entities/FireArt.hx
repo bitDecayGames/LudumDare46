@@ -49,7 +49,7 @@ class FireArt extends FlxSprite {
             SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.CampfireIgnite);
             if (throwable.name == "zombie") {
                 SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieAttack);
-            } else if (throwable.name != "log") {
+            } else if (throwable.name != "log" && throwable.name != "skeleton") {
                 SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.HumanBurn);
             }
         } catch( msg : String ) {
