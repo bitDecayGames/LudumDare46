@@ -14,7 +14,7 @@ class ProgressManager extends FlxGroup {
 	var progressOmeter:ProgressMeter;
 	var progCover:ProgressCover;
 
-	static inline var MINUTE_TO_WINUTES = 1;
+	static inline var MINUTE_TO_WINUTES = 3;
 
 	var winTime:Float = MINUTE_TO_WINUTES * 60;
 	var elapsedTime:Float = 0.0;
@@ -30,6 +30,10 @@ class ProgressManager extends FlxGroup {
 		add(progressOmeter);
 		add(progCover);
 		
+	}
+
+	public function currentProgress():Float {
+		return elapsedTime / winTime;
 	}
 
 	public function logAdded() {
