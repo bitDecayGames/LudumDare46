@@ -85,7 +85,8 @@ class FireManager {
         trace("game over");
         SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.CampfirePutout);
 	Analytics.send(Analytics.GAME_LOSE);
-	// FlxG.switchState(new GameOverScreen());
+    // FlxG.switchState(new GameOverScreen());
+		FlxG.mouse.visible = true;
         transitioner.TransitionWithMusicFade(new GameOverScreen());
 
         // this might be a bad plan since this gets called inside the fire object, 
