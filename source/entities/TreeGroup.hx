@@ -37,16 +37,8 @@ class TreeGroup extends FlxTypedGroup<Tree> {
         var numVerticalTiles = Std.int(GameConstants.GAME_WIDTH / TILE_SIZE);
         for (x in 0...numHorizontalTiles) {
             for (y in 0...numVerticalTiles) {
-                var tileNum = 14;
-                // var randVal = Std.int(Math.random() * 3);
-                // if (randVal == 0) {
-                //     tileNum = 3;
-                // } else if (randVal == 1) {
-                //     tileNum = 13;
-                // } else if (randVal == 2) {
-                //     tileNum = 14;
-                // }
-
+                var randVal = Std.int(Math.random() * 3);
+                var tileNum = 13 + randVal;
                 tilemapCsv += Std.string(tileNum) + ",";
             }
             // Remove last trailing comma
