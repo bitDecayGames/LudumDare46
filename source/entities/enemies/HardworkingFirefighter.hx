@@ -55,14 +55,11 @@ class HardworkingFirefighter extends Enemy {
 		i += 1;
 		if (i % 3 == 0) {
 			num += 0.5;
-			hitboxMgr.addGeneral(new WaterSplash(x
-				+ width / 2.0, y
-				+ height / 2.0, firepit.x
-				+ firepit.width / 2.0
-				+ Math.sin(num) * 3,
-				firepit.y
-				+ firepit.height / 2.0
-				+ Math.sin(num) * 3));
+			hitboxMgr.addGeneral(new WaterSplash(
+				flipX ? x : x + width,
+				y - frameHeight / 4.0, 
+				firepit.x + firepit.width / 2.0 + Math.sin(num) * 3,
+				firepit.y + firepit.height / 2.0 + Math.sin(num) * 3));
 		}
 	}
 
