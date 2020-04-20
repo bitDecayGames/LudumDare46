@@ -1,5 +1,6 @@
 package managers;
 
+import flixel.FlxG;
 import entities.enemies.HardworkingFirefighter;
 import entities.enemies.ConfusedZombie;
 import entities.enemies.RegularAssZombie;
@@ -17,9 +18,10 @@ import entities.EnemyFlock;
 import flixel.FlxBasic;
 
 class EnemySpawnManager extends FlxBasic {
+	var game:GameScreen;
 	private var maxUnits:Int = 15;
 	private var curUnits:Int = 0;
-	private var spawnFrequency:Float = 15.0;
+	private var spawnFrequency:Float = 3.0;
 
 	private var timer = 0.0;
 	private var flock:EnemyFlock;
@@ -31,6 +33,7 @@ class EnemySpawnManager extends FlxBasic {
 
 	public function new(game:GameScreen, hitboxMgr:HitboxManager, firepit:FlxSprite) {
 		super();
+		this.game = game;
 		game.add(this);
 		this.hitboxMgr = hitboxMgr;
 		flock = hitboxMgr.enemyFlock;
@@ -39,14 +42,14 @@ class EnemySpawnManager extends FlxBasic {
 		rnd = new FlxRandom();
 
 		enemyTypes = [
-			new EnemyType(Type.getClassName(RegularAssZombie), -1, 1, spawnRegularAssZombie),
-			new EnemyType(Type.getClassName(ConfusedZombie), -1, 1, spawnConfusedZombie),
-			new EnemyType(Type.getClassName(HardworkingFirefighter), 5, 1, spawnHardworkingFirefighter),
-			new EnemyType(Type.getClassName(CopWithSomethingToProve), 3, 1, spawnCopWithSomethingToProve),
-			new EnemyType(Type.getClassName(KingOfPop), 1, 3, spawnKingOfPop),
-			new EnemyType(Type.getClassName(SmokeyTheBear), 4, 2, spawnSmokeyTheBear),
-			new EnemyType(Type.getClassName(ShinyDemon), 1, 4, spawnShinyDemon),
-			new EnemyType(Type.getClassName(NecroDancer), 2, 4, spawnNecroDancer),
+			new EnemyType(Type.getClassName(RegularAssZombie), 0, 2, 1, spawnRegularAssZombie),
+			new EnemyType(Type.getClassName(ConfusedZombie), 0, 2, 1, spawnConfusedZombie),
+			new EnemyType(Type.getClassName(HardworkingFirefighter), 0.2, 2, 1, spawnHardworkingFirefighter),
+			new EnemyType(Type.getClassName(CopWithSomethingToProve), 0.2, 2, 1, spawnCopWithSomethingToProve),
+			new EnemyType(Type.getClassName(KingOfPop), 0.8, 1, 3, spawnKingOfPop),
+			new EnemyType(Type.getClassName(SmokeyTheBear), 0.5, 1, 2, spawnSmokeyTheBear),
+			new EnemyType(Type.getClassName(ShinyDemon), 0.5, 1, 4, spawnShinyDemon),
+			new EnemyType(Type.getClassName(NecroDancer), 0.75, 1, 4, spawnNecroDancer),
 		];
 	}
 
@@ -101,15 +104,16 @@ class EnemySpawnManager extends FlxBasic {
 		timer = spawnFrequency;
 		maxUnits = Math.ceil(maxUnits * 1.1);
 		var e:EnemyType;
-		while (curUnits < maxUnits) {
-			e = randomEnemyType();
-			if (e.count < e.max || e.max < 0) {
-				var enemy = e.spawn();
-				pickRandomLocation(enemy);
-				hitboxMgr.addEnemy(enemy);
-				e.count += 1;
-				curUnits += e.cost;
-			}
+		e = randomEnemyType();
+		if (e.count < e.max || e.max < 0) {
+			FlxG.log.notice("Spawning: " + e.name);
+			var enemy = e.spawn();
+			pickRandomLocation(enemy);
+			hitboxMgr.addEnemy(enemy);
+			e.count += 1;
+			curUnits += e.cost;
+		} else {
+			FlxG.log.notice("Can't spawn: " + e.name);
 		}
 	}
 
@@ -134,25 +138,38 @@ class EnemySpawnManager extends FlxBasic {
 
 	private function pickRandomLocation(enemy:Enemy):Void {
 		// TODO: MW pick a location near the edge of the map, or possibly off the map?
-		enemy.x = rnd.floatNormal() * 500.0;
-		enemy.y = rnd.floatNormal() * 500.0;
+		enemy.x = rnd.floatNormal() * 600.0;
+		enemy.y = rnd.floatNormal() * 600.0;
 	}
 
 	private function randomEnemyType():EnemyType {
-		var index = rnd.int(0, enemyTypes.length - 1);
-		return enemyTypes[index];
+		var validTypes:Array<EnemyType> = [];
+		for (et in enemyTypes) {
+			if (game.victoryMgr.currentProgress() >= et.spawnThreshold) {
+				validTypes.push(et);
+			}
+		}
+		var index = rnd.int(0, validTypes.length - 1);
+		var type = validTypes[index];
+		return type;
 	}
 }
 
 class EnemyType {
 	public var name:String;
+	// threshold of precentage of game left when this enemy spawns 0
+	// 1 == never spawn
+	// 0.5 == spawn halfway through the game
+	// 0 == spawn immediately
+	public var spawnThreshold:Float;
 	public var max:Int;
 	public var cost:Int;
 	public var count:Int;
 	public var spawn:() -> Enemy;
 
-	public function new(name:String, max:Int, cost:Int, spawn:() -> Enemy) {
+	public function new(name:String, spawnThreshold:Float, max:Int, cost:Int, spawn:() -> Enemy) {
 		this.name = name;
+		this.spawnThreshold = spawnThreshold;
 		this.max = max;
 		this.cost = cost;
 		this.spawn = spawn;
