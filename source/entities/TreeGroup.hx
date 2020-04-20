@@ -1,11 +1,21 @@
 package entities;
 
+import flixel.tile.FlxTilemap;
 import constants.GameConstants;
 import flixel.group.FlxGroup;
 
 class TreeGroup extends FlxTypedGroup<Tree> {
+    static var TILE_SIZE = 32;
+
+    var tilemap:FlxTilemap;
+
     public function new() {
         super(0);
+        tilemap = new FlxTilemap();
+    }
+
+    public function getTiles():FlxTilemap {
+        return tilemap;
     }
 
     public function spawn():Array<Tree> {
@@ -21,6 +31,24 @@ class TreeGroup extends FlxTypedGroup<Tree> {
             add(tree);
             trees.push(tree);
         }
+
+        var tilemapCsv = "";
+        var numHorizontalTiles = Std.int(GameConstants.GAME_WIDTH / TILE_SIZE);
+        var numVerticalTiles = Std.int(GameConstants.GAME_WIDTH / TILE_SIZE);
+        for (x in 0...numHorizontalTiles) {
+            for (y in 0...numVerticalTiles) {
+                var randVal = Std.int(Math.random() * 3);
+                var tileNum = 13 + randVal;
+                tilemapCsv += Std.string(tileNum) + ",";
+            }
+            // Remove last trailing comma
+            tilemapCsv = tilemapCsv.substring(0, tilemapCsv.length - 1);
+            tilemapCsv += "\n";
+        }
+
+        // TODO Gen tilemap based on trees
+        tilemap.loadMapFromCSV(tilemapCsv, AssetPaths.tiles__png, TILE_SIZE);
+
         return trees;
    }
 }

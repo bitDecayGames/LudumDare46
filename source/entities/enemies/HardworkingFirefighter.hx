@@ -1,5 +1,6 @@
 package entities.enemies;
 
+import flixel.math.FlxPoint;
 import flixel.addons.display.FlxNestedSprite;
 import managers.HitboxManager;
 import flixel.math.FlxMath;
@@ -12,6 +13,9 @@ import hitbox.HitboxSprite;
 
 class HardworkingFirefighter extends Enemy {
 	var firepit:FlxSprite;
+	var num:Float = 0;
+	var i:Int = 0;
+	var isWaterOn:Bool = false;
 
 	public function new(hitboxMgr:HitboxManager, firepit:FlxSprite) {
 		super(hitboxMgr);
@@ -23,6 +27,12 @@ class HardworkingFirefighter extends Enemy {
 		attackDistance = 100;
 		randomizeStats();
 		invulnerableWhileAttacking = false;
+	}
+
+	override public function update(delta:Float):Void {
+		super.update(delta);
+		if (isWaterOn)
+			shootWater();
 	}
 
 	function moveTowardsFirepit():FlxVector {
@@ -38,12 +48,20 @@ class HardworkingFirefighter extends Enemy {
 	}
 
 	override function shouldAttack():Bool {
-		return firepit != null && FlxMath.distanceBetween(this, firepit) <= attackDistance;
+		var p = new FlxPoint(firepit.x + firepit.width / 2.0, firepit.y + firepit.width / 2.0);
+		return firepit != null && FlxMath.distanceToPoint(this, p) <= attackDistance;
 	}
 
-	override function attack():Void {
-		super.attack();
-		// TODO: put the hose spray logic here
+	function shootWater() {
+		i += 1;
+		if (i % 3 == 0) {
+			num += 0.5;
+			hitboxMgr.addGeneral(new WaterSplash(
+				flipX ? x : x + width,
+				y - frameHeight / 4.0, 
+				firepit.x + firepit.width / 2.0 + Math.sin(num) * 3,
+				firepit.y + firepit.height / 2.0 + Math.sin(num) * 3));
+		}
 	}
 
 	override function calculateVelocity() {
@@ -52,5 +70,10 @@ class HardworkingFirefighter extends Enemy {
 			var keepDistance = keepDistanceFromOtherEnemies();
 			velocity.set(move.x + keepDistance.x, move.y + keepDistance.y);
 		}
+	}
+
+	override private function animCallback(name:String, frameNumber:Int, frameIndex:Int):Void {
+		super.animCallback(name, frameNumber, frameIndex);
+		isWaterOn = name == "attack_0" && frameNumber > 0;
 	}
 }
