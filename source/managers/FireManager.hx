@@ -47,7 +47,14 @@ class FireManager {
         trace("consume in firemanager");
         if (!thing.isOnFire()) {
             thing.upInFlames();
-            var thingFire:Fire = new Fire(null, thing.x, thing.y, 22);
+
+
+            var thingFire:Fire = new Fire(
+                null, 
+                thing.x + thing.xOffretForFireSpawn(),
+                thing.y + thing.yOffretForFireSpawn(), 
+                5
+            );
             var fullyConsume:Void->Void = function () {
                 thing.kill();
             }

@@ -108,7 +108,8 @@ class Throwable extends FlxSprite {
 	}
 
 	public function upInFlames() {
-		// Make sure this thing hits the ground before it goes on fire
+		// Make sure this thing stops and hits the ground before it goes on fire
+		velocity.set(0, 0);
 		resetThings();
 
 		state = ON_FIRE;
@@ -117,6 +118,15 @@ class Throwable extends FlxSprite {
 	public function isOnFire() {
 		return state == ON_FIRE;
 	}
+
+	public function xOffretForFireSpawn():Float {
+		return 0;
+	}
+
+	public function yOffretForFireSpawn():Float {
+		return 0;
+	}
+
 }
 
 enum ThrowableState {

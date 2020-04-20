@@ -371,4 +371,13 @@ class Enemy extends Throwable {
 			velocity.set(move.x + keepDistance.x, move.y + keepDistance.y);
 		}
 	}
+
+	override public function xOffretForFireSpawn():Float {
+		return -3;
+	}
+
+	override public function yOffretForFireSpawn():Float {
+		return -6;
+	}
+
 }
