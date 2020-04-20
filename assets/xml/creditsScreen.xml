@@ -13,24 +13,26 @@
 	<definition name="body_def" size="10" align="center" width="screen.width" x="0" y="0"/>
 
 	<text name="programmer_title" use_def="title_def" text="Programming" />
-	<text name="programmer_0"     use_def="body_def"  text="Tristan" />
+	<text name="programmer_0"     use_def="body_def"  text="Tristan 'Prometheus' Havelik" />
 	<text name="programmer_1"     use_def="body_def"  text="Jake 'The Mattress' Caban-Tomski" />
-	<text name="programmer_2"     use_def="body_def"  text="Logan" />
-	<text name="programmer_3"     use_def="body_def"  text="Mike" />
+	<text name="programmer_2"     use_def="body_def"  text="Logan 'Fight Club Rule #1' Moore" />
+	<text name="programmer_3"     use_def="body_def"  text="Mike 'Puppeteer' Wingfield" />
 
 	<text name="music_title"      use_def="title_def" text="Music/SFX" />
-	<text name="music_0"          use_def="body_def"  text="Tanner" />
+	<text name="music_0"          use_def="body_def"  text="Tanner 'Nice Gams' Moore" />
 	
 	<text name="art_title"        use_def="title_def" text="Art" />
-	<text name="art_0"            use_def="body_def"  text="Erik" />
+	<text name="art_0"            use_def="body_def"  text="Erik 'Moonwalker' Meredith" />
 
-	<text name="tools_title"        use_def="title_def" text="Made With" />
+	<text name="tools_title"        use_def="title_def" text="Made With <3 Using" />
 	<text name="tools_0"            use_def="body_def"  text="HaxeFlixel" />
 	<text name="tools_1"            use_def="body_def"  text="Pyxel Edit" />
 	<text name="tools_2"            use_def="body_def"  text="FLStudio" />
+	<text name="tools_3"            use_def="body_def"  text="Tiled" />
+	<text name="tools_4"            use_def="body_def"  text="VSCode" />
 
-	<align name="credits_list" axis="vertical" x="0" y="screen.center">
+	<align name="credits_list" axis="vertical" x="200" y="screen.center">
 		<bounds top="screen.height/-3.0" bottom="screen.height/3.0"/>
-		<objects value="programmer_title,programmer_0,programmer_1,programmer_2,programmer_3,music_title,music_0,art_title,art_0,tools_title,tools_0,tools_1,tools_2"/>
+		<objects value="programmer_title,programmer_0,programmer_1,programmer_2,programmer_3,music_title,music_0,art_title,art_0,tools_title,tools_0,tools_1,tools_2,tools_3,tools_4"/>
 	</align>
 </data>
