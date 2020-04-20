@@ -38,7 +38,7 @@ class FireArt extends FlxSprite {
                 // FlxG.camera.flash(0.05);
                 FlxG.camera.shake(0.002, .1);
             }
-			gameState.startMainSong();
+			gameState.victoryMgr.logAdded();
 		} catch (msg:String) {}
 
 
