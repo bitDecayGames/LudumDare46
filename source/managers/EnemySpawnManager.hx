@@ -6,6 +6,8 @@ import entities.enemies.RegularAssZombie;
 import entities.enemies.CopWithSomthingToProve;
 import entities.enemies.KingOfPop;
 import entities.enemies.SmokeyTheBear;
+import entities.enemies.ShinyDemon;
+import entities.enemies.NecroDancer;
 import flixel.math.FlxRandom;
 import entities.Enemy;
 import screens.GameScreen;
@@ -17,18 +19,14 @@ import flixel.FlxBasic;
 class EnemySpawnManager extends FlxBasic {
 	private var maxUnits:Int = 15;
 	private var curUnits:Int = 0;
+	private var spawnFrequency:Float = 15.0;
 
 	private var timer = 0.0;
-	private var spawnFrequency = 15.0;
-
 	private var flock:EnemyFlock;
 	private var hitboxMgr:HitboxManager;
 	private var firepit:FlxSprite;
-
 	private var rnd:FlxRandom;
-
 	private var enemyTypes:Array<EnemyType>;
-
 	private var shouldSpawnEnemies:Bool = false;
 
 	public function new(game:GameScreen, hitboxMgr:HitboxManager, firepit:FlxSprite) {
@@ -47,6 +45,8 @@ class EnemySpawnManager extends FlxBasic {
 			new EnemyType(Type.getClassName(CopWithSomethingToProve), 3, 1, spawnCopWithSomethingToProve),
 			new EnemyType(Type.getClassName(KingOfPop), 1, 3, spawnKingOfPop),
 			new EnemyType(Type.getClassName(SmokeyTheBear), 4, 2, spawnSmokeyTheBear),
+			new EnemyType(Type.getClassName(ShinyDemon), 1, 4, spawnShinyDemon),
+			new EnemyType(Type.getClassName(NecroDancer), 2, 4, spawnNecroDancer),
 		];
 	}
 
@@ -76,6 +76,14 @@ class EnemySpawnManager extends FlxBasic {
 
 	public function spawnSmokeyTheBear():Enemy {
 		return new SmokeyTheBear(hitboxMgr);
+	}
+
+	public function spawnShinyDemon():Enemy {
+		return new ShinyDemon(hitboxMgr);
+	}
+
+	public function spawnNecroDancer():Enemy {
+		return new NecroDancer(hitboxMgr, firepit);
 	}
 
 	override public function update(elapsed:Float):Void {

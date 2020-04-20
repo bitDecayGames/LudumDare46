@@ -1,5 +1,7 @@
 package tiled;
 
+import flixel.math.FlxPoint;
+import flixel.graphics.frames.FlxTileFrames;
 import flixel.util.FlxColor;
 import flixel.FlxG;
 import haxe.io.Path;
@@ -29,9 +31,6 @@ class TiledLevel extends TiledMap
 	public function new(tiledLevel:FlxTiledMapAsset, treeGroup: FlxTypedGroup<Tree>)
 	{
         super(tiledLevel);
-
-        // Set background color to match grass.
-        FlxG.state.bgColor = FlxColor.fromString("#839820");
 
 		loadObjects(treeGroup);
 
@@ -63,8 +62,23 @@ class TiledLevel extends TiledMap
 			var imagePath = new Path(tileSet.imageSource);
 			var processedPath = c_PATH_LEVEL_TILESHEETS + imagePath.file + "." + imagePath.ext;
 
+			// http://forum.haxeflixel.com/topic/39/tilemap-tearing-desktop-targets/2
+			var paddedTileMapAsset = FlxTileFrames.fromBitmapAddSpacesAndBorders(
+				processedPath,
+				new FlxPoint(tileSet.tileWidth, tileSet.tileHeight),
+				new FlxPoint(0, 0),
+				new FlxPoint(2, 2)
+			);
 			var tilemap = new FlxTilemap();
-			tilemap.loadMapFromArray(tileLayer.tileArray, width, height, processedPath, tileSet.tileWidth, tileSet.tileHeight, OFF, tileSet.firstGID, 1, 1);
+			tilemap.loadMapFromArray(
+				tileLayer.tileArray,
+				width,
+				height,
+				paddedTileMapAsset,
+				tileSet.tileWidth,
+				tileSet.tileHeight,
+				OFF,
+				tileSet.firstGID, 1, 1);
 
 			if (layer.name == "Background") {
                 backgroundTiles = tilemap;

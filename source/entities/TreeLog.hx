@@ -10,9 +10,11 @@ class TreeLog extends Throwable {
 
 		name = "log";
 		
+		//var hurtboxWidth = 23;
+		//var hurtboxHeight = 12;
 		var hurtboxWidth = 20;
 		var hurtboxHeight = 6;
-
+		
 		offset.set((width / 2) - (hurtboxWidth / 2), height - hurtboxHeight);
 		setSize(hurtboxWidth, hurtboxHeight);
 
@@ -20,5 +22,13 @@ class TreeLog extends Throwable {
 		animation.play("log");
 
 		state = PICKUPABLE;
+	}
+
+	override public function xOffretForFireSpawn():Float {
+		return -3;
+	}
+
+	override public function yOffretForFireSpawn():Float {
+		return -5;
 	}
 }
