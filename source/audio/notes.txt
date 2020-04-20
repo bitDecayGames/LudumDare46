@@ -2,7 +2,9 @@ notes:
 
 - Lead instrument on main song might be tweajabke
 
-- fireman noise
-- zombie attack
-- thud from zombies hitting the ground
-- Taking damage
+- SFX on the win and lose screen
+- fireman hose noise
+- rooster
+- wolf
+- Michael Jackson
+- Shooting sound effect

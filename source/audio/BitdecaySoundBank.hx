@@ -74,8 +74,8 @@ class BitdecaySoundBank {
 			{ path: AssetPaths.campfire_ignite1__ogg, volume: .55},
 			{ path: AssetPaths.campfire_ignite2__ogg, volume: .55},
 		], soundClip: null},
-		BitdecaySounds.FiremanWater => {name: Std.string(BitdecaySounds.FiremanWater), instances: 1, paths: [
-			{ path: AssetPaths.fireman_water__ogg, volume: 1}
+		BitdecaySounds.FiremanWater => {name: Std.string(BitdecaySounds.FiremanWater), instances: 10, paths: [
+			{ path: AssetPaths.fireman_water4__ogg, volume: .1}
 		], soundClip: null},
 		BitdecaySounds.HumanBurn => {name: Std.string(BitdecaySounds.HumanBurn), instances: 1, paths: [
 			{ path: AssetPaths.human_burn__ogg, volume: .3},
@@ -145,7 +145,7 @@ class BitdecaySoundBank {
 			{ path: AssetPaths.wood_fall2__ogg, volume: 1},
 			{ path: AssetPaths.wood_fall3__ogg, volume: 1},
 		], soundClip: null},
-		BitdecaySounds.ZombieAttack => {name: Std.string(BitdecaySounds.ZombieAttack), instances: 1, paths: [
+		BitdecaySounds.ZombieAttack => {name: Std.string(BitdecaySounds.ZombieAttack), instances: 10, paths: [
 			{ path: AssetPaths.zombie_attack1__ogg, volume: .35},
 			{ path: AssetPaths.zombie_attack2__ogg, volume: .35},
 			{ path: AssetPaths.zombie_attack3__ogg, volume: .35},

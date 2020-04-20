@@ -1,5 +1,7 @@
 package entities.enemies;
 
+import audio.BitdecaySoundBank.BitdecaySounds;
+import audio.SoundBankAccessor;
 import flixel.math.FlxPoint;
 import flixel.addons.display.FlxNestedSprite;
 import managers.HitboxManager;
@@ -16,6 +18,7 @@ class HardworkingFirefighter extends Enemy {
 	var num:Float = 0;
 	var i:Int = 0;
 	var isWaterOn:Bool = false;
+	var isPlayingWaterSound:Bool = false;
 
 	public function new(hitboxMgr:HitboxManager, firepit:FlxSprite) {
 		super(hitboxMgr);
@@ -75,5 +78,8 @@ class HardworkingFirefighter extends Enemy {
 	override private function animCallback(name:String, frameNumber:Int, frameIndex:Int):Void {
 		super.animCallback(name, frameNumber, frameIndex);
 		isWaterOn = name == "attack_0" && frameNumber > 0;
+		if (name == "attack_0" && frameNumber == 0 && !isPlayingWaterSound){
+			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.FiremanWater);
+		}
 	}
 }
