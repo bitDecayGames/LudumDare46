@@ -24,6 +24,7 @@ class Bullet extends HitboxSprite {
 	public function new(source:FlxSprite, x:Float, y:Float, targetX:Float, targetY:Float) {
 		super();
 		super.loadGraphic(AssetPaths.Bullet__png);
+		name = "bullet";
 
 		this.x = x - width / 2.0;
 		this.y = y - height / 2.0;

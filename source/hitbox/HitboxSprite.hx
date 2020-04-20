@@ -7,6 +7,7 @@ import flixel.FlxSprite;
 class HitboxSprite extends FlxSprite {
 	public var loc:HitboxLocation;
 	public var source:FlxSprite;
+	public var name:String;
 
 	var thingsHit:Map<FlxObject, Bool> = [];
 
@@ -14,9 +15,10 @@ class HitboxSprite extends FlxSprite {
 		super();
 		if (hbl != null && source != null) {
 			loadGraphic(AssetPaths.transparent__png);
+			name = "hitbox";
 			scale.set(hbl.size.x, hbl.size.y);
 			loc = hbl;
-			moves = faslse;
+			moves = false;
 			this.source = source;
 			width = hbl.size.x;
 			height = hbl.size.y;
