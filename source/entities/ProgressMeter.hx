@@ -7,7 +7,7 @@ import flixel.FlxSprite;
 using extensions.FlxObjectExt;
 
 class ProgressMeter extends FlxSprite {
-	var progress:Float = 0;
+	var progress:Float = -1.0;
 
 	public function new(center:FlxPoint) {
 		super();
@@ -19,7 +19,7 @@ class ProgressMeter extends FlxSprite {
 	}
 
 	public function setProgress(p:Float) {
-		progress = Math.max(0, Math.min(1, p));
+		progress = Math.min(1, p);
 	}
 
 	override public function update(delta:Float) {

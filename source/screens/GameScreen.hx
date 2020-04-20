@@ -33,7 +33,7 @@ class GameScreen extends FlxUIState {
 	public var shader = new NightShader();
 
 	var fireMgr:FireManager;
-	var victoryMgr:ProgressManager;
+	public var victoryMgr:ProgressManager;
 
 	public var cameraFocalPoint:PositionAverager;
 
@@ -95,9 +95,6 @@ class GameScreen extends FlxUIState {
 
 		fireMgr = new FireManager(this, hitboxMgr);
 		enemySpawnManager = new EnemySpawnManager(this, hitboxMgr, fireMgr.getSprite());
-		// new TestKingOfPop(this, hitboxMgr, fireMgr);
-		// new TestWaterBlast(this, hitboxMgr);
-
 		
 		punchTreeText = new FlxBitmapText();
 		punchTreeText.x = 540;

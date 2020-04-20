@@ -29,7 +29,7 @@ class FireManager {
         //game.add(logs);
         hitboxMgr.addGeneral(logs);
 
-        fire = new Fire(game.shader, x, y, 20);
+        fire = new Fire(game.shader, x, y, 8);
 		fire.onFizzle = gameOver;
 		game.cameraFocalPoint.addObject(fire.fireArt);
 		hitboxMgr.addFire(fire.fireArt);
