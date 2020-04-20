@@ -84,7 +84,7 @@ class TiledLevel extends TiledMap
 			var objectLayer:TiledObjectLayer = cast layer;
 
 			// objects layer
-			if (layer.name == "objects")
+			if (layer.name == "Trees")
 			{
 				for (o in objectLayer.objects)
 				{
@@ -106,7 +106,6 @@ class TiledLevel extends TiledMap
 		switch (o.type.toLowerCase())
 		{
 			case "tree":
-                var tileset = g.map.getGidOwner(o.gid);
                 var tree = new Tree();
                 tree.setPosition(x, y);
                 treeGroup.add(tree);

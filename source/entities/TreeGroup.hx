@@ -1,8 +1,6 @@
 package entities;
 
 import flixel.tile.FlxTilemap;
-import flixel.FlxObject;
-import constants.GameConstants;
 import flixel.group.FlxGroup;
 import tiled.TiledLevel;
 
