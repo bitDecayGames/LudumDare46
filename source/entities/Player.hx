@@ -1,5 +1,6 @@
 package entities;
 
+import flixel.util.FlxSpriteUtil;
 import audio.BitdecaySoundBank.BitdecaySounds;
 import audio.SoundBankAccessor;
 import flixel.math.FlxVector;
@@ -21,6 +22,8 @@ class Player extends FlxSprite {
 
 	var speed = 70;
 	var waitForFinish = false;
+	var invincible = 0.0;
+	var _invincibleMaxTime = 1.0;
 
 	var hurtboxSize = new FlxPoint(20, 4);
 
@@ -55,7 +58,7 @@ class Player extends FlxSprite {
 		animation.add("throw", [32, 33, 34], 15, false);
 		animation.add("punch", [41, 42, 43], 10, false);
 		animation.add("fall_left", [35, 37], 3, false);
-		animation.add("fall_right", [36,37], 3, false);
+		animation.add("fall_right", [36, 37], 3, false);
 
 		hitboxes = new AttackHitboxes(this);
 		hitboxes.register(hitboxMgr.addPlayerHitbox, "punch", 2, [new HitboxLocation(13, 15, 13, 0)]);
@@ -76,6 +79,9 @@ class Player extends FlxSprite {
 
 		if (waitForFinish) {
 			return;
+		}
+		if (invincible > 0) {
+			invincible -= delta;
 		}
 
 		// determine our velocity based on angle and speed
@@ -115,7 +121,7 @@ class Player extends FlxSprite {
 			velocity.set(0, 0);
 		}
 
-		if (FlxG.keys.justPressed.P) {
+		if (control.attack.check()) {
 			// Filler punch controls
 			if (playerGroup.activelyCarrying) {
 				velocity.set(0, 0);
@@ -132,7 +138,7 @@ class Player extends FlxSprite {
 
 		velocity.rotate(FlxPoint.weak(0, 0), newAngle);
 
-		var carryPrefix =  playerGroup.activelyCarrying ? "carry_" : "";
+		var carryPrefix = playerGroup.activelyCarrying ? "carry_" : "";
 		// if the player is moving (velocity is not 0 for either axis), we need to change the animation to match their facing
 		if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE) {
 			animation.play(carryPrefix + "walk");
@@ -152,12 +158,16 @@ class Player extends FlxSprite {
 	}
 
 	public function getHit(direction:FlxVector, force:Float = 1) {
-		SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
-		SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MachoManDamage);
-		velocity.add(direction.x * force, direction.y * force);
-		animation.play("fall_" + animationDirection(direction.x));
-		velocity.set(0, 0);
-		waitForFinish = true;
+		if (invincible <= 0) {
+			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
+			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MachoManDamage);
+			velocity.add(direction.x * force, direction.y * force);
+			animation.play("fall_" + animationDirection(direction.x));
+			velocity.set(0, 0);
+			waitForFinish = true;
+			invincible = _invincibleMaxTime;
+			FlxSpriteUtil.flicker(this, _invincibleMaxTime, 0.1);
+		}
 	}
 
 	private function animationDirection(hitDirX:Float):String {
