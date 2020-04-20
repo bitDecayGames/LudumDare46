@@ -5,6 +5,7 @@ import entities.enemies.ConfusedZombie;
 import entities.enemies.RegularAssZombie;
 import entities.enemies.CopWithSomthingToProve;
 import entities.enemies.KingOfPop;
+import entities.enemies.SmokeyTheBear;
 import flixel.math.FlxRandom;
 import entities.Enemy;
 import screens.GameScreen;
@@ -45,6 +46,7 @@ class EnemySpawnManager extends FlxBasic {
 			new EnemyType(Type.getClassName(HardworkingFirefighter), 5, 1, spawnHardworkingFirefighter),
 			new EnemyType(Type.getClassName(CopWithSomethingToProve), 3, 1, spawnCopWithSomethingToProve),
 			new EnemyType(Type.getClassName(KingOfPop), 1, 3, spawnKingOfPop),
+			new EnemyType(Type.getClassName(SmokeyTheBear), 4, 2, spawnSmokeyTheBear),
 		];
 	}
 
@@ -72,9 +74,13 @@ class EnemySpawnManager extends FlxBasic {
 		return new KingOfPop(hitboxMgr);
 	}
 
+	public function spawnSmokeyTheBear():Enemy {
+		return new SmokeyTheBear(hitboxMgr);
+	}
+
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
-		if(shouldSpawnEnemies){
+		if (shouldSpawnEnemies) {
 			timer -= elapsed;
 			if (timer < 0) {
 				triggerSpawnEvent();
