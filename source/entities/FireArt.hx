@@ -1,5 +1,7 @@
 package entities;
 
+import audio.BitdecaySoundBank.BitdecaySounds;
+import audio.SoundBankAccessor;
 import flixel.math.FlxPoint;
 import flixel.FlxSprite;
 
@@ -27,6 +29,14 @@ class FireArt extends FlxSprite {
     }
 
     public function consume(thing:FlxSprite) {
+
+        try {
+            var throwable:Throwable = cast(thing, Throwable);
+            SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.CampfireIgntite);
+        } catch( msg : String ) {
+            throw 'Tried to consume something that wasn\'t throwable';
+        }
+
         // TODO: maybe tweak things based on what hits the flame
         parent.addTime(5);
         thing.kill();

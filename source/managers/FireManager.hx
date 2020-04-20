@@ -31,6 +31,7 @@ class FireManager {
 
         fire = new Fire(game.shader, x, y, 30);
 		fire.onFizzle = gameOver;
+		game.cameraFocalPoint.addObject(fire.fireArt);
 		hitboxMgr.addFire(fire.fireArt);
         transitioner = game.transitioner;
 		game.add(fire);
@@ -62,7 +63,7 @@ class FireManager {
 	public function update(delta:Float) {
 		var screenPos = CameraUtils.project(fire.fireArt.getMidpoint(), FlxG.camera);
 		screenPos.x /= FlxG.width;
-		screenPos.y /= FlxG.width; // haxe seems to assume the screen is square with size width x width
+		screenPos.y /= FlxG.height;
 		game.shader.firePos.value = [screenPos.x, screenPos.y];
 	}
 }
