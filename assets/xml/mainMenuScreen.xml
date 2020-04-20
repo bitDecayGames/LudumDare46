@@ -13,9 +13,9 @@
 
 	<button name="start_game_btn" use_def="button_def">
 		<anchor x="0" y="0" x-flush="center" y-flush="center" />
-		<graphic name="up" image="ui/start_up"/>
-		<graphic name="over" image="ui/start_up"/>
-		<graphic name="down" image="ui/start_up"/>
+		<graphic name="up" image="ui/start"/>
+		<graphic name="over" image="ui/start"/>
+		<graphic name="down" image="ui/start"/>
 	</button>
 
 	<button name="credits_btn" use_def="button_def">
