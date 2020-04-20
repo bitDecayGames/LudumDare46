@@ -16,6 +16,7 @@ import flixel.FlxG;
 import debug.TestEnemyFlock;
 import debug.TestKingOfPop;
 import managers.FireManager;
+import managers.ProgressManager;
 import managers.EnemySpawnManager;
 
 class GameScreen extends FlxUIState {
@@ -27,9 +28,11 @@ class GameScreen extends FlxUIState {
 	public var shader = new NightShader();
 
 	var fireMgr:FireManager;
+	var victoryMgr:ProgressManager;
 
 	public var bitdecaySoundBank:BitdecaySoundBank;
 	public var transitioner:SceneTransitioner;
+	var transitioning:Bool = false;
 
 	public var paused = false;
 
@@ -60,6 +63,9 @@ class GameScreen extends FlxUIState {
 		//
 		// only you can prevent merge forest conflict fires
 		//
+
+		victoryMgr = new ProgressManager(this);
+		add(victoryMgr);
 		var hitboxMgr = new HitboxManager(this);
 		hitboxMgr.addTrees();
 
@@ -77,9 +83,14 @@ class GameScreen extends FlxUIState {
 
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
-		fireMgr.update(elapsed);
-		transitioner.update();
 		bitdecaySoundBank.update();
+		transitioner.update();
+		fireMgr.update(elapsed);
+
+		if (victoryMgr.hasWon() && !transitioning) {
+			transitioning = true;
+			transitioner.TransitionWithMusicFade(new WinScreen());
+		}
 	}
 
 	public function pause():Void {
