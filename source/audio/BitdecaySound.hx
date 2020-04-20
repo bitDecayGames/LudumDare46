@@ -57,7 +57,7 @@ class BitdecaySound {
 					if (debugSound) {
 						// trace('Setting location of ${name}[${index}] to ${origin.getPosition()} and is tracked by ${player}');
 					}
-					flxSounds[index].proximity(origin.getPosition().x, origin.getPosition().y, player, soundRange);
+					flxSounds[index].proximity(origin.getPosition().x, origin.getPosition().y, player, soundRange, false);
 				} 
 
 				if (debugSound) {
@@ -75,7 +75,7 @@ class BitdecaySound {
 			if (debugSound) {
 				// trace('Setting location of ${name}[${index}] to ${origin.getPosition()} and is tracked by ${player}');
 			}
-			flxSounds[index].proximity(origin.getPosition().x, origin.getPosition().y, player, soundRange);
+			flxSounds[index].proximity(origin.getPosition().x, origin.getPosition().y, player, soundRange, false);
 		} 
 		
 		// If everything is currently playing, just reset the first one

@@ -248,34 +248,41 @@ class Enemy extends Throwable {
 
 	public function takeHit(hitterPosition:FlxPoint, force:Float = 1, strong:Bool = false):Void {
 		if (strong) {
-			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
 			switch (enemyState) {
 				case HIT | GETTING_UP | CHASING | ATTACKING | DANCING:
 					var hitDirection = new FlxVector(x - hitterPosition.x, y - hitterPosition.y);
 					hitDirection.normalize();
 					beThrown(hitDirection, force);
 					FlxSpriteUtil.flicker(this, 0.3);
+					SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
 				case KNOCKED_OUT | FALLING | CARRIED | OTHER: // do nothing
 			}
 		} else {
-			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
 			switch (enemyState) {
 				case HIT | GETTING_UP:
 					var hitDirection = new FlxVector(x - hitterPosition.x, y - hitterPosition.y);
 					hitDirection.normalize();
 					beThrown(hitDirection, force);
 					FlxSpriteUtil.flicker(this, 0.3);
+					SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
+					if (this.name == "zombie") {
+						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieAttack);
+					} else {
+						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.HumanKnockout);
+					}
 				case CHASING | DANCING:
 					animation.play("hit_" + animationDirection(x - hitterPosition.x));
 					enemyState = HIT;
 					velocity.set(0, 0);
 					FlxSpriteUtil.flicker(this, 0.3);
+					SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
 				case ATTACKING:
 					if (!invulnerableWhileAttacking) {
 						animation.play("hit_" + animationDirection(x - hitterPosition.x));
 						enemyState = HIT;
 						velocity.set(0, 0);
 						FlxSpriteUtil.flicker(this, 0.3);
+						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
 					}
 				case KNOCKED_OUT | FALLING | CARRIED | OTHER: // do nothing
 			}

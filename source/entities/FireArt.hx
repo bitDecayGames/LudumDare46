@@ -33,6 +33,9 @@ class FireArt extends FlxSprite {
         try {
             var throwable:Throwable = cast(thing, Throwable);
             SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.CampfireIgntite);
+            if (throwable.name != "zombie" && throwable.name != "log") {
+                SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.HumanBurn);
+            }
         } catch( msg : String ) {
             throw 'Tried to consume something that wasn\'t throwable';
         }

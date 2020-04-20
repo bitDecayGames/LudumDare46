@@ -16,6 +16,8 @@ enum BitdecaySounds {
 	Campfire;
 	CampfireIgntite;
 	FiremanWater;
+	HumanBurn;
+	HumanKnockout;
 	LogHit;
 	LogLand;
 	MachoManDamage;
@@ -72,8 +74,15 @@ class BitdecaySoundBank {
 			{ path: AssetPaths.campfire_ignite1__ogg, volume: .55},
 			{ path: AssetPaths.campfire_ignite2__ogg, volume: .55},
 		], soundClip: null},
-		BitdecaySounds.FiremanWater => {name: Std.string(BitdecaySounds.FiremanWater), instances: 1, paths: [
-			{ path: AssetPaths.fireman_water__ogg, volume: 1}
+		BitdecaySounds.FiremanWater => {name: Std.string(BitdecaySounds.FiremanWater), instances: 10, paths: [
+			{ path: AssetPaths.fireman_water4__ogg, volume: .1}
+		], soundClip: null},
+		BitdecaySounds.HumanBurn => {name: Std.string(BitdecaySounds.HumanBurn), instances: 1, paths: [
+			{ path: AssetPaths.human_burn__ogg, volume: .3},
+		], soundClip: null},
+		BitdecaySounds.HumanKnockout => {name: Std.string(BitdecaySounds.HumanKnockout), instances: 1, paths: [
+			{ path: AssetPaths.human_knockout1__ogg, volume: .6},
+			{ path: AssetPaths.human_knockout2__ogg, volume: .6},
 		], soundClip: null},
 		BitdecaySounds.LogHit => {name: Std.string(BitdecaySounds.LogHit), instances: 1, paths: [
 			{ path: AssetPaths.log_hit1__ogg, volume: 1},
@@ -136,7 +145,7 @@ class BitdecaySoundBank {
 			{ path: AssetPaths.wood_fall2__ogg, volume: 1},
 			{ path: AssetPaths.wood_fall3__ogg, volume: 1},
 		], soundClip: null},
-		BitdecaySounds.ZombieAttack => {name: Std.string(BitdecaySounds.ZombieAttack), instances: 1, paths: [
+		BitdecaySounds.ZombieAttack => {name: Std.string(BitdecaySounds.ZombieAttack), instances: 10, paths: [
 			{ path: AssetPaths.zombie_attack1__ogg, volume: .35},
 			{ path: AssetPaths.zombie_attack2__ogg, volume: .35},
 			{ path: AssetPaths.zombie_attack3__ogg, volume: .35},
@@ -245,14 +254,14 @@ class BitdecaySoundBank {
 			song.volume = musicInfo.volume;
 			song.group = FlxG.sound.defaultMusicGroup;
 
-			if (musicInfo.name == Std.string(BitdecaySongs.ZombieFuel)){
-				trace('${Std.string(BitdecaySongs.ZombieFuel)} found. Playing low pass version in parallel at volume ${flxSongs[BitdecaySongs.ZombieFuelLowPass].volume}');
-				songLowPass = FlxG.sound.load(flxSongs[BitdecaySongs.ZombieFuelLowPass].path);
-				songLowPass.looped = true;
-				songLowPass.volume = flxSongs[BitdecaySongs.ZombieFuelLowPass].volume;
-				songLowPass.group = FlxG.sound.defaultMusicGroup;
-				songLowPass.play();
-			}
+			// if (musicInfo.name == Std.string(BitdecaySongs.ZombieFuel)){
+			// 	trace('${Std.string(BitdecaySongs.ZombieFuel)} found. Playing low pass version in parallel at volume ${flxSongs[BitdecaySongs.ZombieFuelLowPass].volume}');
+			// 	songLowPass = FlxG.sound.load(flxSongs[BitdecaySongs.ZombieFuelLowPass].path);
+			// 	songLowPass.looped = true;
+			// 	songLowPass.volume = flxSongs[BitdecaySongs.ZombieFuelLowPass].volume;
+			// 	songLowPass.group = FlxG.sound.defaultMusicGroup;
+			// 	songLowPass.play();
+			// }
 			if (musicInfo.name == Std.string(BitdecaySongs.TitleScreen)) {
 				// If it is the title screen, let it persist through menus until we manually fade it out
 				song.persist = true;
