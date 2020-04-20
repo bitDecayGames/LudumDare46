@@ -22,8 +22,6 @@ class ProgressManager extends FlxBasic {
 		var normalized = (elapsedTime / winTime);
 		var shaderTime = Math.pow(normalized, 5);
 		game.shader.time.value = [shaderTime];
-		FlxG.watch.addQuick("norm time: ", normalized);
-		FlxG.watch.addQuick("shad time: ", shaderTime);
 	}
 
 	public function hasWon():Bool {

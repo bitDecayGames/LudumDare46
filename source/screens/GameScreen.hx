@@ -88,6 +88,7 @@ class GameScreen extends FlxUIState {
 		fireMgr.update(elapsed);
 
 		if (victoryMgr.hasWon() && !transitioning) {
+			fireMgr.disableLose();
 			transitioning = true;
 			transitioner.TransitionWithMusicFade(new WinScreen());
 		}
