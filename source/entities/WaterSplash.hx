@@ -46,6 +46,7 @@ class WaterSplash extends FlxSprite {
 	}
 
 	function updateAngle() {
+		standin.set(0, 0);
 		angle = velocity.angleBetween(standin) - 90.0;
 	}
 }

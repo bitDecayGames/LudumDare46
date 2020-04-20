@@ -2,6 +2,7 @@ package screens;
 
 import flixel.util.FlxTimer;
 import flixel.text.FlxBitmapText;
+import flixel.FlxCamera;
 import flixel.util.FlxColor;
 import openfl.filters.ShaderFilter;
 import openfl.filters.BitmapFilter;
@@ -75,9 +76,6 @@ class GameScreen extends FlxUIState {
 		//
 		// only you can prevent merge forest conflict fires
 		//
-
-		victoryMgr = new ProgressManager(this);
-		add(victoryMgr);
 		var hitboxMgr = new HitboxManager(this);
 		hitboxMgr.setPlayZone(27, 130, 1000, 750);
 		hitboxMgr.addTrees();
@@ -106,6 +104,9 @@ class GameScreen extends FlxUIState {
 		punchTreeText.y = 535;
 		punchTreeText.text = "Puch the trees with Z";
 		add(punchTreeText);
+		
+		victoryMgr = new ProgressManager(this);
+		add(victoryMgr);
 	}
 
 	override public function update(elapsed:Float):Void {
