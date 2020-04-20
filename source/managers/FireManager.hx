@@ -31,6 +31,7 @@ class FireManager {
 
         fire = new Fire(game.shader, x, y, 30);
 		fire.onFizzle = gameOver;
+		game.cameraFocalPoint.addObject(fire.fireArt);
 		hitboxMgr.addFire(fire.fireArt);
         transitioner = game.transitioner;
 		game.add(fire);

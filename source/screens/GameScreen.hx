@@ -19,6 +19,7 @@ import debug.TestWaterBlast;
 import managers.FireManager;
 import managers.ProgressManager;
 import managers.EnemySpawnManager;
+import cameras.PositionAverager;
 
 class GameScreen extends FlxUIState {
 	static private inline var PAUSE = "pause_btn";
@@ -30,6 +31,8 @@ class GameScreen extends FlxUIState {
 
 	var fireMgr:FireManager;
 	var victoryMgr:ProgressManager;
+
+	public var cameraFocalPoint:PositionAverager;
 
 	public var bitdecaySoundBank:BitdecaySoundBank;
 	public var transitioner:SceneTransitioner;
@@ -68,6 +71,7 @@ class GameScreen extends FlxUIState {
 		victoryMgr = new ProgressManager(this);
 		add(victoryMgr);
 		var hitboxMgr = new HitboxManager(this);
+		hitboxMgr.setPlayZone(27, 130, 1000, 750);
 		hitboxMgr.addTrees();
 
 		camera.filtersEnabled = true;
@@ -75,7 +79,13 @@ class GameScreen extends FlxUIState {
 		camera.bgColor = FlxColor.WHITE;
 		camera.setFilters(filters);
 		camera.zoom = 2;
-		camera.follow(hitboxMgr.getPlayer());
+
+		cameraFocalPoint = new PositionAverager();
+		cameraFocalPoint.addObject(hitboxMgr.getPlayer());
+		FlxG.watch.add(hitboxMgr.getPlayer(), "x", "x: ");
+		FlxG.watch.add(hitboxMgr.getPlayer(), "y", "y: ");
+		add(cameraFocalPoint);
+		camera.follow(cameraFocalPoint);
 
 		fireMgr = new FireManager(this, hitboxMgr);
 		new EnemySpawnManager(this, hitboxMgr, fireMgr.getSprite());
