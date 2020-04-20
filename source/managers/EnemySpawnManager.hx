@@ -7,25 +7,11 @@ import entities.enemies.CopWithSomthingToProve;
 import entities.enemies.KingOfPop;
 import entities.enemies.NecroDancer;
 import flixel.math.FlxRandom;
-import entities.Throwable;
 import entities.Enemy;
-import entities.Tree;
 import screens.GameScreen;
-import audio.BitdecaySoundBank.BitdecaySounds;
-import audio.SoundBankAccessor;
-import entities.TreeTrunk;
-import entities.Player;
 import flixel.FlxSprite;
 import flixel.math.FlxVector;
-import flixel.util.FlxSort;
-import sorting.HitboxSorter;
-import flixel.FlxG;
-import flixel.group.FlxSpriteGroup;
 import entities.EnemyFlock;
-import hitbox.HitboxSprite;
-import flixel.group.FlxGroup;
-import entities.TreeGroup;
-import entities.PlayerGroup;
 import flixel.FlxBasic;
 
 class EnemySpawnManager extends FlxBasic {
