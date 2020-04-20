@@ -1,5 +1,6 @@
 package managers;
 
+import analytics.Analytics;
 import cameras.CameraUtils;
 import flixel.FlxG;
 import constants.GameConstants;
@@ -80,6 +81,7 @@ class FireManager {
 			return;
 		}
         trace("game over");
+        Analytics.send(Analytics.GAME_LOSE);
         FlxG.switchState(new GameOverScreen());
         //transitioner.TransitionWithMusicFade(new GameOverScreen());
 

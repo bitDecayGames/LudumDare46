@@ -1,5 +1,6 @@
 package screens;
 
+import analytics.Analytics;
 import flixel.util.FlxTimer;
 import flixel.text.FlxBitmapText;
 import flixel.FlxCamera;
@@ -123,6 +124,7 @@ class GameScreen extends FlxUIState {
 		if (victoryMgr.hasWon() && !transitioning) {
 			fireMgr.disableLose();
 			transitioning = true;
+			Analytics.send(Analytics.GAME_WIN);
 			transitioner.TransitionWithMusicFade(new WinScreen());
 		}
 	}

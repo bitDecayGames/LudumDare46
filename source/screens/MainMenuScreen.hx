@@ -1,5 +1,6 @@
 package screens;
 
+import analytics.Analytics;
 import screens.GameScreen;
 import audio.BitdecaySound;
 import audio.SoundBankAccessor;
@@ -46,9 +47,11 @@ class MainMenuScreen extends FlxUIState {
 				switch (button.name) {
 					case START:
 						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuSelect);
+						Analytics.send(Analytics.GAME_STARTED);
 						transitioner.TransitionWithMusicFade(new GameScreen());
 					case CREDITS:
 						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuNavigate);
+						Analytics.send(Analytics.CREDITS);
 						FlxG.switchState(new CreditsScreen());
 					case EXIT:
 						#if !html5
