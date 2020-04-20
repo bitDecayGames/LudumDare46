@@ -60,6 +60,6 @@ class NightShader extends FlxShader {
 		this.fireColor.value = [0.929, 0.890, 0.352];
 		this.fireRadius.value = [0.2];
 		this.time.value = [0.0];
-		this.debugLoc.value = [true];
+		this.debugLoc.value = [false];
 	}
 }
