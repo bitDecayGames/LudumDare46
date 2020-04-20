@@ -14,11 +14,12 @@ import hitbox.HitboxSprite;
 class ShinyDemon extends SmokeyTheBear {
 	public function new(hitboxMgr:HitboxManager) {
 		super(hitboxMgr);
-		super.initAnimations(AssetPaths.Devil__png);
+		initAnimations(AssetPaths.Devil__png);
 		name = "devil";
-		personalBubble = 100;
-		speed = 90;
-		maxWaitTime = 0.5;
+		personalBubble = 10;
+		speed = 120;
+		attackDistance = 10;
+		maxWaitTime = 0.25;
 		maxChaseTime = 5.0;
 		hitsOtherEnemies = true;
 		randomizeStats();

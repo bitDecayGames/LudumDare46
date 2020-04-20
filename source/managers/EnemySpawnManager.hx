@@ -22,6 +22,7 @@ class EnemySpawnManager extends FlxBasic {
 	private var maxUnits:Int = 15;
 	private var curUnits:Int = 0;
 	private var spawnFrequency:Float = 3.0;
+	private var spawnRingRadius:Float = 600.0;
 
 	private var timer = 0.0;
 	private var flock:EnemyFlock;
@@ -105,15 +106,15 @@ class EnemySpawnManager extends FlxBasic {
 		maxUnits = Math.ceil(maxUnits * 1.1);
 		var e:EnemyType;
 		e = randomEnemyType();
-		if (e.count < e.max || e.max < 0) {
-			FlxG.log.notice("Spawning: " + e.name);
-			var enemy = e.spawn();
-			pickRandomLocation(enemy);
-			hitboxMgr.addEnemy(enemy);
-			e.count += 1;
-			curUnits += e.cost;
-		} else {
-			FlxG.log.notice("Can't spawn: " + e.name);
+			if (e.count < e.max || e.max < 0) {
+				var enemy = e.spawn();
+				pickRandomLocation(enemy);
+				hitboxMgr.addEnemy(enemy);
+				e.count += 1;
+				curUnits += e.cost;
+			} else {
+				FlxG.log.notice("Can't spawn: " + e.name);
+			}
 		}
 	}
 
@@ -137,9 +138,16 @@ class EnemySpawnManager extends FlxBasic {
 	}
 
 	private function pickRandomLocation(enemy:Enemy):Void {
-		// TODO: MW pick a location near the edge of the map, or possibly off the map?
-		enemy.x = rnd.floatNormal() * 600.0;
-		enemy.y = rnd.floatNormal() * 600.0;
+		if (enemy.name == "devil") {
+			enemy.x = firepit.x;
+			enemy.y = firepit.y - 20;
+		} else {
+			var v = new FlxVector(rnd.float(-1.0, 1.0), rnd.float(-1.0, 1.0));
+			v.normalize();
+			v.scale(spawnRingRadius);
+			enemy.x = v.x + firepit.x;
+			enemy.y = v.y + firepit.y;
+		}
 	}
 
 	private function randomEnemyType():EnemyType {
