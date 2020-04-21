@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <data>	
 
-	<text name="game_over_text" text="A cold fire leaves a cold world" size="20" align="center" border="outline" border_size="2" border_color="red" x="screen.center" y="screen.center" width="screen.width*.5">
+	<text name="game_over_text" text="Nothing burns like the cold. -George R.R. Martin" size="20" align="center" border="outline" border_size="2" border_color="red" x="screen.center" y="screen.center" width="screen.width*.5">
 		<anchor x="0" y="0" x-flush="center" y-flush="bottom" />
 	</text>
 
