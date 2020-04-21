@@ -13,10 +13,11 @@ class WinScreen extends FlxUIState {
 
 	override public function create():Void {
 		_xml_id = "winScreen";
-		super.create();
 
 		var hb = new HitboxManager(this);
 		new DancePartyManager(this, hb, new FlxPoint(FlxG.width / 2.0, FlxG.height / 2.0));
+
+		super.create();
 	}
 
 	override public function update(elapsed:Float):Void {

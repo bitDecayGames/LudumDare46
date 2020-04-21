@@ -29,6 +29,10 @@ class PlayerGroup extends FlxGroup {
 	}
 
 	public function pickUp(thing:Throwable) {
+		if (activelyCarrying) {
+			return;
+		}
+
 		carryingObject = thing;
 		activelyCarrying = true;
 		thing.pickUp(new FlxPoint(thing.width/2, player.offset.y + 29));

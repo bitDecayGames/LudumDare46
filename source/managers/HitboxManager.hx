@@ -193,10 +193,6 @@ class HitboxManager extends FlxBasic {
 		playerHitbox.registerHit(enemy);
 		if (enemy.state == PICKUPABLE) {
 			var player = cast(playerHitbox.source, Player);
-			if (player.playerGroup.activelyCarrying) {
-				// can't carry two things
-				return;
-			}
 			player.playerGroup.pickUp(enemy);
 		} else {
 			enemy.takeHit(playerHitbox.getMidpoint(), 150);
