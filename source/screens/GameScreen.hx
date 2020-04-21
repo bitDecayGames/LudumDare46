@@ -140,7 +140,7 @@ class GameScreen extends FlxUIState {
 			burnThingsText = new FlxBitmapText();
 			burnThingsText.x = 425;
 			burnThingsText.y = 400;
-			burnThingsText.text = "Pickup and Throw things into The Fire (Space/Left Click)";
+			burnThingsText.text = "Pickup and Throw EVERYTHING into The Fire (Space/Left Click)";
 			add(burnThingsText);
 
 			isTreeTextDestroyed = true;
@@ -157,9 +157,9 @@ class GameScreen extends FlxUIState {
 			bitdecaySoundBank.PlaySong(BitdecaySongs.ZombieFuel);
 
 			keepItAliveText = new FlxBitmapText();
-			keepItAliveText.x = 485;
-			keepItAliveText.y = 400;
-			keepItAliveText.text = "DON'T LET IT GO OUT!!!";
+			keepItAliveText.x = 490;
+			keepItAliveText.y = 390;
+			keepItAliveText.text = "DON'T LET IT DIE!!!";
 			add(keepItAliveText);
 
 			finalTextTimer = new FlxTimer();

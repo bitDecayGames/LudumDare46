@@ -83,7 +83,6 @@ class FireManager {
 			return;
 		}
         trace("game over");
-        SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.CampfirePutout);
 	Analytics.send(Analytics.GAME_LOSE);
     // FlxG.switchState(new GameOverScreen());
 		FlxG.mouse.visible = true;
