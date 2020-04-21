@@ -167,13 +167,11 @@ class HitboxManager extends FlxBasic {
 	}
 
 	private function itemTouchFire(item:Throwable, fire:FireArt) {
-		if (item.state == BEING_THROWN) {
-			fire.consume(item);
-		}
+		fire.consume(item);
 	}
 
 	private function enemyTouchFire(enemy:Enemy, fire:FireArt) {
-		if (enemy.state == BEING_THROWN) {
+		if (enemy.state == BEING_THROWN || enemy.state == PICKUPABLE) {
 			fire.consume(enemy);
 		} else {
 			FlxObject.separate(enemy, fire);

@@ -128,6 +128,7 @@ class GameScreen extends FlxUIState {
 			fireMgr.disableLose();
 			transitioning = true;
 			Analytics.send(Analytics.GAME_WIN);
+			FlxG.mouse.visible = true;
 			transitioner.TransitionWithMusicFade(new WinScreen());
 		}
 	}
