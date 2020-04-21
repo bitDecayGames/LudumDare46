@@ -18,7 +18,7 @@
 	<text name="programmer_2"     use_def="body_def"  text="Logan 'Fight Club Rule #1' Moore" />
 	<text name="programmer_3"     use_def="body_def"  text="Mike 'Puppeteer' Wingfield" />
 
-	<text name="music_title"      use_def="title_def" text="Music/SFX" />
+	<text name="music_title"      use_def="title_def" text="Music Composition and SFX" />
 	<text name="music_0"          use_def="body_def"  text="Tanner 'Nice Gams' Moore" />
 	
 	<text name="art_title"        use_def="title_def" text="Art" />
