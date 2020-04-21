@@ -137,6 +137,10 @@ class Enemy extends Throwable {
 			return;
 		}
 
+		if (state == ON_FIRE){
+			return;
+		}
+
 		if (enemyState == KNOCKED_OUT) {
 			stunTime -= delta;
 			if (stunTime <= 0) {
