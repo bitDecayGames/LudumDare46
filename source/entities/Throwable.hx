@@ -26,7 +26,7 @@ class Throwable extends FlxSprite {
 	var distance:Float;
 	var start:FlxPoint = new FlxPoint();
 
-	public var inFlightHitboxScale:Float = 2;
+	public var inFlightHitboxScale:Float = 3;
 
 	override public function update(delta:Float) {
 		super.update(delta);

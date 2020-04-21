@@ -56,7 +56,7 @@ class Enemy extends Throwable {
 
 	public function new(hitboxMgr:HitboxManager) {
 		super();
-		inFlightHitboxScale = 3;
+		inFlightHitboxScale = 4;
 		rnd = new FlxRandom();
 		this.hitboxMgr = hitboxMgr;
 		this.player = hitboxMgr.getPlayer();
