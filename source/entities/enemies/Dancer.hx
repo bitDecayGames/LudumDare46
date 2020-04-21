@@ -10,7 +10,7 @@ import hitbox.HitboxSprite;
 class Dancer extends Enemy {
 	public function new(hitboxMgr:HitboxManager, graphic:FlxGraphicAsset) {
 		super(hitboxMgr);
-		danceSpeed = 30;
+		danceSpeed = 7;
 		initAnimations(graphic);
 		name = "dancer";
 		startDancing(0, true);

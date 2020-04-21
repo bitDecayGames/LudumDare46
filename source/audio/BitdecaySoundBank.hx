@@ -82,7 +82,7 @@ class BitdecaySoundBank {
 			{ path: AssetPaths.campfire_ignite2__ogg, volume: .55},
 		], soundClip: null},
 		BitdecaySounds.CampfirePutout => {name: Std.string(BitdecaySounds.CampfirePutout), instances: 1, paths: [
-			{ path: AssetPaths.campfire_putout__ogg, volume: .2},
+			{ path: AssetPaths.campfire_putout__ogg, volume: .6},
 		], soundClip: null},
 		BitdecaySounds.CopShoot => {name: Std.string(BitdecaySounds.CopShoot), instances: 5, paths: [
 			{ path: AssetPaths.shoot__ogg, volume: .08}
@@ -113,7 +113,7 @@ class BitdecaySoundBank {
 			{ path: AssetPaths.macho_man_damage4__ogg, volume: 1}
 		], soundClip: null},
 		BitdecaySounds.NecromancerRise => {name: Std.string(BitdecaySounds.NecromancerRise), instances: 1, paths: [
-			{ path: AssetPaths.rise3__ogg, volume: .3},
+			{ path: AssetPaths.rise3__ogg, volume: .35},
 		], soundClip: null},
 		BitdecaySounds.MachoManFail => {name: Std.string(BitdecaySounds.MachoManFail), instances: 1, paths: [
 			{ path: AssetPaths.macho_man_fail__ogg, volume: 1}

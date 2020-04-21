@@ -1,5 +1,7 @@
 package entities;
 
+import audio.BitdecaySoundBank.BitdecaySounds;
+import audio.SoundBankAccessor;
 import shaders.NightShader;
 import flixel.FlxG;
 import flixel.effects.particles.FlxEmitter;
@@ -27,6 +29,8 @@ class Fire extends FlxGroup
     private var isTimerGoing:Bool = false;
 
     private var burnRate:Float = 0.8;
+
+    private var hasPlayedFizzle:Bool = false;
 
     private var MAX_RADIUS = 1.2;
     // Higher the number the more extreme the decay will taper off initially
@@ -150,6 +154,10 @@ class Fire extends FlxGroup
             newAnimation = "tiny";
         } else {
             trace("hiding a fire");
+            if (!hasPlayedFizzle){
+                SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.CampfirePutout);
+                hasPlayedFizzle = true;
+            }
             newAnimation = "none";
         }
 
