@@ -109,9 +109,9 @@ class GameScreen extends FlxUIState {
 		// enemySpawnManager.startSpawningEnemies();
 
 		punchTreeText = new FlxBitmapText();
-		punchTreeText.x = 540;
+		punchTreeText.x = 555;
 		punchTreeText.y = 535;
-		punchTreeText.text = "Punch the trees by pressing Space or Left Click";
+		punchTreeText.text = "Punch tree with Space/Left Click";
 		add(punchTreeText);
 
 		victoryMgr = new ProgressManager(this);
@@ -137,9 +137,9 @@ class GameScreen extends FlxUIState {
 			punchTreeText.destroy();
 
 			burnThingsText = new FlxBitmapText();
-			burnThingsText.x = 475;
+			burnThingsText.x = 425;
 			burnThingsText.y = 400;
-			burnThingsText.text = "Throw things into the fire";
+			burnThingsText.text = "Pickup and Throw things into The Fire (Space/Left Click)";
 			add(burnThingsText);
 
 			isTreeTextDestroyed = true;
