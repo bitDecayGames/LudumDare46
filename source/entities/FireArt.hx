@@ -11,6 +11,8 @@ import entities.Throwable;
 class FireArt extends FlxSprite {
     public var currentAnimation = "raging";
 
+    var hasParent:Bool = false;
+
     var hurtboxSize:FlxPoint = new FlxPoint(28, 16);
     var parent:Fire;
     public var onConsume:Throwable->Void;
@@ -19,6 +21,10 @@ class FireArt extends FlxSprite {
         super(x, y);
         this.parent = parent;
         immovable = true;
+
+        if (parent != null) {
+            hasParent = true;
+        }
 
         super.loadGraphic(AssetPaths.Fire__png, true, 32, 48);
 
@@ -57,7 +63,9 @@ class FireArt extends FlxSprite {
         }
 
         // TODO: maybe tweak things based on what hits the flame
-        parent.addTime(5);
+        if (hasParent) {
+            parent.addTime(5);
+        }
 
         trace("fire.consume");
         if (onConsume != null) {

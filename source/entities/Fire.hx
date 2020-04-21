@@ -26,6 +26,8 @@ class Fire extends FlxGroup
     private var drag:Float = 0;
     private var isTimerGoing:Bool = false;
 
+    private var burnRate:Float = 0.8;
+
     private var MAX_RADIUS = 1.2;
     // Higher the number the more extreme the decay will taper off initially
     // and the closer it gets to zero
@@ -82,7 +84,7 @@ class Fire extends FlxGroup
         }
 
         if (isTimerGoing){
-            duration -= elapsed;
+            duration -= elapsed * burnRate;
         }
         
         if (duration <= 0) {
@@ -103,7 +105,7 @@ class Fire extends FlxGroup
 
 
         if (FlxG.keys.justPressed.H)
-        {            
+        {
             addTime(5);
         }
         
@@ -120,13 +122,15 @@ class Fire extends FlxGroup
         var normalized = 1-Math.min(MAX_DURATION, duration) / MAX_DURATION;
         var radius = MAX_RADIUS;
 
-        if (normalized < 0.6) {
-            // linear decay for strong fire
-            radius = 1 - 1.5*normalized;
-        } else {
-            // exponential for the fading tail
-            radius = Math.pow(50, -normalized);
-        }
+        radius = 1 - normalized;
+
+        // if (normalized < 0.6) {
+        //     // linear decay for strong fire
+        //     radius = 1 - 1.5*normalized;
+        // } else {
+        //     // exponential for the fading tail
+        //     radius = Math.pow(50, -normalized);
+        // }
 
         // exponential decay
         // var normalized = 1 - Math.min(MAX_DURATION, duration) / MAX_DURATION;

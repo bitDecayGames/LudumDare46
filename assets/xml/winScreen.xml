@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <data>	
-	<text name="win_text" text="You Win!!!" size="20" align="center" border="outline" border_size="2" border_color="green" x="screen.center" y="screen.center" width="screen.width*.5">
+	<text name="win_text" text="Build a man a fire, and he'll be warm for a day. Set a man on fire, and he'll be warm for the rest of his life. -Terry Pratchett" size="20" align="center" border="outline" border_size="2" border_color="green" x="screen.center" y="screen.center" width="screen.width*.5">
 		<anchor x="0" y="0" x-flush="center" y-flush="bottom" />
 	</text>
 
 	<definition name="button_def">
 		<!-- <graphic name="all" image="test_button"/> -->
 	</definition>
-	<button name="ok_btn" use_def="button_def" label="Okay" color="yellow" x="screen.center" y="screen.center*1.1">
+	<button name="ok_btn" use_def="button_def" label="Victory!" color="yellow" x="screen.center" y="screen.center*1.1">
 		<anchor x="0" y="0" x-flush="center" y-flush="top" />
 	</button>
 </data>

@@ -46,7 +46,7 @@ class EnemySpawnManager extends FlxBasic {
 			new EnemyType(Type.getClassName(RegularAssZombie), 0.0, 2, 1, spawnRegularAssZombie),
 			new EnemyType(Type.getClassName(ConfusedZombie), 0.1, 2, 1, spawnConfusedZombie),
 			new EnemyType(Type.getClassName(HardworkingFirefighter), 0.2, 2, 1, spawnHardworkingFirefighter),
-			new EnemyType(Type.getClassName(CopWithSomethingToProve), 0.2, 2, 1, spawnCopWithSomethingToProve),
+			new EnemyType(Type.getClassName(CopWithSomethingToProve), 0.2, 1, 1, spawnCopWithSomethingToProve),
 			new EnemyType(Type.getClassName(KingOfPop), 0.8, 1, 3, spawnKingOfPop),
 			new EnemyType(Type.getClassName(SmokeyTheBear), 0.5, 1, 2, spawnSmokeyTheBear),
 			new EnemyType(Type.getClassName(ShinyDemon), 0.5, 1, 4, spawnShinyDemon),
