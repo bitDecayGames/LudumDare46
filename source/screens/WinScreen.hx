@@ -1,9 +1,12 @@
 package screens;
 
+import flixel.math.FlxPoint;
 import flixel.addons.ui.FlxUIState;
 import flixel.addons.ui.FlxUIButton;
 import flixel.addons.ui.FlxUITypedButton;
 import flixel.FlxG;
+import managers.HitboxManager;
+import managers.DancePartyManager;
 
 class WinScreen extends FlxUIState {
 	static private inline var OKAY = "ok_btn";
@@ -11,6 +14,9 @@ class WinScreen extends FlxUIState {
 	override public function create():Void {
 		_xml_id = "winScreen";
 		super.create();
+
+		var hb = new HitboxManager(this);
+		new DancePartyManager(this, hb, new FlxPoint(FlxG.width / 2.0, FlxG.height / 2.0));
 	}
 
 	override public function update(elapsed:Float):Void {

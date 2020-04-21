@@ -1,5 +1,6 @@
 package managers;
 
+import flixel.FlxState;
 import flixel.FlxObject;
 import entities.FireArt;
 import entities.Throwable;
@@ -35,9 +36,9 @@ class HitboxManager extends FlxBasic {
 
 	var boundsGroup:FlxGroup;
 
-	var game:GameScreen;
+	var game:FlxState;
 
-	public function new(game:GameScreen) {
+	public function new(game:FlxState) {
 		super();
 		this.game = game;
 		game.add(this);

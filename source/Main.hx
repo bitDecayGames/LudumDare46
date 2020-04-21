@@ -1,5 +1,6 @@
 package;
 
+import screens.WinScreen;
 import flixel.FlxG;
 import screens.MainMenuScreen;
 import flixel.util.FlxColor;

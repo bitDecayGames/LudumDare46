@@ -31,7 +31,9 @@ enum EnemyState {
 
 class Enemy extends Throwable {
 	var speed = 300.0; // to remind people to change this for each enemy individually
-	var personalBubble = 50.0;
+
+	public var personalBubble = 50.0;
+
 	var attackDistance = 20.0;
 	var player:Player;
 	var enemyState:EnemyState;
@@ -50,6 +52,7 @@ class Enemy extends Throwable {
 
 	var stunTime:Float = 0;
 	private var danceTurnFrames:Array<Int>;
+	private var danceSpeed:Int = 5;
 
 	public function new(hitboxMgr:HitboxManager) {
 		super();
@@ -102,7 +105,7 @@ class Enemy extends Throwable {
 
 		animation.add("dance", [
 			0, 1, 2, 3, 4, 5, 11, 11, 0, 11, 11, 11, 0, 1, 2, 3, 45, 35, 30, 46, 46, 36, 0, 1, 30, 30, 30, 30, 11, 11, 30, 11, 11, 11, 30, 30
-		], 5);
+		], danceSpeed);
 		danceTurnFrames = [5, 8, 16, 28, 31];
 
 		hitboxes.register(hitboxMgr.addIntraEnemyHitbox, "fall_left", 0, [
