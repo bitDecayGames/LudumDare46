@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{7cf5c58a-ee0e-46e3-a221-b0760885f06c}">
+		<property name="assetPath">
+			<value>wood_fall3.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.80768707482993196</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6388d487-7121-4159-9bae-625e1ee969a9}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -1,5 +1,6 @@
 package entities;
 
+import faxe.FaxeSoundHelper;
 import audio.SoundBankAccessor;
 import audio.BitdecaySoundBank;
 import flixel.FlxG;
@@ -52,12 +53,14 @@ class Throwable extends FlxSprite {
 			if (distance <= 0 || cast(velocity, FlxVector).length == 0) {
 				if (cast(velocity, FlxVector).length > 0) {
 					if (name == "log") {
-						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.LogLand);
+						// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.LogLand);
+						FaxeSoundHelper.GetInstance().PlaySound("LogHit");
 					}
 				}
 				if (cast(velocity, FlxVector).length > 0) {
 					if (name == "zombie") {
-						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.RockHit);
+						// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.RockHit);
+						FaxeSoundHelper.GetInstance().PlaySound("RockHit");
 					}
 				}
 

@@ -13,10 +13,6 @@ class SoundBankAccessor {
             return state.bitdecaySoundBank;
         } catch( msg : String ) {}
         try {
-            var state:MainMenuScreen = cast(FlxG.state, MainMenuScreen);
-            return state.bitdecaySoundBank;
-        } catch( msg : String ) {}
-        try {
             var state:CreditsScreen = cast(FlxG.state, CreditsScreen);
             return state.bitdecaySoundBank;
         } catch( msg : String ) {}

@@ -1,5 +1,6 @@
 package entities;
 
+import faxe.FaxeSoundHelper;
 import flixel.util.FlxSpriteUtil;
 import audio.BitdecaySoundBank.BitdecaySounds;
 import audio.SoundBankAccessor;
@@ -159,8 +160,10 @@ class Player extends FlxSprite {
 
 	public function getHit(direction:FlxVector, force:Float = 1) {
 		if (invincible <= 0) {
-			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
-			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MachoManDamage);
+			// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
+			FaxeSoundHelper.GetInstance().PlaySound("ZombieHit");
+			// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MachoManDamage);
+			FaxeSoundHelper.GetInstance().PlaySound("MachoManDamage");
 			velocity.add(direction.x * force, direction.y * force);
 			animation.play("fall_" + animationDirection(direction.x));
 			velocity.set(0, 0);

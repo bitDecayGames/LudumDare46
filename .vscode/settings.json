@@ -1,5 +1,10 @@
 {
 	"search.exclude": {
 		"export/**/*.hx": true
+	},
+	"files.associations": {
+		"map": "cpp",
+		"xtree": "cpp",
+		"utility": "cpp"
 	}
 }

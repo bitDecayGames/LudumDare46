@@ -1,5 +1,6 @@
 package screens;
 
+import faxe.FaxeSoundHelper;
 import flixel.input.mouse.FlxMouse;
 import analytics.Analytics;
 import flixel.util.FlxTimer;
@@ -127,10 +128,11 @@ class GameScreen extends FlxUIState {
 		if (victoryMgr.hasWon() && !transitioning) {
 			fireMgr.disableLose();
 			transitioning = true;
-			Analytics.send(Analytics.GAME_WIN);
+			//Analytics.send(Analytics.GAME_WIN);
 			FlxG.mouse.visible = true;
 			transitioner.TransitionWithMusicFade(new WinScreen());
 		}
+		FaxeSoundHelper.GetInstance().Update();
 	}
 
 	public function destroyTreeText() {
@@ -154,7 +156,8 @@ class GameScreen extends FlxUIState {
 
 			burnThingsText.destroy();
 			bitdecaySoundBank.StopSoundLooped(campfireSound);
-			bitdecaySoundBank.PlaySong(BitdecaySongs.ZombieFuel);
+			// bitdecaySoundBankPlaySong(BitdecaySongs.ZombieFuel);
+			FaxeSoundHelper.GetInstance().PlaySong("ZombieFuel");
 
 			keepItAliveText = new FlxBitmapText();
 			keepItAliveText.x = 490;
@@ -180,14 +183,14 @@ class GameScreen extends FlxUIState {
 	public function pause():Void {
 		_ui.setMode("pause");
 		paused = true;
-		bitdecaySoundBank.TransitionToLowPassSong();
+		// bitdecaySoundBank.TransitionToLowPassSong();
 	}
 
 	public function unpause():Void {
 		_ui.setMode("empty");
 		paused = false;
 		if (!firstUnpause) {
-			bitdecaySoundBank.TransitionToNormalSong();
+			// bitdecaySoundBank.TransitionToNormalSong();
 		}
 		firstUnpause = false;
 	}
@@ -198,13 +201,16 @@ class GameScreen extends FlxUIState {
 			if (button != null) {
 				switch (button.name) {
 					case PAUSE:
-						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuNavigate);
+						// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuNavigate);
+						FaxeSoundHelper.GetInstance().PlaySound("MenuNavigate");
 						pause();
 					case RESUME:
-						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuNavigate);
+						// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuNavigate);
+						FaxeSoundHelper.GetInstance().PlaySound("MenuNavigate");
 						unpause();
 					case QUIT:
-						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuNavigate);
+						// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuNavigate);
+						FaxeSoundHelper.GetInstance().PlaySound("MenuNavigate");
 						transitioner.TransitionWithMusicFade(new MainMenuScreen());
 				}
 			}

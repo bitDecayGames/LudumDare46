@@ -1,5 +1,6 @@
 package managers;
 
+import faxe.FaxeSoundHelper;
 import flixel.FlxState;
 import flixel.FlxObject;
 import entities.FireArt;
@@ -239,7 +240,8 @@ class HitboxManager extends FlxBasic {
 		if (tree.hasLog) {
 			var interactVector:FlxVector = hitbox.source.getMidpoint();
 			interactVector.subtractPoint(tree.getMidpoint());
-			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.TreeHit);
+			// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.TreeHit);
+			FaxeSoundHelper.GetInstance().PlaySound("TreePunch");
 			FlxG.camera.shake(0.0005, .1);
 			var newLog = tree.spawnLog(interactVector);
 			itemGroup.add(newLog);

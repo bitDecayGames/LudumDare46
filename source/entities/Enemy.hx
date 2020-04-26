@@ -1,5 +1,6 @@
 package entities;
 
+import faxe.FaxeSoundHelper;
 import audio.SoundBankAccessor;
 import audio.BitdecaySoundBank;
 import managers.HitboxManager;
@@ -282,7 +283,8 @@ class Enemy extends Throwable {
 		enemyState = HIT;
 		velocity.set(0, 0);
 		FlxSpriteUtil.flicker(this, 0.3);
-		SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
+		// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
+		FaxeSoundHelper.GetInstance().PlaySound("ZombieHit");
 		FlxG.camera.shake(0.001, .1);
 	}
 
@@ -291,12 +293,15 @@ class Enemy extends Throwable {
 		hitDirection.normalize();
 		beThrown(hitDirection, force);
 		FlxSpriteUtil.flicker(this, 0.3);
-		SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
+		// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
+		FaxeSoundHelper.GetInstance().PlaySound("ZombieHit");
 		if (this.name == "zombie") {
-			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieAttack);
+			// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieAttack);
+			FaxeSoundHelper.GetInstance().PlaySound("ZombieAttack");
 			FlxG.camera.shake(0.002, .1);
 		} else if (this.name != "skeleton") {
-			SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.HumanKnockout);
+			// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.HumanKnockout);
+			FaxeSoundHelper.GetInstance().PlaySound("HumanKnockout");
 			FlxG.camera.shake(0.002, .1);
 		} else {
 			FlxG.camera.shake(0.002, .1);
@@ -364,7 +369,8 @@ class Enemy extends Throwable {
 
 		if (name == "attack_0" && frameNumber == 2) {
 			if (this.name == "zombie") {
-				SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieAttack);
+				// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieAttack);
+				FaxeSoundHelper.GetInstance().PlaySound("ZombieAttack");
 			}
 		}
 	}

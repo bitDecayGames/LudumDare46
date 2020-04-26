@@ -1,5 +1,6 @@
 package managers;
 
+import faxe.FaxeSoundHelper;
 import audio.BitdecaySoundBank.BitdecaySounds;
 import audio.SoundBankAccessor;
 import analytics.Analytics;
@@ -83,10 +84,10 @@ class FireManager {
 			return;
 		}
         trace("game over");
-	Analytics.send(Analytics.GAME_LOSE);
+	//Analytics.send(Analytics.GAME_LOSE);
     // FlxG.switchState(new GameOverScreen());
 		FlxG.mouse.visible = true;
-        transitioner.TransitionWithMusicFade(new GameOverScreen());
+        FaxeSoundHelper.GetInstance().TransitionToStateAndStopMusic(new GameOverScreen());
 
         // this might be a bad plan since this gets called inside the fire object, 
         // but it seems to be okay

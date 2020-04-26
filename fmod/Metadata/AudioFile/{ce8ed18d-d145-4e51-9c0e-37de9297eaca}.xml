@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{ce8ed18d-d145-4e51-9c0e-37de9297eaca}">
+		<property name="assetPath">
+			<value>zombie_crush1.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.46154195011337867</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6388d487-7121-4159-9bae-625e1ee969a9}</destination>
+		</relationship>
+	</object>
+</objects>

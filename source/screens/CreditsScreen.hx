@@ -1,5 +1,6 @@
 package screens;
 
+import faxe.FaxeSoundHelper;
 import flixel.math.FlxPoint;
 import entities.Logs;
 import flixel.util.FlxColor;
@@ -34,10 +35,14 @@ class CreditsScreen extends FlxUIState {
 		fire.animation.play("regular");
 		fire.scale.set(5, 5);
 		add(fire);
+
+		FaxeSoundHelper.GetInstance().PreloadSound("MenuSelect");
+		FaxeSoundHelper.GetInstance().PreloadSound("MenuNavigate");
 	}
 
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
+		FaxeSoundHelper.GetInstance().Update();
 	}
 
 	override public function getEvent(name:String, sender:Dynamic, data:Dynamic, ?params:Array<Dynamic>):Void {
@@ -46,7 +51,7 @@ class CreditsScreen extends FlxUIState {
 			if (button != null) {
 				switch (button.name) {
 					case BACK:
-						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuNavigate);
+						FaxeSoundHelper.GetInstance().PlaySound("MenuNavigate");
 						FlxG.switchState(new MainMenuScreen());
 				}
 			}

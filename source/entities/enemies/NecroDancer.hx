@@ -1,5 +1,6 @@
 package entities.enemies;
 
+import faxe.FaxeSoundHelper;
 import audio.BitdecaySoundBank.BitdecaySounds;
 import audio.SoundBankAccessor;
 import flixel.math.FlxPoint;
@@ -57,8 +58,10 @@ class NecroDancer extends Enemy {
 
 	override function attack():Void {
 		super.attack();
-		SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.NecromancerRise);
-		SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieGroan);
+		// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.NecromancerRise);
+		FaxeSoundHelper.GetInstance().PlaySound("NecromancerRise");
+		// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieGroan);
+		FaxeSoundHelper.GetInstance().PlaySound("ZombieGroan");
 
 		var toRemove:List<FlxSprite> = new List<FlxSprite>();
 		for (zom in curZombies) {

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{3f04b4e3-fd1b-4040-9fa1-d534ca90cd4c}">
+		<property name="assetPath">
+			<value>macho_man_grunt6.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>2.3076870748299321</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6388d487-7121-4159-9bae-625e1ee969a9}</destination>
+		</relationship>
+	</object>
+</objects>

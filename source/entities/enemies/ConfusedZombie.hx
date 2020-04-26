@@ -1,5 +1,6 @@
 package entities.enemies;
 
+import faxe.FaxeSoundHelper;
 import audio.BitdecaySoundBank;
 import audio.SoundBankAccessor;
 import flixel.util.FlxTimer;
@@ -27,7 +28,8 @@ class ConfusedZombie extends RegularAssZombie {
 
 	private function playGroan(timer:FlxTimer):Void {
 		try {
-			SoundBankAccessor.GetBitdecaySoundBank().PlaySoundAtLocation(BitdecaySounds.ZombieGroan, this, hitboxMgr.getPlayer());
+			// SoundBankAccessor.GetBitdecaySoundBank().PlaySoundAtLocation(BitdecaySounds.ZombieGroan, this, hitboxMgr.getPlayer());
+			FaxeSoundHelper.GetInstance().PlaySound("ZombieGroan");
 		} catch (msg:String) {
 			trace('Failed to play zombie groan: {$msg}');
 		}

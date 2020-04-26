@@ -1,5 +1,6 @@
 package entities;
 
+import faxe.FaxeSoundHelper;
 import audio.BitdecaySoundBank.BitdecaySounds;
 import audio.SoundBankAccessor;
 import shaders.NightShader;
@@ -155,7 +156,8 @@ class Fire extends FlxGroup
         } else {
             trace("hiding a fire");
             if (!hasPlayedFizzle){
-                SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.CampfirePutout);
+                // SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.CampfirePutout);
+			    FaxeSoundHelper.GetInstance().PlaySound("CampfireFizzle");
                 hasPlayedFizzle = true;
             }
             newAnimation = "none";

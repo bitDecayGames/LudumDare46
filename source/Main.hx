@@ -1,5 +1,6 @@
 package;
 
+import faxe.Faxe;
 import screens.WinScreen;
 import flixel.FlxG;
 import screens.MainMenuScreen;
@@ -20,7 +21,7 @@ class Main extends Sprite {
 		FlxTransitionableState.defaultTransOut = new TransitionData(FADE, FlxColor.BLACK, 0.35);
 		addChild(new FlxGame(0, 0, SplashScreen, 1, 60, 60, true, false));
 
-		Analytics.createGameGUID();
-		Analytics.send(Analytics.GAME_LOADED);
+		//Analytics.createGameGUID();
+		//Analytics.send(Analytics.GAME_LOADED);
 	}
 }
