@@ -1,6 +1,7 @@
 package screens;
 
 import faxe.FaxeSoundHelper;
+import faxe.FaxeUpdater;
 import flixel.math.FlxPoint;
 import entities.Logs;
 import flixel.util.FlxColor;
@@ -22,6 +23,7 @@ class CreditsScreen extends FlxUIState {
 		_xml_id = "creditsScreen";
 		bgColor = FlxColor.BLACK;
 		super.create();
+		add(new FaxeUpdater());
 
 		bitdecaySoundBank = new BitdecaySoundBank();
 
@@ -42,7 +44,6 @@ class CreditsScreen extends FlxUIState {
 
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
-		FaxeSoundHelper.GetInstance().Update();
 	}
 
 	override public function getEvent(name:String, sender:Dynamic, data:Dynamic, ?params:Array<Dynamic>):Void {

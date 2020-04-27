@@ -1,5 +1,6 @@
 package screens;
 
+import faxe.FaxeUpdater;
 import flixel.addons.ui.FlxUIState;
 import flixel.addons.ui.FlxUIButton;
 import flixel.addons.ui.FlxUITypedButton;
@@ -11,6 +12,7 @@ class GameOverScreen extends FlxUIState {
 	override public function create():Void {
 		_xml_id = "gameOverScreen";
 		super.create();
+		add(new FaxeUpdater());
 	}
 
 	override public function update(elapsed:Float):Void {

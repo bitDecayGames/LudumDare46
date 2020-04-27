@@ -1,5 +1,6 @@
 package screens;
 
+import faxe.FaxeUpdater;
 import faxe.FaxeSoundHelper;
 import flixel.input.mouse.FlxMouse;
 import analytics.Analytics;
@@ -64,6 +65,7 @@ class GameScreen extends FlxUIState {
 	override public function create():Void {
 		_xml_id = "gameScreen";
 		super.create();
+		add(new FaxeUpdater());
 
 		bitdecaySoundBank = new BitdecaySoundBank();
 		transitioner = new SceneTransitioner();
@@ -132,7 +134,6 @@ class GameScreen extends FlxUIState {
 			FlxG.mouse.visible = true;
 			transitioner.TransitionWithMusicFade(new WinScreen());
 		}
-		FaxeSoundHelper.GetInstance().Update();
 	}
 
 	public function destroyTreeText() {
