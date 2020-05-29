@@ -1,6 +1,6 @@
 package audio.fmod;
 
-import faxe.Faxe.FmodStudioPlaybackState;
+import haxefmod.haxefmod.FmodStudioPlaybackState;
 
 class FaxeEnums{
     public static function EventPlaybackStateToString(playbackState:FmodStudioPlaybackState):String{

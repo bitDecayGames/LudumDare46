@@ -1,6 +1,9 @@
 package screens;
 
-import faxe.FaxeSoundHelper;
+import FmodConstants.FmodSFX;
+import FmodConstants.FmodSongs;
+import haxefmod.FmodManager;
+import haxefmod.flixel.FmodUtilities;
 import analytics.Analytics;
 import screens.GameScreen;
 import flixel.addons.ui.FlxUIState;
@@ -15,14 +18,22 @@ class MainMenuScreen extends FlxUIState {
 	override public function create():Void {
 		_xml_id = "mainMenuScreen";
 		super.create();
-		FaxeSoundHelper.GetInstance().PlaySong("ABattleAhead");
-		// FaxeSoundHelper.GetInstance().PreloadSound("MenuSelect");
-		// FaxeSoundHelper.GetInstance().PreloadSound("MenuNavigate");
+		FmodManager.PlaySong(FmodSongs.ABattleAhead);
 	}
 
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
-		FaxeSoundHelper.GetInstance().Update();
+		FmodManager.Update();
+	}
+
+	override public function onFocus(){
+		super.onFocus();
+		FmodManager.UnpauseSong();
+	}
+
+	override public function onFocusLost(){
+		super.onFocusLost();
+		FmodManager.PauseSong();
 	}
 
 	override public function getEvent(name:String, sender:Dynamic, data:Dynamic, ?params:Array<Dynamic>):Void {
@@ -31,13 +42,14 @@ class MainMenuScreen extends FlxUIState {
 			if (button != null) {
 				switch (button.name) {
 					case START:
-						FaxeSoundHelper.GetInstance().PlaySound("MenuSelect");
+						FmodManager.PlaySoundOneShot(FmodSFX.MenuSelect);
+        				// haxefmod.fmod_create_event_instance_one_shot("MenuSelect");
 						// Analytics.send(Analytics.GAME_STARTED);
-						FaxeSoundHelper.GetInstance().TransitionToStateAndStopMusic(new GameScreen());
+						FmodUtilities.TransitionToStateAndStopMusic(new GameScreen());
 					case CREDITS:
-						FaxeSoundHelper.GetInstance().PlaySound("MenuNavigate");
+						FmodManager.PlaySoundOneShot(FmodSFX.MenuNavigate);
 						// Analytics.send(Analytics.CREDITS);
-						FaxeSoundHelper.GetInstance().TransitionToState(new CreditsScreen());
+						FmodUtilities.TransitionToState(new CreditsScreen());
 					case EXIT:
 						#if !html5
 						Sys.exit(0);

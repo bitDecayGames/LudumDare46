@@ -1,7 +1,9 @@
 package screens;
 
-import faxe.FaxeUpdater;
-import faxe.FaxeSoundHelper;
+import haxefmod.flixel.FmodUtilities;
+import FmodConstants.FmodSFX;
+import FmodConstants.FmodSongs;
+import haxefmod.FmodManager;
 import flixel.input.mouse.FlxMouse;
 import analytics.Analytics;
 import flixel.util.FlxTimer;
@@ -62,15 +64,17 @@ class GameScreen extends FlxUIState {
 	private var enemySpawnManager:EnemySpawnManager;
 	private var campfireSound:Int;
 
+	private var campfireSoundId:String;
+
 	override public function create():Void {
 		_xml_id = "gameScreen";
 		super.create();
-		add(new FaxeUpdater());
 
 		bitdecaySoundBank = new BitdecaySoundBank();
 		transitioner = new SceneTransitioner();
 
-		campfireSound = bitdecaySoundBank.PlaySoundLooped(BitdecaySounds.Campfire);
+		campfireSoundId = FmodManager.PlaySoundWithReference(FmodSFX.Campfire);
+		// FmodManager.PlaySong(FmodSongs.ABattleAhead);
 		unpause();
 
 		FlxG.mouse.visible = false;
@@ -123,6 +127,7 @@ class GameScreen extends FlxUIState {
 
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
+		FmodManager.Update();
 		bitdecaySoundBank.update();
 		transitioner.update();
 		fireMgr.update(elapsed);
@@ -133,6 +138,31 @@ class GameScreen extends FlxUIState {
 			//Analytics.send(Analytics.GAME_WIN);
 			FlxG.mouse.visible = true;
 			transitioner.TransitionWithMusicFade(new WinScreen());
+		}
+
+		if (FlxG.keys.justPressed.Y){
+			FmodManager.PlaySoundWithReference(FmodSFX.Campfire);
+		}
+		if (FlxG.keys.justPressed.N){
+			FmodManager.StopSound(campfireSoundId);
+		}
+		if (FlxG.keys.justPressed.Z){
+			FmodManager.StopSong();
+		}
+		if (FlxG.keys.justPressed.X){
+			FmodManager.PlaySong(FmodSongs.ABattleAhead);
+		}
+		if (FlxG.keys.justPressed.C){
+			FmodManager.PlaySongTransition(FmodSongs.ABattleAhead);
+		}
+		if (FlxG.keys.justPressed.V){
+			FmodManager.PlaySong(FmodSongs.ZombieFuel);
+		}
+		if (FlxG.keys.justPressed.B){
+			FmodManager.PlaySongTransition(FmodSongs.ZombieFuel);
+		}
+		if (FlxG.keys.justPressed.Q){
+			FmodUtilities.TransitionToState(new MainMenuScreen());
 		}
 	}
 
@@ -156,9 +186,10 @@ class GameScreen extends FlxUIState {
 			FlxG.camera.shake(0.005, .5);
 
 			burnThingsText.destroy();
-			bitdecaySoundBank.StopSoundLooped(campfireSound);
+			// bitdecaySoundBank.StopSoundLooped(campfireSound);
 			// bitdecaySoundBankPlaySong(BitdecaySongs.ZombieFuel);
-			FaxeSoundHelper.GetInstance().PlaySong("ZombieFuel");
+			FmodManager.PlaySong(FmodSongs.ZombieFuel);
+			FmodManager.StopSoundImmediately(campfireSoundId);
 
 			keepItAliveText = new FlxBitmapText();
 			keepItAliveText.x = 490;
@@ -202,16 +233,16 @@ class GameScreen extends FlxUIState {
 			if (button != null) {
 				switch (button.name) {
 					case PAUSE:
-						// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuNavigate);
-						FaxeSoundHelper.GetInstance().PlaySound("MenuNavigate");
+						// SoundBankAccessor.GetBitdecaySoundBank().PlaySoundOneShot(BitdecaySounds.MenuNavigate);
+						FmodManager.PlaySoundOneShot(FmodSFX.MenuNavigate);
 						pause();
 					case RESUME:
-						// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuNavigate);
-						FaxeSoundHelper.GetInstance().PlaySound("MenuNavigate");
+						// SoundBankAccessor.GetBitdecaySoundBank().PlaySoundOneShot(BitdecaySounds.MenuNavigate);
+						FmodManager.PlaySoundOneShot(FmodSFX.MenuNavigate);
 						unpause();
 					case QUIT:
-						// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuNavigate);
-						FaxeSoundHelper.GetInstance().PlaySound("MenuNavigate");
+						// SoundBankAccessor.GetBitdecaySoundBank().PlaySoundOneShot(BitdecaySounds.MenuNavigate);
+						FmodManager.PlaySoundOneShot(FmodSFX.MenuNavigate);
 						transitioner.TransitionWithMusicFade(new MainMenuScreen());
 				}
 			}

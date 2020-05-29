@@ -1,6 +1,6 @@
 package entities.enemies;
 
-import faxe.FaxeSoundHelper;
+import haxefmod.FmodManager;
 import audio.BitdecaySoundBank.BitdecaySounds;
 import audio.SoundBankAccessor;
 import managers.HitboxManager;
@@ -32,8 +32,8 @@ class CopWithSomethingToProve extends ConfusedZombie {
 			lockedAndLoaded = false;
 			var b = new Bullet(this, flipX ? x : x + width, y - frameHeight / 4.0, hitboxMgr.getPlayer().x, hitboxMgr.getPlayer().y);
 			hitboxMgr.addEnemyHitbox(b);
-			// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.CopShoot);
-			FaxeSoundHelper.GetInstance().PlaySound("CopShoot");
+			// SoundBankAccessor.GetBitdecaySoundBank().PlaySoundOneShot(BitdecaySounds.CopShoot);
+			FmodManager.PlaySoundOneShot(FmodSFX.CopShoot);
 		}
 	}
 

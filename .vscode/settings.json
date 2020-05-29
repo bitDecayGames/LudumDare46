@@ -5,6 +5,11 @@
 	"files.associations": {
 		"map": "cpp",
 		"xtree": "cpp",
-		"utility": "cpp"
+		"utility": "cpp",
+		"tuple": "cpp",
+		"type_traits": "cpp",
+		"xmemory": "cpp",
+		"xtr1common": "cpp",
+		"xutility": "cpp"
 	}
 }

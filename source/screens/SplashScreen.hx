@@ -1,6 +1,5 @@
 package screens;
 
-import faxe.Faxe;
 import flixel.addons.transition.TransitionData;
 import flixel.addons.ui.FlxUIState;
 import flixel.addons.ui.FlxUIButton;

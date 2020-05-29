@@ -20,7 +20,7 @@ class ProgressManager extends FlxGroup {
 	var elapsedTime:Float = 0.0;
 	var isTimerGoing:Bool = false;
 
-	var logsToStart:Int = 3;
+	var logsToStart:Int = 1;
 
 	public function new(game:GameScreen) {
 		super();

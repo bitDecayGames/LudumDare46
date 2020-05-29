@@ -1,6 +1,6 @@
 package entities.enemies;
 
-import faxe.FaxeSoundHelper;
+import haxefmod.FmodManager;
 import audio.BitdecaySoundBank.BitdecaySounds;
 import audio.SoundBankAccessor;
 import flixel.math.FlxPoint;
@@ -82,8 +82,8 @@ class HardworkingFirefighter extends Enemy {
 		super.animCallback(name, frameNumber, frameIndex);
 		isWaterOn = name == "attack_0" && frameNumber > 0;
 		if (name == "attack_0" && frameNumber == 0) {
-			// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.FiremanWater);
-			FaxeSoundHelper.GetInstance().PlaySound("FiremanWater");
+			// SoundBankAccessor.GetBitdecaySoundBank().PlaySoundOneShot(BitdecaySounds.FiremanWater);
+			FmodManager.PlaySoundOneShot(FmodSFX.FiremanWater);
 		}
 	}
 }

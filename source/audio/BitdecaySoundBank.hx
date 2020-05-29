@@ -210,7 +210,7 @@ class BitdecaySoundBank {
 		}
 	}
 
-	public function PlaySound(soundName:BitdecaySounds) {
+	public function PlaySoundOneShot(soundName:BitdecaySounds) {
 		var soundInfo = flxSounds[soundName];
 		if (soundInfo == null) {
 			throw 'Tried to play sound effect ($soundName), but it was not found';

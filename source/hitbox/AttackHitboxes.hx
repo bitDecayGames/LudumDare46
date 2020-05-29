@@ -1,6 +1,7 @@
 package hitbox;
 
-import faxe.FaxeSoundHelper;
+import FmodConstants.FmodSFX;
+import haxefmod.FmodManager;
 import managers.HitboxManager;
 import audio.BitdecaySoundBank.BitdecaySounds;
 import audio.SoundBankAccessor;
@@ -75,16 +76,16 @@ class AttackHitboxes {
 			}
 		}
 		if (frameNumber == 0 && name == "punch") {
-			// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MachoManThrowPunch);
-			FaxeSoundHelper.GetInstance().PlaySound("MachoManThrowPunch");
+			// SoundBankAccessor.GetBitdecaySoundBank().PlaySoundOneShot(BitdecaySounds.MachoManThrowPunch);
+			FmodManager.PlaySoundOneShot(FmodSFX.MachoManThrowPunch);
 		}
 		if (frameNumber == 0 && name == "pickup") {
-			// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MachoManGrunt);
-			FaxeSoundHelper.GetInstance().PlaySound("MachoManGrunt");
+			// SoundBankAccessor.GetBitdecaySoundBank().PlaySoundOneShot(BitdecaySounds.MachoManGrunt);
+			FmodManager.PlaySoundOneShot(FmodSFX.MachoManGrunt);
 		}
 		if (frameNumber == 0 && name == "throw") {
-			// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MachoManGruntThrow);
-			FaxeSoundHelper.GetInstance().PlaySound("MachoManGruntThrow");
+			// SoundBankAccessor.GetBitdecaySoundBank().PlaySoundOneShot(BitdecaySounds.MachoManGruntThrow);
+			FmodManager.PlaySoundOneShot(FmodSFX.MachoManGruntThrow);
 		}
 	}
 }

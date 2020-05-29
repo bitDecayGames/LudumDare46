@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="ParameterPreset" id="{9670513b-2f1e-4b67-87e9-6f57e11bc53d}">
+		<property name="name">
+			<value>Lofi</value>
+		</property>
+		<relationship name="folder">
+			<destination>{1cc0b68c-b174-4a33-9fa0-670c90b2fcd1}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{358570e6-3bf3-4cfb-b4c1-009e5d35165e}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{358570e6-3bf3-4cfb-b4c1-009e5d35165e}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

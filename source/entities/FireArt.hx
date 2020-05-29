@@ -1,6 +1,6 @@
 package entities;
 
-import faxe.FaxeSoundHelper;
+import haxefmod.FmodManager;
 import flixel.FlxG;
 import screens.GameScreen;
 import audio.BitdecaySoundBank.BitdecaySounds;
@@ -53,14 +53,14 @@ class FireArt extends FlxSprite {
 
         try {
             var throwable:Throwable = cast(thing, Throwable);
-            // SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.CampfireIgnite);
-            FaxeSoundHelper.GetInstance().PlaySound("CampfireIgnite");
+            // SoundBankAccessor.GetBitdecaySoundBank().PlaySoundOneShot(BitdecaySounds.CampfireIgnite);
+            FmodManager.PlaySoundOneShot(FmodSFX.CampfireIgnite);
             if (throwable.name == "zombie") {
-                // SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieAttack);
-                FaxeSoundHelper.GetInstance().PlaySound("ZombieAttack");
+                // SoundBankAccessor.GetBitdecaySoundBank().PlaySoundOneShot(BitdecaySounds.ZombieAttack);
+                FmodManager.PlaySoundOneShot(FmodSFX.ZombieAttack);
             } else if (throwable.name != "log" && throwable.name != "skeleton") {
-                // SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.HumanBurn);
-                FaxeSoundHelper.GetInstance().PlaySound("HumanBurn");
+                // SoundBankAccessor.GetBitdecaySoundBank().PlaySoundOneShot(BitdecaySounds.HumanBurn);
+                FmodManager.PlaySoundOneShot(FmodSFX.HumanBurn);
             }
         } catch( msg : String ) {
             throw 'Tried to consume something that wasn\'t throwable';

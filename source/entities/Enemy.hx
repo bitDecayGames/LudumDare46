@@ -1,6 +1,6 @@
 package entities;
 
-import faxe.FaxeSoundHelper;
+import haxefmod.FmodManager;
 import audio.SoundBankAccessor;
 import audio.BitdecaySoundBank;
 import managers.HitboxManager;
@@ -283,8 +283,8 @@ class Enemy extends Throwable {
 		enemyState = HIT;
 		velocity.set(0, 0);
 		FlxSpriteUtil.flicker(this, 0.3);
-		// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
-		FaxeSoundHelper.GetInstance().PlaySound("ZombieHit");
+		// SoundBankAccessor.GetBitdecaySoundBank().PlaySoundOneShot(BitdecaySounds.ZombieHit);
+		FmodManager.PlaySoundOneShot(FmodSFX.ZombieHit);
 		FlxG.camera.shake(0.001, .1);
 	}
 
@@ -293,15 +293,15 @@ class Enemy extends Throwable {
 		hitDirection.normalize();
 		beThrown(hitDirection, force);
 		FlxSpriteUtil.flicker(this, 0.3);
-		// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieHit);
-		FaxeSoundHelper.GetInstance().PlaySound("ZombieHit");
+		// SoundBankAccessor.GetBitdecaySoundBank().PlaySoundOneShot(BitdecaySounds.ZombieHit);
+		FmodManager.PlaySoundOneShot(FmodSFX.ZombieHit);
 		if (this.name == "zombie") {
-			// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieAttack);
-			FaxeSoundHelper.GetInstance().PlaySound("ZombieAttack");
+			// SoundBankAccessor.GetBitdecaySoundBank().PlaySoundOneShot(BitdecaySounds.ZombieAttack);
+			FmodManager.PlaySoundOneShot(FmodSFX.ZombieAttack);
 			FlxG.camera.shake(0.002, .1);
 		} else if (this.name != "skeleton") {
-			// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.HumanKnockout);
-			FaxeSoundHelper.GetInstance().PlaySound("HumanKnockout");
+			// SoundBankAccessor.GetBitdecaySoundBank().PlaySoundOneShot(BitdecaySounds.HumanKnockout);
+			FmodManager.PlaySoundOneShot(FmodSFX.HumanKnockout);
 			FlxG.camera.shake(0.002, .1);
 		} else {
 			FlxG.camera.shake(0.002, .1);
@@ -369,8 +369,8 @@ class Enemy extends Throwable {
 
 		if (name == "attack_0" && frameNumber == 2) {
 			if (this.name == "zombie") {
-				// SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.ZombieAttack);
-				FaxeSoundHelper.GetInstance().PlaySound("ZombieAttack");
+				// SoundBankAccessor.GetBitdecaySoundBank().PlaySoundOneShot(BitdecaySounds.ZombieAttack);
+				FmodManager.PlaySoundOneShot(FmodSFX.ZombieAttack);
 			}
 		}
 	}

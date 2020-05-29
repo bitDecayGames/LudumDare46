@@ -1,6 +1,6 @@
 package screens;
 
-import faxe.FaxeUpdater;
+import haxefmod.FmodManager;
 import flixel.addons.ui.FlxUIState;
 import flixel.addons.ui.FlxUIButton;
 import flixel.addons.ui.FlxUITypedButton;
@@ -12,11 +12,11 @@ class GameOverScreen extends FlxUIState {
 	override public function create():Void {
 		_xml_id = "gameOverScreen";
 		super.create();
-		add(new FaxeUpdater());
 	}
 
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
+		FmodManager.Update();
 	}
 
 	override public function getEvent(name:String, sender:Dynamic, data:Dynamic, ?params:Array<Dynamic>):Void {

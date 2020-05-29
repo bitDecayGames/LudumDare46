@@ -1,7 +1,7 @@
 package screens;
 
-import faxe.FaxeSoundHelper;
-import faxe.FaxeUpdater;
+import FmodConstants.FmodSFX;
+import haxefmod.FmodManager;
 import flixel.math.FlxPoint;
 import entities.Logs;
 import flixel.util.FlxColor;
@@ -23,7 +23,6 @@ class CreditsScreen extends FlxUIState {
 		_xml_id = "creditsScreen";
 		bgColor = FlxColor.BLACK;
 		super.create();
-		add(new FaxeUpdater());
 
 		bitdecaySoundBank = new BitdecaySoundBank();
 
@@ -37,13 +36,11 @@ class CreditsScreen extends FlxUIState {
 		fire.animation.play("regular");
 		fire.scale.set(5, 5);
 		add(fire);
-
-		FaxeSoundHelper.GetInstance().PreloadSound("MenuSelect");
-		FaxeSoundHelper.GetInstance().PreloadSound("MenuNavigate");
 	}
 
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
+		FmodManager.Update();
 	}
 
 	override public function getEvent(name:String, sender:Dynamic, data:Dynamic, ?params:Array<Dynamic>):Void {
@@ -52,7 +49,7 @@ class CreditsScreen extends FlxUIState {
 			if (button != null) {
 				switch (button.name) {
 					case BACK:
-						FaxeSoundHelper.GetInstance().PlaySound("MenuNavigate");
+						FmodManager.PlaySoundOneShot(FmodSFX.MenuNavigate);
 						FlxG.switchState(new MainMenuScreen());
 				}
 			}
