@@ -9,7 +9,7 @@ class Analytics {
     public static var GAME_STARTED = "game_started";
     public static var GAME_WIN = "game_win";
     public static var GAME_LOSE = "game_lose";
-    public static var CREDITS = "game_lose";
+    public static var CREDITS = "game_credits";
 
     static var game_guid = "not_set";
 
