@@ -1,8 +1,9 @@
 package managers;
 
+import net.lion123dev.events.Events.ProgressionStatus;
+import com.bitdecaygames.analytics.Analytics;
 import audio.BitdecaySoundBank.BitdecaySounds;
 import audio.SoundBankAccessor;
-import analytics.Analytics;
 import cameras.CameraUtils;
 import flixel.FlxG;
 import constants.GameConstants;
@@ -83,8 +84,9 @@ class FireManager {
 			return;
 		}
         trace("game over");
-	Analytics.send(Analytics.GAME_LOSE);
-    // FlxG.switchState(new GameOverScreen());
+        var event = Analytics.Instance().CreateProgressionEvent(ProgressionStatus.FAIL, "game", null, null);
+        event.score = Math.floor(game.victoryMgr.currentProgress() * 100);
+        Analytics.Instance().SendEvent(event);
 		FlxG.mouse.visible = true;
         transitioner.TransitionWithMusicFade(new GameOverScreen());
 

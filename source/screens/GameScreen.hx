@@ -1,7 +1,11 @@
 package screens;
 
+import com.bitdecaygames.analytics.Analytics;
+import net.lion123dev.events.Events.ProgressionStatus;
+import flixel.util.FlxSort;
+import flixel.FlxSprite;
+import flixel.group.FlxGroup;
 import flixel.input.mouse.FlxMouse;
-import analytics.Analytics;
 import flixel.util.FlxTimer;
 import flixel.text.FlxBitmapText;
 import flixel.FlxCamera;
@@ -127,7 +131,9 @@ class GameScreen extends FlxUIState {
 		if (victoryMgr.hasWon() && !transitioning) {
 			fireMgr.disableLose();
 			transitioning = true;
-			Analytics.send(Analytics.GAME_WIN);
+			var event = Analytics.Instance().CreateProgressionEvent(ProgressionStatus.COMPLETE, "game", null, null);
+			event.score = 100;
+			Analytics.Instance().SendEvent(event);
 			FlxG.mouse.visible = true;
 			transitioner.TransitionWithMusicFade(new WinScreen());
 		}

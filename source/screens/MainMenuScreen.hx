@@ -1,6 +1,7 @@
 package screens;
 
-import analytics.Analytics;
+import net.lion123dev.events.Events.ProgressionStatus;
+import com.bitdecaygames.analytics.Analytics;
 import screens.GameScreen;
 import audio.BitdecaySound;
 import audio.SoundBankAccessor;
@@ -47,11 +48,11 @@ class MainMenuScreen extends FlxUIState {
 				switch (button.name) {
 					case START:
 						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuSelect);
-						Analytics.send(Analytics.GAME_STARTED);
+						Analytics.Instance().SendProgressionEvent(ProgressionStatus.START, "game", null, null);
 						transitioner.TransitionWithMusicFade(new GameScreen());
 					case CREDITS:
 						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuNavigate);
-						Analytics.send(Analytics.CREDITS);
+						Analytics.Instance().SendDesignEvent("viewCredits");
 						FlxG.switchState(new CreditsScreen());
 					case EXIT:
 						#if !html5
