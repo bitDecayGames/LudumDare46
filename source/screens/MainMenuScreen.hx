@@ -1,5 +1,7 @@
 package screens;
 
+import com.bitdecay.analytics.Bitlytics;
+import com.bitdecay.analytics.Common;
 import analytics.Analytics;
 import screens.GameScreen;
 import audio.BitdecaySound;
@@ -48,6 +50,8 @@ class MainMenuScreen extends FlxUIState {
 					case START:
 						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuSelect);
 						Analytics.send(Analytics.GAME_STARTED);
+						Bitlytics.Instance().NewSession();
+						Bitlytics.Instance().Queue(Common.GameStarted, 1);
 						transitioner.TransitionWithMusicFade(new GameScreen());
 					case CREDITS:
 						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuNavigate);
@@ -55,6 +59,7 @@ class MainMenuScreen extends FlxUIState {
 						FlxG.switchState(new CreditsScreen());
 					case EXIT:
 						#if !html5
+						Bitlytics.Instance().EndSession();
 						Sys.exit(0);
 						#end
 				}

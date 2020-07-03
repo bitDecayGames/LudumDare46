@@ -6,6 +6,7 @@ import flixel.addons.ui.FlxUIButton;
 import flixel.addons.ui.FlxUITypedButton;
 import flixel.FlxG;
 import flixel.util.FlxColor;
+import com.bitdecay.analytics.Bitlytics;
 
 class SplashScreen extends FlxUIState {
 	static private inline var BACKGROUND = "background_btn";
