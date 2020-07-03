@@ -48,7 +48,8 @@ class MainMenuScreen extends FlxUIState {
 				switch (button.name) {
 					case START:
 						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuSelect);
-						Analytics.Instance().SendProgressionEvent(ProgressionStatus.START, "game", null, null);
+						var e = Analytics.Instance().CreateProgressionEvent(ProgressionStatus.START, "game", null, null);
+						e.score = 0;
 						transitioner.TransitionWithMusicFade(new GameScreen());
 					case CREDITS:
 						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuNavigate);

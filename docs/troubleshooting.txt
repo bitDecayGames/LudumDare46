@@ -1,0 +1,17 @@
+GETTING ANALYTICS WORKING:
+
+Using HTTPS protocol on our haxe:
+
+- Bitdefender blocks connection, yielding this error:
+```
+chrome.exe attempted to establish a connection relying on an unmatching security certificate to met.bitdecaygames.com. We blocked the connection to keep your data safe since the used certificate was issued for a different web address than the targeted one.
+```
+
+- This is a hard browser protection due to the SSL certificate not listing `met.bitdecaygames.com` as one of the alternative names for the cert.
+
+Using HTTP protocol on our haxe:
+
+- Chrome blocks the request for not also being over HTTPS, as the itch.io page was loaded with HTTPS
+```
+VM41:1 Mixed Content: The page at 'https://bitdecaygames.itch.io/' was loaded over HTTPS, but requested an insecure XMLHttpRequest endpoint 'http://met.bitdecaygames.com/v2/bf5b8a15f31bd741ffb8e03cf29a6cec/init'. This request has been blocked; the content must be served over HTTPS.
+```

@@ -1,6 +1,5 @@
 package;
 
-import com.bitdecaygames.analytics.Analytics;
 import screens.WinScreen;
 import flixel.FlxG;
 import screens.MainMenuScreen;

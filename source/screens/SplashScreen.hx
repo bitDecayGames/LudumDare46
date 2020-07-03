@@ -28,9 +28,15 @@ class SplashScreen extends FlxUIState {
 		_xml_id = "splashScreen";
 		super.create();
 		nextFrame();
-		#if FLX_NO_DEBUG
-		Analytics.Init("bf5b8a15f31bd741ffb8e03cf29a6cec", "1759d1fe6cc9f32efdbe6b5d99ad611f36ad3024", false);
+		var platform:String = Analytics.WINDOWS_PLATFORM;
+
+		#if html5
+		platform = Analytics.WEB_PLATFORM;
 		#end
+
+		// #if FLX_NO_DEBUG
+		Analytics.Init("bf5b8a15f31bd741ffb8e03cf29a6cec", "1759d1fe6cc9f32efdbe6b5d99ad611f36ad3024", false, platform);
+		// #end
 	}
 
 	override public function update(elapsed:Float):Void {
