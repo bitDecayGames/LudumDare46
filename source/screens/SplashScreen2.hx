@@ -1,5 +1,6 @@
 package screens;
 
+import com.bitdecay.analytics.Bitlytics;
 import flixel.addons.transition.TransitionData;
 import flixel.addons.ui.FlxUIState;
 import flixel.addons.ui.FlxUIButton;
@@ -19,6 +20,7 @@ class SplashScreen2 extends FlxUIState {
 		_xml_id = "splashScreen";
 		super.create();
 		nextFrame();
+		Bitlytics.Init("Brawnfire", "fljf9wQb3bwY8Nb6FO7dWRaHMWvDVUwcgGshEqB0cMyKWmbcr6hKg1iW_BMPm-AAKL9D53aF27ysmKVWF78aJA==", "13ecc65d2303c6d7", "testMetrics");
 	}
 
 	override public function update(elapsed:Float):Void {
