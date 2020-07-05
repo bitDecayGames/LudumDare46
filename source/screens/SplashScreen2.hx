@@ -24,8 +24,8 @@ class SplashScreen2 extends FlxUIState {
 		var sender = new InfluxDB(
 			"https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/write",
 			"13ecc65d2303c6d7",
-			"testMetrics",
-			"fljf9wQb3bwY8Nb6FO7dWRaHMWvDVUwcgGshEqB0cMyKWmbcr6hKg1iW_BMPm-AAKL9D53aF27ysmKVWF78aJA==");
+			"05f4043ec49f9000",
+			"sdtsiDLh01M3-BIx_YHq_66RSm0qwgu7GZVp2sIAhAx2gAYSjVg0uzKEa6yyTrZMRNvmhDVLsVh6nSB-HkcZ5w==");
 		Bitlytics.Init("Brawnfire", sender);
 	}
 

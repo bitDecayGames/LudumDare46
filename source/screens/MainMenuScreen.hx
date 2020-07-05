@@ -56,6 +56,7 @@ class MainMenuScreen extends FlxUIState {
 					case CREDITS:
 						SoundBankAccessor.GetBitdecaySoundBank().PlaySound(BitdecaySounds.MenuNavigate);
 						Analytics.send(Analytics.CREDITS);
+						Bitlytics.Instance().Queue(Analytics.CREDITS, 1);
 						FlxG.switchState(new CreditsScreen());
 					case EXIT:
 						#if !html5

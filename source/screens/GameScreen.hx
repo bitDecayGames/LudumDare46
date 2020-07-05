@@ -1,5 +1,6 @@
 package screens;
 
+import com.bitdecay.analytics.Bitlytics;
 import flixel.input.mouse.FlxMouse;
 import analytics.Analytics;
 import flixel.util.FlxTimer;
@@ -128,6 +129,8 @@ class GameScreen extends FlxUIState {
 			fireMgr.disableLose();
 			transitioning = true;
 			Analytics.send(Analytics.GAME_WIN);
+			Bitlytics.Instance().Queue(Analytics.GAME_LOSE, 100);
+
 			FlxG.mouse.visible = true;
 			transitioner.TransitionWithMusicFade(new WinScreen());
 		}
