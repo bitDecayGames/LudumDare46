@@ -1,5 +1,6 @@
 package screens;
 
+import openfl.Lib;
 import com.bitdecay.analytics.Bitlytics;
 import com.bitdecay.net.influx.InfluxDB;
 import flixel.addons.transition.TransitionData;
@@ -27,7 +28,17 @@ class SplashScreen2 extends FlxUIState {
 			"05f4043ec49f9000",
 			"sdtsiDLh01M3-BIx_YHq_66RSm0qwgu7GZVp2sIAhAx2gAYSjVg0uzKEa6yyTrZMRNvmhDVLsVh6nSB-HkcZ5w==");
 		Bitlytics.Init("Brawnfire", sender);
+		#if !FLX_NO_DEBUG
+		Bitlytics.Instance().SetDebug(true);
+		#end
 		Bitlytics.Instance().NewSession();
+
+		Lib.current.stage.application.onExit.add(function(code) {
+			// NOTE: There isn't a way to detect when a browser window/tab is closed
+			//       so this will only work for certain targets in certain situations
+			trace("exit detected");
+			Bitlytics.Instance().EndSession();
+		});
 	}
 
 	override public function update(elapsed:Float):Void {
