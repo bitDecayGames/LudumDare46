@@ -27,6 +27,7 @@ class SplashScreen2 extends FlxUIState {
 			"05f4043ec49f9000",
 			"sdtsiDLh01M3-BIx_YHq_66RSm0qwgu7GZVp2sIAhAx2gAYSjVg0uzKEa6yyTrZMRNvmhDVLsVh6nSB-HkcZ5w==");
 		Bitlytics.Init("Brawnfire", sender);
+		Bitlytics.Instance().NewSession();
 	}
 
 	override public function update(elapsed:Float):Void {

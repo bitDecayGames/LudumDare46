@@ -1,5 +1,6 @@
 package managers;
 
+import com.bitdecay.analytics.Common;
 import com.bitdecay.analytics.Bitlytics;
 import audio.BitdecaySoundBank.BitdecaySounds;
 import audio.SoundBankAccessor;
@@ -85,7 +86,7 @@ class FireManager {
 		}
         trace("game over");
     Analytics.send(Analytics.GAME_LOSE);
-    Bitlytics.Instance().Queue(Analytics.GAME_LOSE, game.victoryMgr.currentProgress() * 100);
+    Bitlytics.Instance().Queue(Common.GameCompleted, game.victoryMgr.currentProgress() * 100);
     // FlxG.switchState(new GameOverScreen());
 		FlxG.mouse.visible = true;
         transitioner.TransitionWithMusicFade(new GameOverScreen());
