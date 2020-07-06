@@ -119,6 +119,14 @@ class GameScreen extends FlxUIState {
 		victoryMgr = new ProgressManager(this);
 		add(victoryMgr);
 	}
+	
+	override public function onFocusLost() {
+		Bitlytics.Instance().Pause();
+	}
+
+	override public function onFocus() {
+		Bitlytics.Instance().Resume();
+	}
 
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
