@@ -1,5 +1,6 @@
 package screens;
 
+import com.bitdecay.analytics.Bitlytics;
 import flixel.addons.ui.FlxUIState;
 import flixel.addons.ui.FlxUIButton;
 import flixel.addons.ui.FlxUITypedButton;
@@ -11,6 +12,7 @@ class GameOverScreen extends FlxUIState {
 	override public function create():Void {
 		_xml_id = "gameOverScreen";
 		super.create();
+		Bitlytics.Instance().ForceFlush();
 	}
 
 	override public function update(elapsed:Float):Void {
