@@ -1,5 +1,15 @@
 {
 	"search.exclude": {
 		"export/**/*.hx": true
-	}
+	},
+	"lime.targetConfigurations": [
+        {
+            "target": "html5",
+            "args": [
+                "-debug",
+                "-D dev_analytics"
+            ],
+            "label": "HTML5 Dev"
+        }
+    ]
 }
